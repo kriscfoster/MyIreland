@@ -1,0 +1,55 @@
+body { 
+  margin: auto;
+  text-align: center;
+  font-family: Helvetica;
+  background-color: black;
+  color: white;
+}
+
+canvas { background-image: url('./sea.gif'); }
+
+.interest {
+  text-align: left;
+  font-size: 24px;
+  position: absolute;
+  width: 90%;
+  height: 100%;
+  top: 20px;
+  left: 5%;
+  display: none;
+}
+
+h1 {
+  font-size: 60px;
+  text-decoration: underline;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  font-size:20px;
+  background-color:white;
+  z-index: 2;
+}
+
+button {
+  -webkit-transition-duration: 0.1s; /* Safari */
+  transition-duration: 0.1s; /* Non Safari */
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.selected {
+    color: white;
+    background-color: #4CAF50; /* Green */
+}
+
+button:hover { text-decoration: underline; }
+
+.close:hover {
+  color: white;
+  background-color: red;
+}
