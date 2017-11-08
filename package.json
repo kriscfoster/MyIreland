@@ -4,11 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "npm run build && node server.js",
+    "build": "webpack"
   },
   "author": "Kris Foster",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "webpack": "^3.8.1"
   }
 }

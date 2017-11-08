@@ -9,5 +9,3 @@ app.get('/', function(req, res) {
 });
 
 console.log("Server is running at PORT: " + PORT);
-
-// This is where the writing to the database will go
