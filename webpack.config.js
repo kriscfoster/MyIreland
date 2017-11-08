@@ -22,6 +22,4 @@ var config = {
   ]
 }
 
-console.log(process.env.FB_API_KEY);
-
 module.exports = config;
