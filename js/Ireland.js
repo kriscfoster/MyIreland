@@ -1,12 +1,12 @@
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({antialias: false,alpha:true});
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const loader = new THREE.JSONLoader();
-const controls = new THREE.TrackballControls(camera);
-const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x0808dd, 1.3);
+const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x0808dd, 1.2);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
+renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+controls = new THREE.OrbitControls(camera);
 
 const config = {
   apiKey: process.env.FB_API_KEY,
@@ -20,7 +20,6 @@ const config = {
 firebase.initializeApp(config);
 const database = firebase.database();
 
-renderer.setClearColor(0x000000, 0);
 renderer.domElement.id = 'Map';
 renderer.setSize(window.innerWidth, window.innerHeight);
 controls.maxDistance = 20;
@@ -28,9 +27,8 @@ controls.minDistance = 4;
 scene.add(hemisphereLight)
 scene.add(directionalLight);
 camera.position.z = 15;
-document.body.appendChild(renderer.domElement);
 
-loader.load('../res/Ireland.json', 
+loader.load('../res/IrelandSmooth.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials); // array
     object.name = "Ireland";
@@ -40,11 +38,11 @@ loader.load('../res/Ireland.json',
   }
 );
 
-loader.load('../res/trees.json', 
+loader.load('../res/sea.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "Ireland";
     object.rotation.x = 1;
-    object.name = "Ireland"
     scene.add(object);
   }
 );
@@ -63,33 +61,6 @@ loader.load('../res/Dublin.json',
     const object = new THREE.Mesh(geometry, materials);
     object.rotation.x = 1;
     object.name = "Dublin";
-    scene.add(object);
-  }
-);
-
-loader.load('../res/Belfast.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.rotation.x = 1;
-    object.name = "Belfast"
-    scene.add(object);
-  }
-);
-
-loader.load('../res/Galway.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.rotation.x = 1;
-    object.name = "Galway"
-    scene.add(object);
-  }
-);
-
-loader.load('../res/Cork.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.rotation.x = 1;
-    object.name = "Cork"
     scene.add(object);
   }
 );
@@ -118,8 +89,9 @@ function onMouseDown(event) {
       const sights =document.getElementById('sights');
       
       if(intersects[i].object.name!= 'Ireland') {
-        document.getElementById("Map").style.opacity = "0.15";
+        document.getElementById("Map").style.display = "none";
         interestDiv.style.display="block";
+        controls.enableZoom = false;
       }
 
       if(intersects[i].object.name === 'Dublin'){
@@ -142,7 +114,7 @@ function onMouseDown(event) {
 
       function gotData(data) {
         data = data.val();
-        information.innerHTML = data.Information;
+        information.innerHTML = '<img src="./res/dublin.jpg"/>' + data.Information;
         sights.innerHTML = data.Sights;
         events.innerHTML = data.Events;
       }

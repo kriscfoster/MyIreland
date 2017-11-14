@@ -2,13 +2,20 @@ body {
   margin: auto;
   text-align: center;
   font-family: Helvetica;
-  background-color: black;
+  background-color: #f3f8ff;
   color: white;
 }
 
-canvas { background-image: url('./sea.gif'); }
+canvas {
+  background: #24C6DC; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, #1F75FE, #A6FFCB); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #1F75FE, #A6FFCB); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #1F75FE, #A6FFCB); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #1F75FE, #A6FFCB); /* Standard syntax */
+}
 
 .interest {
+  color: #00363e;
   text-align: left;
   font-size: 24px;
   position: absolute;
@@ -17,6 +24,7 @@ canvas { background-image: url('./sea.gif'); }
   top: 20px;
   left: 5%;
   display: none;
+  z-index: 1;
 }
 
 h1 {
@@ -28,7 +36,8 @@ h1 {
 
 button {
   font-size:20px;
-  background-color:white;
+  background-color: #24C6DC;
+      color: white;
   z-index: 2;
 }
 
@@ -43,8 +52,7 @@ button {
 }
 
 .selected {
-    color: white;
-    background-color: #4CAF50; /* Green */
+    background-color: #00363e; /* Green */
 }
 
 button:hover { text-decoration: underline; }
@@ -53,3 +61,4 @@ button:hover { text-decoration: underline; }
   color: white;
   background-color: red;
 }
+
