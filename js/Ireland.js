@@ -7,6 +7,7 @@ const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x0808dd, 1.2);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
 renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
 controls = new THREE.OrbitControls(camera);
+var INTERSECTED = null;
 
 const config = {
   apiKey: process.env.FB_API_KEY,
@@ -41,7 +42,7 @@ loader.load('../res/IrelandSmooth.json',
 loader.load('../res/sea.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials); // array
-    object.name = "Ireland";
+    object.name = "Sea";
     object.rotation.x = 1;
     scene.add(object);
   }
@@ -114,8 +115,8 @@ function onMouseDown(event) {
       const information =document.getElementById('information');
       const events =document.getElementById('events');
       const sights =document.getElementById('sights');
-      
-      if(intersects[i].object.name!= 'Ireland') {
+
+      if(intersects[i].object.name != 'Ireland' && intersects[i].object.name != 'Sea') {
         document.getElementById("Map").style.display = "none";
         interestDiv.style.display="block";
         controls.enableZoom = false;
@@ -153,12 +154,53 @@ function onMouseDown(event) {
   }
 }
 
+function onMouseMove(event) {
+  // calculate mouse position in normalized coordinates
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+
+  // calculate objects intersecting the ray
+  const intersects = raycaster.intersectObjects(scene.children);
+
+  for (var i=0; i < intersects.length; i++) {
+
+    if(intersects[i].object != INTERSECTED ) {
+
+      // restore previous intersection object (if it exists) to its original color
+      if (INTERSECTED != null) { 
+        INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex);
+      }
+      
+      // store reference to closest object as current intersection object
+      if(intersects[0].object.name != "Sea" && intersects[0].object.name != "Ireland") {
+        INTERSECTED = intersects[0].object;
+        console.log(INTERSECTED);
+        // store color of closest object (for later restoration)
+        INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
+        // set a new color for closest object
+        INTERSECTED.material[0].color.setHex(0xffff00);
+      }
+    } else {
+      // there are no intersections
+      // restore previous intersection object (if it exists) to its original color
+      if (INTERSECTED) {
+          INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
+      }
+
+      INTERSECTED = null;
+    }
+  }
+}
+
+
 function render() {
   controls.update();
   requestAnimationFrame(render);
   renderer.render(scene, camera);
 };
 
+document.addEventListener("mousemove", onMouseMove);
 document.addEventListener("mousedown", onMouseDown);
 window.addEventListener('resize', onWindowResize);
 
