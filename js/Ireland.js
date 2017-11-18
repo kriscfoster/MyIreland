@@ -141,7 +141,7 @@ function onMouseDown(event) {
 
       function gotData(data) {
         data = data.val();
-        information.innerHTML = '<img src="./res/dublin.jpg"/>' + data.Information;
+        information.innerHTML = data.Information;
         sights.innerHTML = data.Sights;
         events.innerHTML = data.Events;
       }
