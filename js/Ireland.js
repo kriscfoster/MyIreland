@@ -56,11 +56,38 @@ loader.load('../res/spire.json',
   }
 );
 
-loader.load('../res/Dublin.json', 
+loader.load('../res/DublinLabel.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.rotation.x = 1;
     object.name = "Dublin";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/CorkLabel.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.rotation.x = 1;
+    object.name = "Cork";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/GalwayLabel.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.rotation.x = 1;
+    object.name = "Galway";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/BelfastLabel.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.rotation.x = 1;
+    object.name = "Belfast";
     scene.add(object);
   }
 );
