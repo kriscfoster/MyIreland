@@ -4,15 +4,14 @@
         <meta charset="UTF-8">
         <title>MyIreland</title>
         <link rel="stylesheet" type="text/css" href="./res/style.css">
-      </head>
-      <body>
         <script src="./lib/three.min.js"></script>
-        <script src="./lib/TrackballControls.js"></script>
+        <script src="./lib/OrbitControls.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-        <script src="bundle.js"></script>
+        <script src="bundle.js"></script>  
         <script>
+
           function closeInterest() {
-            document.getElementById("Map").style.opacity = "1";
+            document.getElementById("Map").style.display = "block";
             document.getElementById("interest").style.display="none";
             document.getElementById("information").style.display="block";
             document.getElementById("events").style.display="none";
@@ -20,6 +19,7 @@
             document.getElementById("informationButton").className = "selected";
             document.getElementById("sightsButton").className = "";
             document.getElementById("eventsButton").className = "";
+            controls.enableZoom = true;
           }
 
           function showInformation() {
@@ -48,18 +48,36 @@
             document.getElementById("eventsButton").className = "selected";
             document.getElementById("sightsButton").className = "";
           }
-        </script>
-        <div class="interest" id="interest">
-          <button class="close" onclick="closeInterest()" style="float:right"><strong>Close</strong></button>
-          <h1 id="Place"></h1>
-          <div class="ButtonContainer" id="Buttons">
-            <button class="selected" id="informationButton" onclick="showInformation()">Information</button>
-            <button id="sightsButton" onclick="showSights()">Sights</button>
-            <button id="eventsButton" onclick="showEvents()">Events</button>
+
+          window.onload = function() {
+            document.body.appendChild(renderer.domElement);
+            const closeButton = document.getElementById('closeButton');
+            closeButton.onclick = () => { closeInterest(); }
+            const informationButton = document.getElementById('informationButton');
+            informationButton.onclick = () => { showInformation(); }
+            const sightsButton = document.getElementById('sightsButton');
+            sightsButton.onclick = () => { showSights(); }
+            const eventsButton = document.getElementById('eventsButton');
+            eventsButton.onclick = () => { showEvents(); }
+          } 
+        
+        </script>  
+      </head>
+      <body>
+
+        <div>
+          <div class="interest" id="interest">
+            <button class="close" id="closeButton" style="float:right"><strong>Close</strong></button>
+            <h1 id="Place"></h1>
+            <div class="ButtonContainer" id="Buttons">
+              <button class="selected" id="informationButton">Information</button>
+              <button id="sightsButton">Sights</button>
+              <button id="eventsButton">Events</button>
+            </div>
+            <p id="information"></p>
+            <p id="sights" style="display: none"></p>
+            <p id="events" style="display: none"></p>
           </div>
-          <p id="information"></p>
-          <p id="sights" style="display: none"></p>
-          <p id="events" style="display: none"></p>
         </div>
       </body>
     </html>
