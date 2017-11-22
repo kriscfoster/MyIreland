@@ -1,12 +1,9 @@
 body { 
   margin: auto;
   text-align: center;
-  font-family: Helvetica;
+  font-family: Fantasy;
   background-color: #f3f8ff;
   color: white;
-}
-
-canvas {
   background: #24C6DC; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(left top, #1F75FE, #A6FFCB); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(bottom right, #1F75FE, #A6FFCB); /* For Opera 11.1 to 12.0 */
@@ -27,6 +24,13 @@ canvas {
   z-index: 1;
 }
 
+.info {
+  color: #00363e;
+  position: absolute;
+  display: block;
+  z-index: 1;
+}
+
 h1 {
   font-size: 60px;
   text-decoration: underline;
@@ -35,15 +39,13 @@ h1 {
 }
 
 button {
-  font-size:20px;
-  background-color: #24C6DC;
-      color: white;
-  z-index: 2;
-}
-
-button {
   -webkit-transition-duration: 0.1s; /* Safari */
   transition-duration: 0.1s; /* Non Safari */
+  font-family: Fantasy;
+  font-size:20px;
+  background-color: #24C6DC;
+  color: white;
+  z-index: 2;
   border: none;
   padding: 15px 32px;
   text-align: center;
@@ -51,9 +53,7 @@ button {
   display: inline-block;
 }
 
-.selected {
-    background-color: #00363e; /* Green */
-}
+.selected { background-color: #00363e; }
 
 button:hover { text-decoration: underline; }
 

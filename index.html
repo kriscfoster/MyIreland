@@ -20,6 +20,8 @@
             document.getElementById("sightsButton").className = "";
             document.getElementById("eventsButton").className = "";
             controls.enableZoom = true;
+            controls.enableRotate = true;
+            controls.enablePan = true;
           }
 
           function showInformation() {
@@ -66,6 +68,9 @@
       <body>
 
         <div>
+          <div class="info">
+            
+          </div>
           <div class="interest" id="interest">
             <button class="close" id="closeButton" style="float:right"><strong>Close</strong></button>
             <h1 id="Place"></h1>
