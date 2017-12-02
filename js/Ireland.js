@@ -29,7 +29,7 @@ scene.add(hemisphereLight)
 scene.add(directionalLight);
 camera.position.z = 15;
 
-loader.load('../res/IrelandSmooth.json', 
+loader.load('../res/Ireland.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials); // array
     object.name = "Ireland";
@@ -46,6 +46,16 @@ loader.load('../res/sea.json',
     object.name = "Sea";
     object.type = "Scene";
     object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/Sun.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.rotation.x = 1;
+    object.name = "Historic Sight";
+    object.type = "Scene";
     scene.add(object);
   }
 );
@@ -130,135 +140,55 @@ loader.load('../res/GiantsCauseway.json',
   }
 );
 
-loader.load('../res/Point.json', 
+loader.load('../res/theHillOfTara.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.rotation.x = 1;
-    object.name = "Historic Sight";
+    object.name = "The Hill Of Tara";
     object.type = "Sight";
     scene.add(object);
   }
 );
 
-loader.load('../res/Point2.json', 
+loader.load('../res/croughPatrick.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.rotation.x = 1;
-    object.name = "Historic Sight";
+    object.name = "Crough Patrick";
     object.type = "Sight";
     scene.add(object);
   }
 );
 
-loader.load('../res/Point3.json', 
+loader.load('../res/theRingOfKerry.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.rotation.x = 1;
-    object.name = "Historic Sight";
+    object.name = "The Ring of Kerry";
     object.type = "Sight";
     scene.add(object);
   }
 );
 
-loader.load('../res/Point4.json', 
+loader.load('../res/theCliffsOfMoher.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.rotation.x = 1;
-    object.name = "Historic Sight";
+    object.name = "The Cliffs of Moher";
     object.type = "Sight";
     scene.add(object);
   }
 );
 
-loader.load('../res/Point5.json', 
+loader.load('../res/theRockOfCashal.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.rotation.x = 1;
-    object.name = "Historic Sight";
+    object.name = "The Rock of Cashal";
     object.type = "Sight";
     scene.add(object);
   }
 );
-
-loader.load('../res/Point6.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.rotation.x = 1;
-    object.name = "Historic Sight";
-    object.type = "Sight";
-    scene.add(object);
-  }
-);
-
-loader.load('../res/Point7.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.rotation.x = 1;
-    object.name = "Historic Sight";
-    object.type = "Sight";
-    scene.add(object);
-  }
-);
-
-loader.load('../res/Point8.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.rotation.x = 1;
-    object.name = "Historic Sight";
-    object.type = "Sight";
-    scene.add(object);
-  }
-);
-
-loader.load('../res/Point9.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.rotation.x = 1;
-    object.name = "Historic Sight";
-    object.type = "Sight";
-    scene.add(object);
-  }
-);
-
-loader.load('../res/Point10.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.rotation.x = 1;
-    object.name = "Historic Sight";
-    object.type = "Sight";
-    scene.add(object);
-  }
-);
-
-loader.load('../res/Point11.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.rotation.x = 1;
-    object.name = "Historic Sight";
-    object.type = "Sight";
-    scene.add(object);
-  }
-);
-
-loader.load('../res/Sun.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.rotation.x = 1;
-    object.name = "Historic Sight";
-    object.type = "Scene";
-    scene.add(object);
-  }
-);
-
-// loader.load('../res/Cloud.json', 
-//   function (geometry, materials) {
-//     const object = new THREE.Mesh(geometry, materials);
-//     object.rotation.x = 1;
-//     object.name = "The Giants Causeway";
-//     object.type = "Scene";
-//     scene.add(object);
-//   }
-// );
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -285,7 +215,8 @@ function onMouseDown(event) {
       const buttons = document.getElementById('Buttons');
 
       if(intersects[i].object.type != "Scene") {
-        document.getElementById("Map").style.display = "none";
+        console.log(intersects[i].object);
+        document.getElementById("Map").style.opacity = "0.15";
         interestDiv.style.display="block";
         controls.enableZoom = false;
         controls.enableRotate = false;
@@ -299,27 +230,7 @@ function onMouseDown(event) {
         } else {
           buttons.style.display = "none";
         }
-
-
       }
-
-      // if(intersects[i].object.name === 'Dublin'){
-      //   //placeHeading.innerHTML="Dublin"
-      //   const ref = database.ref('Dublin');
-      //   ref.once('value', gotData, errData);
-      // } else if(intersects[i].object.name === 'Galway'){
-      //   //placeHeading.innerHTML="Galway"
-      //   const ref = database.ref('Galway');
-      //   ref.once('value', gotData, errData);
-      // } else if(intersects[i].object.name === 'Cork'){
-      //   //placeHeading.innerHTML="Cork"
-      //   const ref = database.ref('Cork');
-      //   ref.once('value', gotData, errData);
-      // } else if(intersects[i].object.name === 'Belfast'){
-      //   //placeHeading.innerHTML="Belfast"
-      //   const ref = database.ref('Belfast');
-      //   ref.once('value', gotData, errData);
-      // }
 
       function gotData(data) {
         data = data.val();

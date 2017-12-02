@@ -1,5 +1,6 @@
 body { 
-  margin: auto;
+  height: 100%;
+  margin: 0px;
   text-align: center;
   font-family: Fantasy;
   background-color: #f3f8ff;
@@ -11,14 +12,18 @@ body {
   background: linear-gradient(to bottom right, #1F75FE, #A6FFCB); /* Standard syntax */
 }
 
+canvas {
+  vertical-align: bottom;
+}
+
 .interest {
+  overflow: scroll;
   color: #00363e;
   text-align: left;
   font-size: 24px;
   position: absolute;
   width: 90%;
   height: 100%;
-  top: 20px;
   left: 5%;
   display: none;
   z-index: 1;
