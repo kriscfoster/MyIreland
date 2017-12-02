@@ -10,6 +10,7 @@
   "author": "Kris Foster",
   "license": "ISC",
   "dependencies": {
+    "babel-core": "^6.26.0",
     "express": "^4.16.2",
     "webpack": "^3.8.1"
   }

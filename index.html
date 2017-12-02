@@ -11,7 +11,7 @@
         <script>
 
           function closeInterest() {
-            document.getElementById("Map").style.display = "block";
+            document.getElementById("Map").style.opacity = "1";
             document.getElementById("interest").style.display="none";
             document.getElementById("information").style.display="block";
             document.getElementById("events").style.display="none";
@@ -20,6 +20,8 @@
             document.getElementById("sightsButton").className = "";
             document.getElementById("eventsButton").className = "";
             controls.enableZoom = true;
+            controls.enableRotate = true;
+            controls.enablePan = true;
           }
 
           function showInformation() {
@@ -66,17 +68,24 @@
       <body>
 
         <div>
+          <div class="info">
+           
+          </div>
           <div class="interest" id="interest">
-            <button class="close" id="closeButton" style="float:right"><strong>Close</strong></button>
-            <h1 id="Place"></h1>
-            <div class="ButtonContainer" id="Buttons">
-              <button class="selected" id="informationButton">Information</button>
-              <button id="sightsButton">Sights</button>
-              <button id="eventsButton">Events</button>
+            <div class = "header">
+              <button class="close" id="closeButton" style="float:right"><strong>Close</strong></button>
+              <h1 id="Place"></h1>
+              <div class="ButtonContainer" id="Buttons">
+                <button class="selected" id="informationButton">Information</button>
+                <button id="sightsButton">Sights</button>
+                <button id="eventsButton">Events</button>
+              </div>
             </div>
-            <p id="information"></p>
-            <p id="sights" style="display: none"></p>
-            <p id="events" style="display: none"></p>
+            <div id="content" class="content">
+              <p id="information" class="information"></p>
+              <p id="sights" style="display: none"></p>
+              <p id="events" style="display: none"></p>
+            </div>
           </div>
         </div>
       </body>
