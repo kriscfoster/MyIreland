@@ -272,21 +272,37 @@ function onMouseDown(event) {
           } else {
                         li.setAttribute('class', "sightsListItem sightsListItemRight");
           }
-        
-          var name = document.createTextNode(entry.name);
-          var image = document.createElement("img");
-          var p = document.createElement("a");
-          p.target = "_blank";
-          p.appendChild(name);
-          p.href = entry.link;
+
+          var aLink, textDiv, imageDiv, name, image, title;
+          
+          aLink = document.createElement("a"); 
+          aLink.href = entry.link;       
+          aLink.target = "_blank";
+
+          textDiv = document.createElement("div");
+          textDiv.setAttribute('class', "sightsListItemInfo");
+          
+          imageDiv = document.createElement("div");
+          imageDiv.setAttribute('class', "sightsListItemImageDiv");
+
+          name = document.createTextNode(entry.name);
+          
+          image = document.createElement("img");
           image.setAttribute('class', "sightsListItemImage");
-          p.setAttribute('class', "sightsListItemP");
-
-
           image.src = entry.imageUrl;
           
-          li.appendChild(p);
-          li.appendChild(image);
+          title = document.createElement("div");
+          title.appendChild(name);
+          title.setAttribute('class', "sightsListItemTitle");
+          
+          textDiv.appendChild(title);
+          imageDiv.appendChild(image);
+
+          aLink.appendChild(textDiv);
+          aLink.appendChild(imageDiv);
+
+          li.appendChild(aLink);
+          li.appendChild(aLink);
           ul.appendChild(li);
         });
 
