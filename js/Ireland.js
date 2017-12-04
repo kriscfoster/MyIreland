@@ -218,7 +218,7 @@ function onMouseDown(event) {
   for (var i = 0; i < intersects.length; i++) {
     if(intersects[i]) {
       const interestDiv = document.getElementById('interest');
-      const placeHeading = document.getElementById('Place');
+      //const placeHeading = document.getElementById('Place');
       const information =document.getElementById('informationText');
       const events =document.getElementById('events');
       const sights =document.getElementById('sights');
@@ -233,12 +233,12 @@ function onMouseDown(event) {
         controls.enableZoom = false;
         controls.enableRotate = false;
         controls.enablePan = false;
-        placeHeading.innerHTML=intersects[i].object.name;
+        //placeHeading.innerHTML=intersects[i].object.name;
         const ref = database.ref(intersects[i].object.name);
         ref.once('value', gotData, errData);
 
         if(intersects[i].object.type === "Place") {
-          buttons.style.display = "block";
+          buttons.style.display = "inline-block";
         } else {
           buttons.style.display = "none";
         }
