@@ -72,45 +72,45 @@
           } 
         
         </script>  
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+          </script>
       </head>
       <body>
 
         <div>
-          <div class="info" style="width:100%; height: 100%; position: absolute; text-align: center; padding-top: 20px">
-           <div id="hoverPlace" style="font-size: 65px;"></div>
+          <div class="info" style="width:100%; height: 100%; position: absolute; text-align: center;">
+           <strong><h1 id="hoverPlace" style="font-size: 65px;"></h1></strong>
           </div>
           <div class="interest" id="interest">
-            <div class = "header" style="padding-bottom: 20px">
-              <div>
-                <div id="Place" style="display:inline-block; font-size: 40px"></div>
-                <button class="close" id="closeButton" style="padding-left: 20px; padding-right: 20px;"><strong>X</strong></button>
-              </div>
+            <div class = "header">
+            
+                <strong><h1 id="Place" style="display:inline-block; font-size: 65px;"></h1></strong>
+                <button class="close" id="closeButton"><strong>X</strong></button>
+             
               <div class="buttonContainer" id="Buttons">
                 <button class="selected" id="informationButton">Information</button>
                 <button id="sightsButton">Sights</button>
                 <button id="eventsButton">Events</button>
               </div>
             </div>
-            <div id="content" class="content" style="padding-bottom: 20px; height: 100%;">
-              <div id="information" style="width: 73%; float: left">               
-                <h2>Information</h2>
-                <div id="informationText" class="information"></div>
+            <div id="content" class="content" style="">
+              <div id="information" style="width: 100%; float: left">               
+    
+                <div class="informationText" id="informationText" class="information"></div>
                 <div class="reference">This information is a summary from <a id="reference" href='#' target="_blank">here</a> generated using Gensim's text summarisation tool.</a></div>
               </div>
-              <div id="sights" style="display: none; width: 73%; float: left; height: 100%;">
-                <h2>Sights</h2>
-                <ul id="dynamic-list" style="height: 100%; text-align: left; padding: 0px;"></ul>
+              <div id="sights" style="display: none; width: 100%; float: left; height: 100%;">
+                <ul id="dynamic-list" style="height: 100%; text-align: center; padding: 0px; margin: 0px"></ul>
               </div>
               <div id="events" style="display: none; width: 73%; float: left; height: 100%;">
                 <h2>Events</h2>
               </div>
 
-              <div style="width:25%; float: right">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5611.590767364586!2d-6.263978601676152!3d53.34387289316961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xedf3a4371fc7c913!2sVisit+Dublin!5e0!3m2!1sen!2sie!4v1512295831732" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-                <a class="twitter-timeline"  href="https://twitter.com/hashtag/dublincity" data-widget-id="937279550614048768" style="width: 100%;">#dublincity Tweets</a>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m0!4v1512294701493!6m8!1m7!1sCAoSLEFGMVFpcE0yS3FYN0EtS3VrZk1GTGJFQkVlT2E3TWowcDVLRk5FWEI0bGZf!2m2!1d53.34965!2d-6.260176899999999!3f50.341612188285914!4f19.154105779266416!5f0.7820865974627469" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-              </div>
+<!--               <div style="width:25%; float: right">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5611.590767364586!2d-6.263978601676152!3d53.34387289316961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xedf3a4371fc7c913!2sVisit+Dublin!5e0!3m2!1sen!2sie!4v1512295831732" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <a class="twitter-timeline"  href="https://twitter.com/hashtag/dublincity" data-widget-id="937753930011947008">#dublincity Tweets</a>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m0!4v1512294701493!6m8!1m7!1sCAoSLEFGMVFpcE0yS3FYN0EtS3VrZk1GTGJFQkVlT2E3TWowcDVLRk5FWEI0bGZf!2m2!1d53.34965!2d-6.260176899999999!3f50.341612188285914!4f19.154105779266416!5f0.7820865974627469" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+              </div> -->
 
             </div>
           </div>

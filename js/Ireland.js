@@ -238,7 +238,7 @@ function onMouseDown(event) {
         ref.once('value', gotData, errData);
 
         if(intersects[i].object.type === "Place") {
-          buttons.style.display = "block";
+          buttons.style.display = "inline-block";
         } else {
           buttons.style.display = "none";
         }
