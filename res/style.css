@@ -29,6 +29,10 @@ canvas {
   z-index: 1;
 }
 
+.interest::-webkit-scrollbar { 
+    display: none; 
+}
+
 .info {
   color: #00363e;
   position: absolute;
@@ -65,5 +69,42 @@ button:hover { text-decoration: underline; }
 .close:hover {
   color: white;
   background-color: red;
+}
+
+.sightsListItem {
+  list-style-type: none;
+  border-bottom: 3px solid #00363e;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  height: 20%;
+  width: 45%;
+  display: inline-block;
+  text-align: left;
+  background-color: rgba(245, 245, 245, .1)
+}
+
+.sightsListItemLeft {
+  float: left;
+}
+
+.sightsListItemMiddle {
+  
+}
+
+.sightsListItemRight {
+  float: right;
+}
+
+.sightsListItemImage {
+  height: 100%;
+  float: right;
+}
+
+.sightsListItemP {
+  color: #00363e;
+  float: left;
+  vertical-align: top;
+  padding-left: 15px;
+  padding-top: 10px;
 }
 

@@ -70,6 +70,16 @@ loader.load('../res/MyIreland.json',
   }
 );
 
+// loader.load('../res/compus.json', 
+//   function (geometry, materials) {
+//     const object = new THREE.Mesh(geometry, materials);
+//     object.rotation.x = 1;
+//     object.name = "The Giants Causeway";
+//     object.type = "Scene";
+//     scene.add(object);
+//   }
+// );
+
 loader.load('../res/spire.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
@@ -209,13 +219,15 @@ function onMouseDown(event) {
     if(intersects[i]) {
       const interestDiv = document.getElementById('interest');
       const placeHeading = document.getElementById('Place');
-      const information =document.getElementById('information');
+      const information =document.getElementById('informationText');
       const events =document.getElementById('events');
       const sights =document.getElementById('sights');
       const buttons = document.getElementById('Buttons');
+      const hoverPlace = document.getElementById('hoverPlace');
+      const reference = document.getElementById('reference');
 
       if(intersects[i].object.type != "Scene") {
-        console.log(intersects[i].object);
+        hoverPlace.innerText = "";
         document.getElementById("Map").style.opacity = "0.15";
         interestDiv.style.display="block";
         controls.enableZoom = false;
@@ -234,9 +246,53 @@ function onMouseDown(event) {
 
       function gotData(data) {
         data = data.val();
-        information.innerHTML = data.Information;
-        sights.innerHTML = data.Sights;
-        events.innerHTML = data.Events;
+        information.innerText = data.Information.text;
+        //sights.innerText = data.Sights;
+        events.innerText = data.Events;
+        
+        var ul = document.getElementById("dynamic-list");
+
+        while(ul.firstChild){
+          ul.removeChild(ul.firstChild);
+        }
+
+        data.Sights.forEach(function(entry, index) {
+          var li = document.createElement("li");
+          li.id = index;
+
+          if(index == 0) {
+            li.setAttribute('class', "sightsListItem sightsListItemLeft");
+          } else if(index == 1) {
+            //li.setAttribute('class', "sightsListItem sightsListItemMiddle");
+                        li.setAttribute('class', "sightsListItem sightsListItemRight");
+          // } else if(index%3==0) {
+          //   li.setAttribute('class', "sightsListItem sightsListItemLeft");
+          } else if(index%2==0) {
+            li.setAttribute('class', "sightsListItem sightsListItemLeft");
+          } else {
+                        li.setAttribute('class', "sightsListItem sightsListItemRight");
+          }
+        
+          var name = document.createTextNode(entry.name);
+          var image = document.createElement("img");
+          var p = document.createElement("a");
+          p.target = "_blank";
+          p.appendChild(name);
+          p.href = entry.link;
+          image.setAttribute('class', "sightsListItemImage");
+          p.setAttribute('class', "sightsListItemP");
+
+
+          image.src = entry.imageUrl;
+          
+          li.appendChild(p);
+          li.appendChild(image);
+          ul.appendChild(li);
+        });
+
+        if(data.Information.reference ) {
+          reference.href = data.Information.reference;
+        }
       }
 
       function errData(err) {
@@ -247,40 +303,46 @@ function onMouseDown(event) {
 }
 
 function onMouseMove(event) {
-  // calculate mouse position in normalized coordinates
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-  raycaster.setFromCamera(mouse, camera);
+  const interestDiv = document.getElementById('interest');
+  const hoverPlace = document.getElementById('hoverPlace');
 
-  // calculate objects intersecting the ray
-  const intersects = raycaster.intersectObjects(scene.children);
+  if(interestDiv.style.display != 'block') {
+    // calculate mouse position in normalized coordinates
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+    raycaster.setFromCamera(mouse, camera);
 
-  for (var i=0; i < intersects.length; i++) {
-    if(intersects[i].object != INTERSECTED ) {
+    // calculate objects intersecting the ray
+    const intersects = raycaster.intersectObjects(scene.children);
 
-      // restore previous intersection object (if it exists) to its original color
-      if (INTERSECTED != null) { 
-        INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex);
+    for (var i=0; i < intersects.length; i++) {
+      if(intersects[i].object != INTERSECTED ) {
+
+        // restore previous intersection object (if it exists) to its original color
+        if (INTERSECTED != null) { 
+          INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex);
+          hoverPlace.innerText = "";
+        }
+
+        // store reference to closest object as current intersection object
+        if(intersects[0].object.type != "Scene") {
+          INTERSECTED = intersects[0].object;
+          // store color of closest object (for later restoration)
+          INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
+          // set a new color for closest object
+          INTERSECTED.material[0].color.setHex(0xffff00);
+          hoverPlace.innerText = INTERSECTED.name;
+
+        }
+      } else {
+        // there are no intersections
+        // restore previous intersection object (if it exists) to its original color
+        if (INTERSECTED) {
+            INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
+        }
+
+        INTERSECTED = null;
       }
-
-      // store reference to closest object as current intersection object
-      if(intersects[0].object.type != "Scene") {
-        INTERSECTED = intersects[0].object;
-        // store color of closest object (for later restoration)
-        INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
-        // set a new color for closest object
-
-        INTERSECTED.material[0].color.setHex(0xffff00);
-
-      }
-    } else {
-      // there are no intersections
-      // restore previous intersection object (if it exists) to its original color
-      if (INTERSECTED) {
-          INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
-      }
-
-      INTERSECTED = null;
     }
   }
 }
