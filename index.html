@@ -11,6 +11,7 @@
         <script>
 
           function closeInterest() {
+            window.speechSynthesis.cancel();
             document.getElementById("Map").style.opacity = "1";
             document.getElementById("interest").style.display="none";
             document.getElementById("information").style.display="block";
@@ -21,7 +22,7 @@
             document.getElementById("eventsButton").className = "";
             controls.enableZoom = true;
             controls.enableRotate = true;
-            controls.enablePan = true;
+            controls.enablePan = true;  
           }
 
           function showInformation() {
@@ -59,6 +60,11 @@
               ul.appendChild(li);
           }
 
+          function read() {
+            var msg = new SpeechSynthesisUtterance(document.getElementById("informationText").innerText);
+            window.speechSynthesis.speak(msg);
+          }
+
           window.onload = function() {
             document.body.appendChild(renderer.domElement);
             const closeButton = document.getElementById('closeButton');
@@ -69,6 +75,8 @@
             sightsButton.onclick = () => { showSights(); }
             const eventsButton = document.getElementById('eventsButton');
             eventsButton.onclick = () => { showEvents(); }
+            const readButton = document.getElementById('readButton');
+            readButton.onclick = () => { read(); }
           } 
         
         </script>  
@@ -84,8 +92,8 @@
           <div class="interest" id="interest">
             <div class = "header">
             
-                <strong><h1 id="Place" style="display:inline-block; font-size: 65px;"></h1></strong>
-                <button class="close" id="closeButton"><strong>X</strong></button>
+                <strong><h1 id="Place" style="display:inline-block; font-size: 65px; text-decoration: none"></h1></strong>
+                <button class="close" id="closeButton"><strong>✖</strong></button>
              
               <div class="buttonContainer" id="Buttons">
                 <button class="selected" id="informationButton">Information</button>
@@ -95,9 +103,12 @@
             </div>
             <div id="content" class="content" style="">
               <div id="information" style="width: 100%; float: left">               
-    
+                <button class="read" id="readButton"><strong>Read</strong></button>
                 <div class="informationText" id="informationText" class="information"></div>
-                <div class="reference">This information is a summary from <a id="reference" href='#' target="_blank">here</a> generated using Gensim's text summarisation tool.</a></div>
+                <div class="reference"><br/>(This information is a summary from <a id="reference" href='#' target="_blank">here</a>, generated using Gensim's Text Summarisation tool.)<br/><br/></a></div>
+
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5611.590767364586!2d-6.263978601676152!3d53.34387289316961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xedf3a4371fc7c913!2sVisit+Dublin!5e0!3m2!1sen!2sie!4v1512295831732" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+
               </div>
               <div id="sights" style="display: none; width: 100%; float: left; height: 100%;">
                 <ul id="dynamic-list" style="height: 100%; text-align: center; padding: 0px; margin: 0px"></ul>
