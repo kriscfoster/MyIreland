@@ -106,7 +106,7 @@ button:hover { opacity: 0.95 }
   display: inline-block;
   color: black;
   margin-top: 10px;
-  background-color: #ff3f3f;
+  background-color: #f44336;
   opacity: 1;
   padding: 0px;
   width: 50px;
@@ -118,14 +118,54 @@ button:hover { opacity: 0.95 }
 .read {
   display: inline-block;
   color: black;
-  padding: 10px;
+  height: 50px;
+  width: 100px;
+  padding: 0px;
   background-color: #24dc2a;
   opacity: 1;
-  border-radius: 30px;
+  border-radius: 50px;
+}
+
+.read:hover {
+  opacity: 0.9;
+  border: 3px solid black;
+}
+
+.pause {
+  display: inline-block;
+  color: black;
+  height: 50px;
+  width: 100px;
+  padding: 0px;
+  background-color: #ff9800;
+  opacity: 1;
+  border-radius: 50px;
+}
+
+.pause:hover {
+  opacity: 0.9;
+  border: 3px solid black;
+}
+
+.stop {
+  display: inline-block;
+  color: black;
+  height: 50px;
+  width: 100px;
+  padding: 0px;
+  background-color: #f44336;
+  opacity: 1;
+  border-radius: 50px;
+}
+
+.stop:hover {
+  opacity: 0.9;
+  border: 3px solid black;
 }
 
 .close:hover {
-  color: black;
+  opacity: 0.9;
+  border: 3px solid black;
 }
 
 .sightsListItem {
