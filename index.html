@@ -8,19 +8,17 @@
         <script src="./lib/three.min.js"></script>
         <script src="./lib/OrbitControls.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-        <script src="bundle.js"></script>  
-        
+        <script src="bundle.js"></script>
       </head>
       <body>
         <div>
-          <div class="info" style="width:100%; height: 100%; position: absolute; text-align: center;">
-           <strong><h1 id="hoverPlace" style="font-size: 65px;"></h1></strong>
+          <div class="info">
+           <strong><h1 id="hoverPlace"></h1></strong>
           </div>
           <div class="interest" id="interest">
             <div class = "header">
-            
-                <strong><h1 id="Place" style="display:inline-block; font-size: 65px; text-decoration: none"></h1></strong>
-                <button style="opacity: 1; padding-top: 0px; float: right"id="closeButton"><strong><i class="material-icons close" style="font-size:35px;">close</i></strong></button>
+              <strong><h1 class="headerPlace" id="Place"></h1></strong>
+                <button class="closeButton" id="closeButton"><strong><i class="material-icons close" style="font-size:35px;">close</i></strong></button>
              
               <div class="buttonContainer" id="Buttons">
                 <button class="selected" id="informationButton">Information</button>
@@ -28,14 +26,19 @@
                 <button id="eventsButton">Events</button>
               </div>
             </div>
-            <div id="content" class="content" style="">
-              <div id="information" style="width: 100%; float: left">               
-                
-                <button id="readButton" style="opacity: 1; padding-top: 0px; margin: 0px;"><strong><i class="material-icons read" style="font-size:40px;">play_arrow</i></strong></button>
+            <div id="content" class="content">
+              <div id="information">               
+                <button id="readButton" style="opacity: 1; padding-top: 0px; margin: 0px;">
+                  <strong><i class="material-icons read" style="font-size:40px;">play_arrow</i></strong>
+                </button>
 
-                <button style="opacity: 1; padding-top: 0px; display: none; margin: 0px;" id="pauseButton"><strong><i class="material-icons pause" style="font-size:40px;">pause</i></strong></button>
+                <button style="opacity: 1; padding-top: 0px; display: none; margin: 0px;" id="pauseButton">
+                  <strong><i class="material-icons pause" style="font-size:40px;">pause</i></strong>
+                </button>
 
-                <button style="opacity: 1; padding-top: 0px; display: none; margin: 0px;"id="stopButton"><strong><i class="material-icons stop" style="font-size:40px;">stop</i></strong></button>
+                <button style="opacity: 1; padding-top: 0px; display: none; margin: 0px;"id="stopButton">
+                  <strong><i class="material-icons stop" style="font-size:40px;">stop</i></strong>
+                </button>
 
                 <div class="informationText" id="informationText" class="information"></div>
                 <div class="reference"><br/>(This information is a summary from <a id="reference" href='#' target="_blank">here</a>, generated using Gensim's Text Summarisation tool.)<br/><br/></a></div>

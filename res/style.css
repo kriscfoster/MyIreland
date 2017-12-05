@@ -16,6 +16,13 @@ canvas {
   vertical-align: bottom;
 }
 
+.info {
+  width:100%;
+  height: 100%;
+  position: absolute;
+  text-align: center;
+}
+
 .interest {
   border-radius: 8px;
   color: black;
@@ -33,10 +40,21 @@ canvas {
   z-index: 1;
 }
 
+.headerPlace {
+  display:inline-block;
+  font-size: 65px;
+  text-decoration: none
+}
+
 .content {
     overflow: scroll;
     height: calc(80% - 40px);
     padding: 20px;
+}
+
+.information {
+  width: 100%;
+  float: left;
 }
 
 .informationText {
@@ -101,6 +119,12 @@ button {
 }
 
 button:hover { opacity: 0.95 }
+
+.closeButton {
+  opacity: 1;
+  padding-top: 0px;
+  float: right
+}
 
 .close {
   display: inline-block;
