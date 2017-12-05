@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>MyIreland</title>
         <link rel="stylesheet" type="text/css" href="./res/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="./lib/three.min.js"></script>
         <script src="./lib/OrbitControls.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
@@ -93,7 +94,7 @@
             <div class = "header">
             
                 <strong><h1 id="Place" style="display:inline-block; font-size: 65px; text-decoration: none"></h1></strong>
-                <button class="close" id="closeButton"><strong>✖</strong></button>
+                <button style="opacity: 1; padding-top: 0px; float: right"id="closeButton"><strong><i class="material-icons close" style="font-size:35px;">close</i></strong></button>
              
               <div class="buttonContainer" id="Buttons">
                 <button class="selected" id="informationButton">Information</button>
@@ -104,11 +105,11 @@
             <div id="content" class="content" style="">
               <div id="information" style="width: 100%; float: left">               
                 
-                <button class="read" id="readButton"><strong>♫</strong></button>
+                <button id="readButton" style="opacity: 1; padding-top: 0px;"><strong><i class="material-icons read" style="font-size:40px;">play_arrow</i></strong></button>
 
-                <button class="pause" id="pauseButton"><strong>Pause</strong></button>
+                <button style="opacity: 1; padding-top: 0px;" id="pauseButton"><strong><i class="material-icons pause" style="font-size:40px;">pause</i></strong></button>
 
-                <button class="stop" id="stopButton"><strong>◾</strong></button>
+                <button style="opacity: 1; padding-top: 0px;"id="stopButton"><strong><i class="material-icons stop" style="font-size:40px;">stop</i></strong></button>
 
                 <div class="informationText" id="informationText" class="information"></div>
                 <div class="reference"><br/>(This information is a summary from <a id="reference" href='#' target="_blank">here</a>, generated using Gensim's Text Summarisation tool.)<br/><br/></a></div>
