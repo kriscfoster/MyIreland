@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 
 var config = {
-  entry: './js/Ireland.js',
+  entry: './js/ireland.js',
 
   output: {
     filename: 'bundle.js',
