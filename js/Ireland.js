@@ -66,7 +66,9 @@ function onMouseDown(event) {
 
       function gotData(data) {
         data = data.val();
-        information.innerText = data.Information.text;
+        const text = data.Information.text;
+        const sentences = text.replace(/(\S\.)\s*([A-Z])/g, "$1\n\n$2");
+        information.innerText = sentences;
         events.innerText = data.Events;
         
         var ul = document.getElementById("dynamic-list");
@@ -76,21 +78,10 @@ function onMouseDown(event) {
         }
 
         data.Sights.forEach(function(entry, index) {
-          var li = document.createElement("li");
+          var li, aLink, textDiv, imageDiv, name, image, title;
+          li = document.createElement("li");
           li.id = index;
-
-          if(index == 0) {
-            li.setAttribute('class', "sightsListItem sightsListItemLeft");
-          } else if(index == 1) {
-            li.setAttribute('class', "sightsListItem sightsListItemRight");
-          } else if(index%2==0) {
-            li.setAttribute('class', "sightsListItem sightsListItemLeft");
-          } else {
-            li.setAttribute('class', "sightsListItem sightsListItemRight");
-          }
-
-          var aLink, textDiv, imageDiv, name, image, title;
-          
+          li.setAttribute('class', "sightsListItem");
           aLink = document.createElement("a"); 
           aLink.href = entry.link;       
           aLink.target = "_blank";

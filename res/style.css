@@ -191,29 +191,17 @@ button:hover { opacity: 0.95 }
   list-style-type: none;
   box-shadow:0 4px 10px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
   height: 25%;
-  width: 30%;
+  width: 47%;
   display: inline-block;
   text-align: left;
   background-color: white;
   margin-bottom: 10px;
-  margin-right: 10px;
+  margin-left: 2%;
 }
 
 .sightsListItem:hover {
   text-decoration: underline;
   box-shadow:0 6px 20px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
-}
-
-.sightsListItemLeft {
-  display: inline-block;
-}
-
-.sightsListItemMiddle {
-  
-}
-
-.sightsListItemRight {
-  display: inline-block;
 }
 
 .sightsListItemImage {
