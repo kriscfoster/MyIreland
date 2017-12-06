@@ -13,8 +13,15 @@
       <body>
         <div>
           <div class="info">
-           <strong><h1 id="hoverPlace"></h1></strong>
+            <button style="opacity: 1; padding-top: 0px; margin: 0px;"><i class="material-icons top-button top-button-map" style="font-size: 80px;">map</i></button>
+            <button style="opacity: 1; padding-top: 0px; margin: 0px;"><i style="font-size: 80px; opacity: 0.75;"class="material-icons top-button top-button-sights">explore</i></button>
+            <button style="opacity: 1; padding-top: 0px; margin: 0px;"><i style="font-size: 80px; opacity: 0.75;"class="material-icons top-button top-button-events">date_range</i></button>
           </div>
+
+          <div class="hoverPlaceContainer">
+            <strong><h1 id="hoverPlace"></h1></strong>
+          </div>
+
           <div class="interest" id="interest">
             <div class = "header">
               <strong><h1 class="headerPlace" id="Place"></h1></strong>
@@ -27,7 +34,9 @@
               </div>
             </div>
             <div id="content" class="content">
-              <div id="information">               
+              <div id="information">
+
+              <div style="position: absolute;">               
                 <button id="readButton" style="opacity: 1; padding-top: 0px; margin: 0px;">
                   <strong><i class="material-icons read" style="font-size:40px;">play_arrow</i></strong>
                 </button>
@@ -39,8 +48,9 @@
                 <button style="opacity: 1; padding-top: 0px; display: none; margin: 0px;"id="stopButton">
                   <strong><i class="material-icons stop" style="font-size:40px;">stop</i></strong>
                 </button>
+              </div>
 
-                <div class="informationText" id="informationText" class="information"></div>
+                <div class="informationText" style="padding-top: 55px;" id="informationText" class="information"></div>
                 <div class="reference"><br/>(This information is a summary from <a id="reference" href='#' target="_blank">here</a>, generated using Gensim's Text Summarisation tool.)<br/><br/></a></div>
 
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5611.590767364586!2d-6.263978601676152!3d53.34387289316961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xedf3a4371fc7c913!2sVisit+Dublin!5e0!3m2!1sen!2sie!4v1512295831732" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
