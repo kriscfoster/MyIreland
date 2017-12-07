@@ -43,31 +43,22 @@ function showEvents() {
   document.getElementById("sightsButton").className = "";
 }
 
-function addItem(){
-    var ul = document.getElementById("dynamic-list");
-    var li = document.createElement("li");
-    li.setAttribute('id',"1");
-    li.appendChild(document.createTextNode("aaaa"));
-    ul.appendChild(li);
-}
-
 function read() {
-
   const text = document.getElementById("informationText").innerText;
   const sentences = text.match( /[^\.!\?]+[\.!\?]+/g );
 
   var timer = setInterval(function() {
-      var voices = speechSynthesis.getVoices();
+    var voices = speechSynthesis.getVoices();
 
-      if (voices.length !== 0) {
-        for (i = 0; i < sentences.length; i++) {
-          sentence = sentences[i]
-          audio = new SpeechSynthesisUtterance(sentence);
-          audio.voice = voices[66];
-          window.speechSynthesis.speak(audio);
-          clearInterval(timer);
-        }
+    if (voices.length !== 0) {
+      for (i = 0; i < sentences.length; i++) {
+        sentence = sentences[i]
+        audio = new SpeechSynthesisUtterance(sentence);
+        audio.voice = voices[66];
+        window.speechSynthesis.speak(audio);
+        clearInterval(timer);
       }
+    }
   }, 200);
 
   document.getElementById("readButton").style.display = "none";

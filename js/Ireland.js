@@ -2,6 +2,8 @@ scene = new THREE.Scene();
 renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
 camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 controls = new THREE.OrbitControls(camera);
+controls.target.y -= 0.8;
+controls.target.z = 2;
 require("./helper.js");
 require("./mapSetup.js");
 const raycaster = new THREE.Raycaster();
@@ -166,6 +168,7 @@ function render() {
   controls.update();
   requestAnimationFrame(render);
   renderer.render(scene, camera);
+  console.log(controls);
 };
 
 document.addEventListener("mousemove", onMouseMove);

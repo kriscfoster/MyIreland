@@ -8,7 +8,8 @@ controls.maxDistance = 20;
 controls.minDistance = 4;
 scene.add(hemisphereLight)
 scene.add(directionalLight);
-camera.position.z = 15;
+camera.position.z = 12;
+camera.position.y = -2
 
 loader.load('../res/Ireland.json', 
   function (geometry, materials) {
@@ -166,6 +167,36 @@ loader.load('../res/theRockOfCashal.json',
     const object = new THREE.Mesh(geometry, materials);
     object.rotation.x = 1;
     object.name = "The Rock of Cashal";
+    object.type = "Sight";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/Clonmacnoise.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.rotation.x = 1;
+    object.name = "Clonmacnoise";
+    object.type = "Sight";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/MarbleArchCaves.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.rotation.x = 1;
+    object.name = "Marble Arch Caves";
+    object.type = "Sight";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/Castle.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.rotation.x = 1;
+    object.name = "Castle";
     object.type = "Sight";
     scene.add(object);
   }
