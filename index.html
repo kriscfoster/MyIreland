@@ -1,92 +1,62 @@
 <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="UTF-8">
-        <title>MyIreland</title>
-        <link rel="stylesheet" type="text/css" href="./res/style.css">
-        <script src="./lib/three.min.js"></script>
-        <script src="./lib/OrbitControls.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-        <script src="bundle.js"></script>  
-        <script>
-
-          function closeInterest() {
-            document.getElementById("Map").style.opacity = "1";
-            document.getElementById("interest").style.display="none";
-            document.getElementById("information").style.display="block";
-            document.getElementById("events").style.display="none";
-            document.getElementById("sights").style.display="none";
-            document.getElementById("informationButton").className = "selected";
-            document.getElementById("sightsButton").className = "";
-            document.getElementById("eventsButton").className = "";
-            controls.enableZoom = true;
-            controls.enableRotate = true;
-            controls.enablePan = true;
-          }
-
-          function showInformation() {
-            document.getElementById("information").style.display="block";
-            document.getElementById("events").style.display="none";
-            document.getElementById("sights").style.display="none";
-            document.getElementById("informationButton").className = "selected";
-            document.getElementById("eventsButton").className = "";
-            document.getElementById("sightsButton").className = "";
-          }
-
-          function showSights() {
-            document.getElementById("information").style.display="none";
-            document.getElementById("events").style.display="none";
-            document.getElementById("sights").style.display="block";
-            document.getElementById("informationButton").className = "";
-            document.getElementById("eventsButton").className = "";
-            document.getElementById("sightsButton").className = "selected";
-          }
-
-          function showEvents() {
-            document.getElementById("information").style.display="none";
-            document.getElementById("events").style.display="block";
-            document.getElementById("sights").style.display="none";
-            document.getElementById("informationButton").className = "";
-            document.getElementById("eventsButton").className = "selected";
-            document.getElementById("sightsButton").className = "";
-          }
-
-          window.onload = function() {
-            document.body.appendChild(renderer.domElement);
-            const closeButton = document.getElementById('closeButton');
-            closeButton.onclick = () => { closeInterest(); }
-            const informationButton = document.getElementById('informationButton');
-            informationButton.onclick = () => { showInformation(); }
-            const sightsButton = document.getElementById('sightsButton');
-            sightsButton.onclick = () => { showSights(); }
-            const eventsButton = document.getElementById('eventsButton');
-            eventsButton.onclick = () => { showEvents(); }
-          } 
-        
-        </script>  
-      </head>
-      <body>
-
-        <div>
-          <div class="info">
-           
-          </div>
-          <div class="interest" id="interest">
-            <div class = "header">
-              <button class="close" id="closeButton" style="float:right"><strong>Close</strong></button>
-              <h1 id="Place"></h1>
-              <div class="ButtonContainer" id="Buttons">
-                <button class="selected" id="informationButton">Information</button>
-                <button id="sightsButton">Sights</button>
-                <button id="eventsButton">Events</button>
-              </div>
-            </div>
-            <div id="content" class="content">
-              <p id="information" class="information"></p>
-              <p id="sights" style="display: none"></p>
-              <p id="events" style="display: none"></p>
-            </div>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>MyIreland</title>
+    <link rel="stylesheet" type="text/css" href="./res/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="./lib/three.min.js"></script>
+    <script src="./lib/OrbitControls.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <script src="bundle.js"></script>
+  </head>
+  <body>
+    <div>
+      <div class="info">
+        <button style="opacity: 1; padding-top: 0px; margin: 0px;"><i class="material-icons top-button top-button-map" style="font-size: 80px;">map</i></button>
+        <button style="opacity: 1; padding-top: 0px; margin: 0px;"><i style="font-size: 80px; opacity: 0.75;"class="material-icons top-button top-button-sights">explore</i></button>
+        <button style="opacity: 1; padding-top: 0px; margin: 0px;"><i style="font-size: 80px; opacity: 0.75;"class="material-icons top-button top-button-events">date_range</i></button>
+      </div>
+      <div id="hoverPlaceContainer" class="hoverPlaceContainer">
+        <div class="hoverPlaceInfo">
+        <strong><div class="hoverPlace" id="hoverPlace"></div></strong>
+      </div>
+      </div>
+      <div class="interest" id="interest">
+        <div class = "header">
+          <strong><h1 class="headerPlace" id="Place"></h1></strong>
+          <button class="closeButton" id="closeButton"><strong><i class="material-icons close" style="font-size:35px;">close</i></strong></button>
+          <div class="buttonContainer" id="Buttons">
+            <button class="selected" id="informationButton">Information</button>
+            <button id="sightsButton">Sights</button>
+            <button id="eventsButton">Events</button>
           </div>
         </div>
-      </body>
-    </html>
+        <div id="content" class="content">
+          <div id="information">
+            <div style="position: absolute;">               
+              <button id="readButton" style="opacity: 1; padding-top: 0px; margin: 0px;">
+                <strong><i class="material-icons read" style="font-size:40px;">play_arrow</i></strong>
+              </button>
+              <button style="opacity: 1; padding-top: 0px; display: none; margin: 0px;" id="pauseButton">
+                <strong><i class="material-icons pause" style="font-size:40px;">pause</i></strong>
+              </button>
+              <button style="opacity: 1; padding-top: 0px; display: none; margin: 0px;"id="stopButton">
+                <strong><i class="material-icons stop" style="font-size:40px;">stop</i></strong>
+              </button>
+            </div>
+            <div class="informationText" style="padding-top: 55px;" id="informationText" class="information"></div>
+            <div class="reference"><br/>(This information is a summary from <a id="reference" href='#' target="_blank">here</a>, generated using Gensim's Text Summarisation tool.)<br/><br/></a></div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5611.590767364586!2d-6.263978601676152!3d53.34387289316961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xedf3a4371fc7c913!2sVisit+Dublin!5e0!3m2!1sen!2sie!4v1512295831732" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+          <div id="sights" style="display: none; width: 100%; float: left; height: 100%;">
+            <ul id="dynamic-list" style="height: 100%; text-align: left; padding: 0px; margin: 0px"></ul>
+          </div>
+          <div id="events" style="display: none; width: 73%; float: left; height: 100%;">
+            <h2>Events</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
