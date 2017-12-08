@@ -95,4 +95,4 @@ window.onload = function() {
   pauseButton.onclick = () => { pause(); }
   const stopButton = document.getElementById('stopButton');
   stopButton.onclick = () => { stop(); }
-} 
+}

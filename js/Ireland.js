@@ -181,23 +181,12 @@ function render() {
   controls.update();
   requestAnimationFrame(render);
 
-
   if(INTERSECTED) {
     INTERSECTED.scale.y = 1.5;
   }
 
-
-  console.log(INTERSECTED);
-
-
-
-
   renderer.render(scene, camera);
 };
-
-
-
-
 
 document.addEventListener("mousemove", onMouseMove);
 document.addEventListener("mousedown", onMouseDown);
