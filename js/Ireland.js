@@ -49,7 +49,7 @@ function onMouseDown(event) {
       const reference = document.getElementById('reference');
 
       if(intersects[i].object.type != "Scene") {
-        console.log(intersects[i].object);
+      //  console.log(intersects[i].object);
         hoverPlace.innerText = "";
         document.getElementById("Map").style.opacity = "0.15";
         interestDiv.style.display="block";
@@ -135,12 +135,14 @@ function onMouseMove(event) {
     const intersects = raycaster.intersectObjects(scene.children);
 
     for (var i=0; i < intersects.length; i++) {
-      if(intersects[i].object != INTERSECTED ) {
+
+      if(intersects[i].object != INTERSECTED) {
 
         // restore previous intersection object (if it exists) to its original color
         if (INTERSECTED != null) { 
           INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex);
-          //hoverPlace.innerText = "";
+          INTERSECTED.scale.y = 1;
+          INTERSECTED = null;
         }
 
         // store reference to closest object as current intersection object
@@ -152,11 +154,10 @@ function onMouseMove(event) {
           // store color of closest object (for later restoration)
           INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
           // set a new color for closest object
-          INTERSECTED.material[0].color.setHex(0xffff00);
+          INTERSECTED.material[0].color.setHex(0xff2d2d);
           hoverPlace.innerText = INTERSECTED.name;
-          console.log(INTERSECTED);
+        //  console.log(INTERSECTED);
           hoverPlaceContainer.style.display = 'block';
-          INTERSECTED.translateY(0.01);
 
         } else {
           hoverPlaceContainer.style.display = 'none';
@@ -165,9 +166,9 @@ function onMouseMove(event) {
         // there are no intersections
         // restore previous intersection object (if it exists) to its original color
         if (INTERSECTED) {
-            INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
-                      hoverPlaceContainer.style.display = 'none';
-                     
+
+          INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
+          hoverPlaceContainer.style.display = 'none';         
         }
 
         INTERSECTED = null;
@@ -179,8 +180,24 @@ function onMouseMove(event) {
 function render() {
   controls.update();
   requestAnimationFrame(render);
+
+
+  if(INTERSECTED) {
+    INTERSECTED.scale.y = 1.5;
+  }
+
+
+  console.log(INTERSECTED);
+
+
+
+
   renderer.render(scene, camera);
 };
+
+
+
+
 
 document.addEventListener("mousemove", onMouseMove);
 document.addEventListener("mousedown", onMouseDown);
