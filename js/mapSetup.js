@@ -12,22 +12,22 @@ camera.position.z = 12;
 camera.position.y = -2
 
 
-loader.load('../res/Ireland.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
-    object.name = "Ireland";
-    object.type = "Scene";
-    object.rotation.x = 1;
-    directionalLight.target = object;
-    scene.add(object);
-  }
-);
+// loader.load('../res/Ireland.json', 
+//   function (geometry, materials) {
+//     const object = new THREE.Mesh(geometry, materials); // array
+//     object.name = "Ireland";
+//     object.type = "Scene";
+//     object.rotation.x = 1;
+//     directionalLight.target = object;
+//     scene.add(object);
+//   }
+// );
 
 loader.load('../res/corknew.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials); // array
-    object.name = "Sea";
-    object.type = "Scene";
+    object.name = "Cork";
+    object.type = "Place";
     object.rotation.x = 1;
     scene.add(object);
   }
@@ -112,6 +112,178 @@ loader.load('../res/roscommonnew.json',
     scene.add(object);
   }
 );
+
+loader.load('../res/leitrimnew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/longfordnew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/westmeathnew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/offalynew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/tipperarynew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/kilkennynew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/wexfordnew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/wicklownew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/laoisnew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/carlownew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/kildarenew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/meathnew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/dublinnew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/cavannew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/louthnew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/monaghannew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+loader.load('../res/ninew.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "clarenew";
+    object.type = "Scene";
+    object.rotation.x = 1;
+    scene.add(object);
+  }
+);
+
+
 
 
 

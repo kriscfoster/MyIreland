@@ -156,6 +156,7 @@ function onMouseMove(event) {
           hoverPlace.innerText = INTERSECTED.name;
           console.log(INTERSECTED);
           hoverPlaceContainer.style.display = 'block';
+          INTERSECTED.translateY(0.01);
 
         } else {
           hoverPlaceContainer.style.display = 'none';
