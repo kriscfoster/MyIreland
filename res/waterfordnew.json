@@ -17,7 +17,7 @@
         "wireframe":false,
         "blending":1,
         "depthWrite":true,
-        "colorDiffuse":[0,0.0263706,0.64],
+        "colorDiffuse":[0.00431378,0.639282,0.265181],
         "DbgIndex":0,
         "DbgColor":15658734
     }],
