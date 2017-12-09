@@ -22,7 +22,6 @@ canvas { vertical-align: bottom; }
 }
 
 .hoverPlaceContainer {
-  height: 100%;
   position: absolute;
   text-align: left;
   display: none;

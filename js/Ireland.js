@@ -29,95 +29,78 @@ function onWindowResize() {
 }
 
 function onMouseDown(event) {
-  // calculate mouse position in normalized coordinates
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-  raycaster.setFromCamera(mouse, camera);
+  if(INTERSECTED) {
+    const interestDiv = document.getElementById('interest');
+    const placeHeading = document.getElementById('Place');
+    const buttons = document.getElementById('Buttons');
+    const hoverPlace = document.getElementById('hoverPlace');
+    const reference = document.getElementById('reference');
 
-  // calculate objects intersecting the ray
-  const intersects = raycaster.intersectObjects(scene.children);
-
-  for (var i = 0; i < intersects.length; i++) {
-    if(intersects[i]) {
-      const interestDiv = document.getElementById('interest');
-      const placeHeading = document.getElementById('Place');
-      const information =document.getElementById('informationText');
-      const events =document.getElementById('events');
-      const sights =document.getElementById('sights');
-      const buttons = document.getElementById('Buttons');
-      const hoverPlace = document.getElementById('hoverPlace');
-      const reference = document.getElementById('reference');
-
-      if(intersects[i].object.type != "Scene") {
-      //  console.log(intersects[i].object);
-        hoverPlace.innerText = "";
-        document.getElementById("Map").style.opacity = "0.15";
-        interestDiv.style.display="block";
-        controls.enableZoom = false;
-        controls.enableRotate = false;
-        controls.enablePan = false;
-        placeHeading.innerHTML=intersects[i].object.name;
-        const ref = database.ref(intersects[i].object.name);
-        ref.once('value', gotData, errData);
-
-        if(intersects[i].object.type === "Place") {
-          buttons.style.display = "inline-block";
-        } else {
-          buttons.style.display = "none";
-        }
-      }
-
-      function gotData(data) {
-        data = data.val();
-        const text = data.Information.text;
-        const sentences = text.replace(/(\S\.)\s*([A-Z])/g, "$1\n\n$2");
-        information.innerText = sentences;
-        events.innerText = data.Events;
-        
-        var ul = document.getElementById("dynamic-list");
-
-        while(ul.firstChild){
-          ul.removeChild(ul.firstChild);
-        }
-
-        data.Sights.forEach(function(entry, index) {
-          var li, aLink, textDiv, imageDiv, name, image, title;
-          li = document.createElement("li");
-          li.id = index;
-          li.setAttribute('class', "sightsListItem");
-          aLink = document.createElement("a"); 
-          aLink.href = entry.link;       
-          aLink.target = "_blank";
-          textDiv = document.createElement("div");
-          textDiv.setAttribute('class', "sightsListItemInfo");
-          imageDiv = document.createElement("div");
-          imageDiv.setAttribute('class', "sightsListItemImageDiv");
-          name = document.createTextNode(entry.name);
-          image = document.createElement("img");
-          image.setAttribute('class', "sightsListItemImage");
-          image.src = entry.imageUrl;
-          title = document.createElement("div");
-          title.appendChild(name);
-          title.setAttribute('class', "sightsListItemTitle");
-          textDiv.appendChild(title);
-          imageDiv.appendChild(image);
-          aLink.appendChild(textDiv);
-          aLink.appendChild(imageDiv);
-          li.appendChild(aLink);
-          li.appendChild(aLink);
-          ul.appendChild(li);
-        });
-
-        if(data.Information.reference ) {
-          reference.href = data.Information.reference;
-        }
-      }
-
-      function errData(err) {
-        console.log(err);
-      }
+    if(INTERSECTED.type != "Scene") {
+      hoverPlace.innerText = "";
+      document.getElementById("Map").style.opacity = "0.15";
+      interestDiv.style.display="block";
+      controls.enableZoom = false;
+      controls.enableRotate = false;
+      controls.enablePan = false;
+      placeHeading.innerHTML=INTERSECTED.name;
+      const ref = database.ref(INTERSECTED.name);
+      ref.once('value', gotData, errData);
     }
   }
+}
+
+function gotData(data) {
+  data = data.val();
+  const information =document.getElementById('informationText');
+  const events =document.getElementById('events');
+  const sights =document.getElementById('sights');
+  const text = data.Information.text;
+  const sentences = text.replace(/(\S\.)\s*([A-Z])/g, "$1\n\n$2");
+  information.innerText = sentences;
+  events.innerText = data.Events;
+  
+  var ul = document.getElementById("dynamic-list");
+
+  while(ul.firstChild){
+    ul.removeChild(ul.firstChild);
+  }
+
+  data.Sights.forEach(function(entry, index) {
+    var li, aLink, textDiv, imageDiv, name, image, title;
+    li = document.createElement("li");
+    li.id = index;
+    li.setAttribute('class', "sightsListItem");
+    aLink = document.createElement("a"); 
+    aLink.href = entry.link;       
+    aLink.target = "_blank";
+    textDiv = document.createElement("div");
+    textDiv.setAttribute('class', "sightsListItemInfo");
+    imageDiv = document.createElement("div");
+    imageDiv.setAttribute('class', "sightsListItemImageDiv");
+    name = document.createTextNode(entry.name);
+    image = document.createElement("img");
+    image.setAttribute('class', "sightsListItemImage");
+    image.src = entry.imageUrl;
+    title = document.createElement("div");
+    title.appendChild(name);
+    title.setAttribute('class', "sightsListItemTitle");
+    textDiv.appendChild(title);
+    imageDiv.appendChild(image);
+    aLink.appendChild(textDiv);
+    aLink.appendChild(imageDiv);
+    li.appendChild(aLink);
+    li.appendChild(aLink);
+    ul.appendChild(li);
+  });
+
+  if(data.Information.reference ) {
+    reference.href = data.Information.reference;
+  }
+}
+
+function errData(err) {
+  console.log(err);
 }
 
 function onMouseMove(event) {
