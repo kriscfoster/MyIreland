@@ -141,7 +141,7 @@ function onMouseMove(event) {
         // restore previous intersection object (if it exists) to its original color
         if (INTERSECTED != null) { 
           INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex);
-          INTERSECTED.scale.y = 1;
+          INTERSECTED.position.y = 0;
           INTERSECTED = null;
         }
 
@@ -182,7 +182,7 @@ function render() {
   requestAnimationFrame(render);
 
   if(INTERSECTED) {
-    INTERSECTED.scale.y = 1.5;
+    INTERSECTED.position.y = 0.15;
   }
 
   renderer.render(scene, camera);
