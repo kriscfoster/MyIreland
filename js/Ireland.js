@@ -10,17 +10,35 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 var INTERSECTED = null;
 
-const firebaseConfig = {
-  apiKey: process.env.FB_API_KEY,
-  authDomain: process.env.FB_AUTH_DOMAIN,
-  databaseURL: process.env.FB_DATABASE_URL,
-  projectId: process.env.FB_PROJECT_ID,
-  storageBucket: process.env.FB_STORAGE_BUCKET,
-  messagingSenderId: process.env.FB_MESSAGING_SENDER_ID
-};
-
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+counties = [
+  {name: "Carlow"},
+  {name: "Cavan"},
+  {name: "Clare"},
+  {name: "Cork"},
+  {name: "Donegal"},
+  {name: "Dublin"},
+  {name: "Galway"},
+  {name: "Kerry"},
+  {name: "Kildare"},
+  {name: "Kilkenny"},
+  {name: "Laois"},
+  {name: "Leitrim"},
+  {name: "Limerick"},
+  {name: "Longford"},
+  {name: "Louth"},
+  {name: "Mayo"},
+  {name: "Meath"},
+  {name: "Monaghan"},
+  {name: "Offaly"},
+  {name: "Roscommon"},
+  {name: "Sligo"},
+  {name: "Tipperary"},
+  {name: "Waterford"},
+  {name: "Westmeath"},
+  {name: "Wexford"},
+  {name: "Wicklow"},
+  {name: "Northern Ireland"},
+];
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -35,6 +53,7 @@ function onMouseDown(event) {
     const buttons = document.getElementById('Buttons');
     const hoverPlace = document.getElementById('hoverPlace');
     const reference = document.getElementById('reference');
+    var li, link, textDiv, imageDiv, name, image, title;
 
     if(INTERSECTED.type != "Scene") {
       hoverPlace.innerText = "";
@@ -44,8 +63,71 @@ function onMouseDown(event) {
       controls.enableRotate = false;
       controls.enablePan = false;
       placeHeading.innerHTML=INTERSECTED.name;
-      const ref = database.ref(INTERSECTED.name);
-      ref.once('value', gotData, errData);
+
+      var sightsUl = document.getElementById("sights-dynamic-list");
+      var eventsUl = document.getElementById("events-dynamic-list");
+
+      while(sightsUl.firstChild){
+        sightsUl.removeChild(sightsUl.firstChild);
+      }
+
+      counties[0].sights.forEach(function(entry, index) {
+        li = document.createElement("li");
+        li.id = index;
+        li.setAttribute('class', "sightsListItem");
+        link = document.createElement("a"); 
+        link.href = entry.link;       
+        link.target = "_blank";
+        textDiv = document.createElement("div");
+        textDiv.setAttribute('class', "sightsListItemInfo");
+        imageDiv = document.createElement("div");
+        imageDiv.setAttribute('class', "sightsListItemImageDiv");
+        name = document.createTextNode(entry.name);
+        image = document.createElement("img");
+        image.setAttribute('class', "sightsListItemImage");
+        image.src = entry.imageUrl;
+        title = document.createElement("div");
+        title.appendChild(name);
+        title.setAttribute('class', "sightsListItemTitle");
+        textDiv.appendChild(title);
+        imageDiv.appendChild(image);
+        link.appendChild(textDiv);
+        link.appendChild(imageDiv);
+        li.appendChild(link);
+        li.appendChild(link);
+        sightsUl.appendChild(li);
+      });
+
+      while(eventsUl.firstChild){
+        eventsUl.removeChild(eventsUl.firstChild);
+      }
+
+      counties[0].events.forEach(function(entry, index) {
+        li = document.createElement("li");
+        li.id = index;
+        li.setAttribute('class', "sightsListItem");
+        link = document.createElement("a"); 
+        link.href = entry.link;       
+        link.target = "_blank";
+        textDiv = document.createElement("div");
+        textDiv.setAttribute('class', "sightsListItemInfo");
+        imageDiv = document.createElement("div");
+        imageDiv.setAttribute('class', "sightsListItemImageDiv");
+        name = document.createTextNode(entry.name);
+        image = document.createElement("img");
+        image.setAttribute('class', "sightsListItemImage");
+        image.src = entry.imageUrl;
+        title = document.createElement("div");
+        title.appendChild(name);
+        title.setAttribute('class', "sightsListItemTitle");
+        textDiv.appendChild(title);
+        imageDiv.appendChild(image);
+        link.appendChild(textDiv);
+        link.appendChild(imageDiv);
+        li.appendChild(link);
+        li.appendChild(link);
+        eventsUl.appendChild(li);
+      });
     }
   }
 }
