@@ -11,6 +11,8 @@ const eventbriteEventsRoute = "https://www.eventbriteapi.com/v3/events/search/";
 const eventbriteVenuesRoute = "https://www.eventbriteapi.com/v3/venues/";
 const eventbriteKey = "TPIDFBTICC5WWWGHWSLD";
 
+const defaultImgUrl = "http://chicagotonight.wttw.com/sites/default/files/styles/full/public/article/image-non-gallery/Spire%201.jpg?itok=AGKlcHuJ";
+
 const placeTypes = [
 	'amusement_park',
 	'aquarium',
@@ -24,31 +26,31 @@ const placeTypes = [
 const counties = [
 	"Carlow",
 	"Cavan",
-	"Clare",
-	"Cork",
-	"Donegal",
-	"Dublin",
-	"Galway",
-	"Kerry",
-	"Kildare",
-	"Kilkenny",
-	"Laois",
-	"Leitrim",
-	"Limerick",
-	"Longford",
-	"Louth",
-	"Mayo",
-	"Meath",
-	"Monaghan",
-	"Offaly",
-	"Roscommon",
-	"Sligo",
-	"Tipperary",
-	"Waterford",
-	"Westmeath",
-	"Wexford",
-	"Wicklow",
-	"Northern Ireland"
+	// "Clare",
+	// "Cork",
+	// "Donegal",
+	// "Dublin",
+	// "Galway",
+	// "Kerry",
+	// "Kildare",
+	// "Kilkenny",
+	// "Laois",
+	// "Leitrim",
+	// "Limerick",
+	// "Longford",
+	// "Louth",
+	// "Mayo",
+	// "Meath",
+	// "Monaghan",
+	// "Offaly",
+	// "Roscommon",
+	// "Sligo",
+	// "Tipperary",
+	// "Waterford",
+	// "Westmeath",
+	// "Wexford",
+	// "Wicklow",
+	// "Northern Ireland"
 ];
 
 const northernIrlandCounties = [
@@ -108,36 +110,38 @@ function getEventsForCounty(county) {
 	var event = {};
 
 	rp(path, function (error, response, body) {
-	  console.log('error:', error);
-	  console.log('statusCode:', response && response.statusCode);
-	  const parsedBody = JSON.parse(body);
-	  var itemsProcessed = 0;
+		console.log('error:', error);
+		console.log('statusCode:', response && response.statusCode);
+	  	const parsedBody = JSON.parse(body);
+	  	var itemsProcessed = 0;
 
-	  parsedBody.events.map((e) => {
-	  	rp(`${venuesRoute}${e.venue_id}/?token=${eventbriteKey}`, function (error, response, venueBody) {
-	  		var county;
-	  		parsedVenueBody = JSON.parse(venueBody);
+	  	if(statusCode === 200) {
+			parsedBody.events.map((e) => {
+				rp(`${eventbriteVenuesRoute}${e.venue_id}/?token=${eventbriteKey}`, function (error, response, venueBody) {
+					var county = "";
+					parsedVenueBody = JSON.parse(venueBody);
 
-		  	counties.map((c) => {
-		  		if(bodya.address.region) {
-			  		if(bodya.address.region.toLowerCase().includes(c.toLowerCase())) {
-			  			county = c;
-			  		}
-		  		}
-		  	});
+					counties.map((c) => {
+						if(venueBody.address) {
+							if(venueBody.address.region.toLowerCase().includes(c.toLowerCase())) {
+								county = c;
+							}
+						}
+					});
 
-		  	itemsProcessed++;
+					event.name = e.name.text;
+					event.description = e.description.text;
+					event.imageUrl = e.logo ? e.logo.original.url : defaultImgUrl;
+					event.county = county;
+					eventsForCounty.push(event);
+					itemsProcessed++;
 
-		  	if(county) {
-		  		event = { name: e.name.text, description: e.description.text, imageUrl: e.logo.original.url, county: county };
-		  		eventsForCounty.push(event);
-		  	}
-
-	  	    if(itemsProcessed === body.events.length) {
-	  	    	return eventsForCounty;
-			}
-	  	})
-	  });
+					if(itemsProcessed === parsedBody.events.length - 1) {
+						return eventsForCounty;
+					}
+				});
+			});
+		}
 	});
 }
 
@@ -147,19 +151,21 @@ function getEventsForEveryCounty() {
 
 	counties.map((county) => {
 		var newEvents = getEventsForCounty(county);
-		events.append(newEvents);
+		events.push(newEvents);
 
-		if(completedCounties === 25) {
-			writeUserData(events, "events");
+		if(completedCounties === counties.length - 1) {
+			console.log(events);
+			//writeUserData(events, "events");
 		}
 	})
 }
 
-
-
+getEventsForEveryCounty();
 
 function getAllSightsTypes() {
 	var sights = [];
+
+	var promises = [];
 
 	getSightsForType(placeTypes[0]).then(() => {
 		getSightsForType(placeTypes[1]).then(() => {
@@ -197,7 +203,7 @@ function getSightsForType(type) {
 		  		}
 		  	});
 
-		  	sight = { name: place.name, county: county, rating: 1, imageUrl: "http://chicagotonight.wttw.com/sites/default/files/styles/full/public/article/image-non-gallery/Spire%201.jpg?itok=AGKlcHuJ" };
+		  	sight = { name: place.name, county: county, rating: 1, imageUrl: defaultImgUrl };
 		  	sights.push(sight);
 		  });
 		})
