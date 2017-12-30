@@ -29,7 +29,7 @@ counties = {
   Mayo: { events: [], sights: [] },
   Meath: { events: [], sights: [] },
   Monaghan: { events: [], sights: [] },
-  Offally: { events: [], sights: [] },
+  Offaly: { events: [], sights: [] },
   Roscommon: { events: [], sights: [] },
   Sligo: { events: [], sights: [] },
   Tipperary: { events: [], sights: [] },
