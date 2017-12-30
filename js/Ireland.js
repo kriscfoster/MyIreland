@@ -10,35 +10,35 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 var INTERSECTED = null;
 
-counties = [
-  {name: "Carlow"},
-  {name: "Cavan"},
-  {name: "Clare"},
-  {name: "Cork"},
-  {name: "Donegal"},
-  {name: "Dublin"},
-  {name: "Galway"},
-  {name: "Kerry"},
-  {name: "Kildare"},
-  {name: "Kilkenny"},
-  {name: "Laois"},
-  {name: "Leitrim"},
-  {name: "Limerick"},
-  {name: "Longford"},
-  {name: "Louth"},
-  {name: "Mayo"},
-  {name: "Meath"},
-  {name: "Monaghan"},
-  {name: "Offaly"},
-  {name: "Roscommon"},
-  {name: "Sligo"},
-  {name: "Tipperary"},
-  {name: "Waterford"},
-  {name: "Westmeath"},
-  {name: "Wexford"},
-  {name: "Wicklow"},
-  {name: "Northern Ireland"},
-];
+counties = {
+  Carlow: { events: [], sights: [] },
+  Cavan: { events: [], sights: [] },
+  Clare: { events: [], sights: [] },
+  Cork: { events: [], sights: [] },
+  Donegal: { events: [], sights: [] },
+  Dublin: { events: [], sights: [] },
+  Galway: { events: [], sights: [] },
+  Kerry: { events: [], sights: [] },
+  Kildare: { events: [], sights: [] },
+  Kilkenny: { events: [], sights: [] },
+  Laois: { events: [], sights: [] },
+  Leitrim: { events: [], sights: [] },
+  Limerick: { events: [], sights: [] },
+  Longford: { events: [], sights: [] },
+  Louth: { events: [], sights: [] },
+  Mayo: { events: [], sights: [] },
+  Meath: { events: [], sights: [] },
+  Monaghan: { events: [], sights: [] },
+  Offally: { events: [], sights: [] },
+  Roscommon: { events: [], sights: [] },
+  Sligo: { events: [], sights: [] },
+  Tipperary: { events: [], sights: [] },
+  Waterford: { events: [], sights: [] },
+  Westmeath: { events: [], sights: [] },
+  Wexford: { events: [], sights: [] },
+  Wicklow: { events: [], sights: [] },
+  NorthernIreland: { events: [], sights: [] }
+};
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -71,7 +71,7 @@ function onMouseDown(event) {
         sightsUl.removeChild(sightsUl.firstChild);
       }
 
-      counties[0].sights.forEach(function(entry, index) {
+      counties[INTERSECTED.name].sights.forEach(function(entry, index) {
         li = document.createElement("li");
         li.id = index;
         li.setAttribute('class', "sightsListItem");
@@ -102,7 +102,7 @@ function onMouseDown(event) {
         eventsUl.removeChild(eventsUl.firstChild);
       }
 
-      counties[0].events.forEach(function(entry, index) {
+      counties[INTERSECTED.name].events.forEach(function(entry, index) {
         li = document.createElement("li");
         li.id = index;
         li.setAttribute('class', "sightsListItem");

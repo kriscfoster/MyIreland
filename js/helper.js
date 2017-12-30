@@ -114,9 +114,21 @@ window.onload = function() {
 
 function gotData(data) {
   data = data.val();
-  counties[0].sights = data.sights.data;
-  counties[0].events = data.events.data;
-  //console.log(counties);
+
+  data.events.data.map((e) => {
+    if(counties[e.county]) {
+      counties[e.county].events.push(e);
+    }
+  });
+
+  data.sights.data.map((e) => {
+    counties[e.county].sights.push(e);
+  });
+
+
+  //counties[0].sights = data.sights.data;
+  // counties[0].events = data.events.data;
+  console.log(counties);
 }
 
 function errData(err) {

@@ -1,5 +1,4 @@
 module.exports = {
-
 	counties : [
 		"Carlow",
 		"Cavan",
@@ -27,9 +26,8 @@ module.exports = {
 		"Westmeath",
 		"Wexford",
 		"Wicklow",
-		"Northern Ireland"
+		"NorthernIreland"
 	],
-
 	northernIrlandCounties : [
 		"Antrim",
 		"Armagh",
