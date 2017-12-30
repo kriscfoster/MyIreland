@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "npm run build && node server.js",
-    "build": "webpack"
+    "build": "webpack",
+    "update-events": "node lib/events.js"
   },
   "author": "Kris Foster",
   "license": "ISC",
