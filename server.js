@@ -26,31 +26,31 @@ const placeTypes = [
 const counties = [
 	"Carlow",
 	"Cavan",
-	// "Clare",
-	// "Cork",
-	// "Donegal",
-	// "Dublin",
-	// "Galway",
-	// "Kerry",
-	// "Kildare",
-	// "Kilkenny",
-	// "Laois",
-	// "Leitrim",
-	// "Limerick",
-	// "Longford",
-	// "Louth",
-	// "Mayo",
-	// "Meath",
-	// "Monaghan",
-	// "Offaly",
-	// "Roscommon",
-	// "Sligo",
-	// "Tipperary",
-	// "Waterford",
-	// "Westmeath",
-	// "Wexford",
-	// "Wicklow",
-	// "Northern Ireland"
+	"Clare",
+	"Cork",
+	"Donegal",
+	"Dublin",
+	"Galway",
+	"Kerry",
+	"Kildare",
+	"Kilkenny",
+	"Laois",
+	"Leitrim",
+	"Limerick",
+	"Longford",
+	"Louth",
+	"Mayo",
+	"Meath",
+	"Monaghan",
+	"Offaly",
+	"Roscommon",
+	"Sligo",
+	"Tipperary",
+	"Waterford",
+	"Westmeath",
+	"Wexford",
+	"Wicklow",
+	"Northern Ireland"
 ];
 
 const northernIrlandCounties = [
@@ -111,31 +111,23 @@ function getEventsForCounty(county) {
 
 	return new Promise((resolve, reject) => {
 		rp(path, function (error, response, body) {
-			if(error) {
-				return reject('error:', error);
-			}
-
 		  	const parsedBody = JSON.parse(body);
 
-		  	if(response.statusCode === 200) {
+		  	if (response.statusCode === 200) {
 		  		const events = parsedBody.events.slice(0,20);
 		  		var itemsProcessed = 0;
 
-		  		if(events.length === 0) {
+		  		if (events.length === 0) {
 		  			return resolve([]);
 		  		}
 
 				events.map((e) => {
 					rp(`${eventbriteVenuesRoute}${e.venue_id}/?token=${eventbriteKey}`, function (error, response, venueBody) {
-						
-						if(error) {
-							return reject('error:', error);
-						}
 
 						var countyName;
 						parsedVenueBody = JSON.parse(venueBody);
 					
-						if(parsedVenueBody.address) {
+						if (parsedVenueBody.address) {
 							if(parsedVenueBody.address.region) {
 								if(parsedVenueBody.address.region.toLowerCase().includes(county.toLowerCase())) {
 									countyName = county;
@@ -146,7 +138,7 @@ function getEventsForCounty(county) {
 						if(countyName) {
 							event = { 
 								name: e.name.text,
-								//description: e.description.text,
+								description: e.description.text,
 								imageUrl: e.logo ? e.logo.original.url : defaultImgUrl,
 								county: countyName
 							};
@@ -156,7 +148,7 @@ function getEventsForCounty(county) {
 						
 						itemsProcessed++;
 
-						if(itemsProcessed === events.length) {
+						if (itemsProcessed === events.length) {
 							return resolve(eventsForCounty);
 						}
 					})
@@ -196,12 +188,12 @@ function getEventsForEveryCounty() {
 					console.log("Failed to update events: ", error);
 				} else {
 					console.log("updated events")
-					console.log(`total events: ${events.length});
+					console.log(`total events: ${events.length}`);
 					writeUserData(events, "events");
 				}
 			}
-		})
-	})
+		});
+	});
 }
 
 getEventsForEveryCounty();
