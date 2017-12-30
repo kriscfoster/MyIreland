@@ -105,58 +105,102 @@ function writeUserData(data, location) {
 
 
 function getEventsForCounty(county) {
-	const path = `${eventbriteEventsRoute}?location.address=${county},Ireland&token=${eventbriteKey}`;
+	const path = `${eventbriteEventsRoute}?location.address=${county},Ireland&token=${eventbriteKey}&sort_by=date`;
 	var eventsForCounty = [];
 	var event = {};
 
-	rp(path, function (error, response, body) {
-		console.log('error:', error);
-		console.log('statusCode:', response && response.statusCode);
-	  	const parsedBody = JSON.parse(body);
-	  	var itemsProcessed = 0;
+	return new Promise((resolve, reject) => {
+		rp(path, function (error, response, body) {
+			if(error) {
+				return reject('error:', error);
+			}
 
-	  	if(statusCode === 200) {
-			parsedBody.events.map((e) => {
-				rp(`${eventbriteVenuesRoute}${e.venue_id}/?token=${eventbriteKey}`, function (error, response, venueBody) {
-					var county = "";
-					parsedVenueBody = JSON.parse(venueBody);
+		  	const parsedBody = JSON.parse(body);
 
-					counties.map((c) => {
-						if(venueBody.address) {
-							if(venueBody.address.region.toLowerCase().includes(c.toLowerCase())) {
-								county = c;
+		  	if(response.statusCode === 200) {
+		  		const events = parsedBody.events.slice(0,20);
+		  		var itemsProcessed = 0;
+
+		  		if(events.length === 0) {
+		  			return resolve([]);
+		  		}
+
+				events.map((e) => {
+					rp(`${eventbriteVenuesRoute}${e.venue_id}/?token=${eventbriteKey}`, function (error, response, venueBody) {
+						
+						if(error) {
+							return reject('error:', error);
+						}
+
+						var countyName;
+						parsedVenueBody = JSON.parse(venueBody);
+					
+						if(parsedVenueBody.address) {
+							if(parsedVenueBody.address.region) {
+								if(parsedVenueBody.address.region.toLowerCase().includes(county.toLowerCase())) {
+									countyName = county;
+								}
 							}
 						}
+
+						if(countyName) {
+							event = { 
+								name: e.name.text,
+								//description: e.description.text,
+								imageUrl: e.logo ? e.logo.original.url : defaultImgUrl,
+								county: countyName
+							};
+
+							eventsForCounty.push(event);
+						}
+						
+						itemsProcessed++;
+
+						if(itemsProcessed === events.length) {
+							return resolve(eventsForCounty);
+						}
+					})
+					.catch((err) => {
+						return reject(err.error);
 					});
-
-					event.name = e.name.text;
-					event.description = e.description.text;
-					event.imageUrl = e.logo ? e.logo.original.url : defaultImgUrl;
-					event.county = county;
-					eventsForCounty.push(event);
-					itemsProcessed++;
-
-					if(itemsProcessed === parsedBody.events.length - 1) {
-						return eventsForCounty;
-					}
 				});
-			});
-		}
-	});
+			}
+		})
+		.catch((err) => {
+			return reject(err.error);
+		})
+	})
 }
 
 function getEventsForEveryCounty() {
 	var events = [];
+	var eventNames = [];
 	var completedCounties = 0;
+	var error;
 
 	counties.map((county) => {
-		var newEvents = getEventsForCounty(county);
-		events.push(newEvents);
-
-		if(completedCounties === counties.length - 1) {
-			console.log(events);
-			//writeUserData(events, "events");
-		}
+		getEventsForCounty(county)
+		.then((newEvents) => {
+			console.log(`Got ${newEvents.length} events for ${county}`);
+			events = events.concat(newEvents);
+			completedCounties++;
+		})
+		.catch((err) => {
+			error = err;
+			console.log(`${county} - ${err}`);
+			completedCounties++;
+		})
+		.then(() => {
+			if(completedCounties === counties.length) {
+				if(error) {
+					console.log("Failed to update events: ", error);
+				} else {
+					console.log("updated events")
+					console.log(`total events: ${events.length});
+					writeUserData(events, "events");
+				}
+			}
+		})
 	})
 }
 
