@@ -3,12 +3,13 @@ const rp = require('request-promise');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT);
-const url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?';
-const key = 'AIzaSyC2t91Kl0Z0vlafB5xM3z8CGYLanQLRDOM';
-var sights = [];
-var events = [];
-var sight = {};
-var event = {};
+
+const googlePlacesRoute = 'https://maps.googleapis.com/maps/api/place/textsearch/json?';
+const googlePlacesKey = 'AIzaSyC2t91Kl0Z0vlafB5xM3z8CGYLanQLRDOM';
+
+const eventbriteEventsRoute = "https://www.eventbriteapi.com/v3/events/search/";
+const eventbriteVenuesRoute = "https://www.eventbriteapi.com/v3/venues/";
+const eventbriteKey = "TPIDFBTICC5WWWGHWSLD";
 
 const placeTypes = [
 	'amusement_park',
@@ -59,14 +60,6 @@ const northernIrlandCounties = [
 	"Tyrone",
 ];
 
-const pathA = `${url}region=ie&type=${placeTypes[0]}&key=${key}`;
-const pathB = `${url}region=ie&type=${placeTypes[1]}&key=${key}`;
-const pathC = `${url}region=ie&type=${placeTypes[2]}&key=${key}`;
-const pathD = `${url}region=ie&type=${placeTypes[3]}&key=${key}`;
-const pathE = `${url}region=ie&type=${placeTypes[4]}&key=${key}`;
-const pathF = `${url}region=ie&type=${placeTypes[5]}&key=${key}`;
-const pathG = `${url}region=ie&type=${placeTypes[6]}&key=${key}`;
-
 const firebaseConfig = {
   apiKey: process.env.FB_API_KEY,
   authDomain: process.env.FB_AUTH_DOMAIN,
@@ -86,35 +79,95 @@ function writeUserData(data, location) {
   });
 }
 
-function writeEvents() {
-	const b = "http://api.eventful.com/json/events/search?app_key=SFdqgfDLvpk62fwL&location=Cavan&date=Future";
-	rp(b, function (error, response, body) {
-	  console.log('error:', error); // Print the error if one occurred
-	  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-	  body = JSON.parse(body);
+// function writeEvents() {
+// 	const b = "http://api.eventful.com/json/events/search?app_key=SFdqgfDLvpk62fwL&location=Cavan&date=Future";
+// 	rp(b, function (error, response, body) {
+// 	  console.log('error:', error); // Print the error if one occurred
+// 	  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+// 	  body = JSON.parse(body);
 
-	  body.events.event.map((e) => {
-	  	event = {};
-	  	event.name = e.title;
-	  	event.description = e.description;
-	  	event.venue = e.venue_name;
-	  	event.time = e.start_time;
-	  	events.push(event);
+// 	  body.events.event.map((e) => {
+// 	  	event = {};
+// 	  	event.name = e.title;
+// 	  	event.description = e.description;
+// 	  	event.venue = e.venue_name;
+// 	  	event.time = e.start_time;
+// 	  	events.push(event);
+// 	  });
+
+// 	  console.log(events);
+// 	  writeUserData(events, "events");
+// 	});
+// }
+
+
+
+function getEventsForCounty(county) {
+	const path = `${eventbriteEventsRoute}?location.address=${county},Ireland&token=${eventbriteKey}`;
+	var eventsForCounty = [];
+	var event = {};
+
+	rp(path, function (error, response, body) {
+	  console.log('error:', error);
+	  console.log('statusCode:', response && response.statusCode);
+	  const parsedBody = JSON.parse(body);
+	  var itemsProcessed = 0;
+
+	  parsedBody.events.map((e) => {
+	  	rp(`${venuesRoute}${e.venue_id}/?token=${eventbriteKey}`, function (error, response, venueBody) {
+	  		var county;
+	  		parsedVenueBody = JSON.parse(venueBody);
+
+		  	counties.map((c) => {
+		  		if(bodya.address.region) {
+			  		if(bodya.address.region.toLowerCase().includes(c.toLowerCase())) {
+			  			county = c;
+			  		}
+		  		}
+		  	});
+
+		  	itemsProcessed++;
+
+		  	if(county) {
+		  		event = { name: e.name.text, description: e.description.text, imageUrl: e.logo.original.url, county: county };
+		  		eventsForCounty.push(event);
+		  	}
+
+	  	    if(itemsProcessed === body.events.length) {
+	  	    	return eventsForCounty;
+			}
+	  	})
 	  });
-
-	  console.log(events);
-	  writeUserData(events, "events");
 	});
 }
 
-function writeSights() {
-	makeRequest(pathA).then(() => {
-		makeRequest(pathB).then(() => {
-			makeRequest(pathC).then(() => {
-				makeRequest(pathD).then(() => {
-					makeRequest(pathE).then(() => {
-						makeRequest(pathF).then(() => {
-							makeRequest(pathG).then(() => {
+function getEventsForEveryCounty() {
+	var events = [];
+	var completedCounties = 0;
+
+	counties.map((county) => {
+		var newEvents = getEventsForCounty(county);
+		events.append(newEvents);
+
+		if(completedCounties === 25) {
+			writeUserData(events, "events");
+		}
+	})
+}
+
+
+
+
+function getAllSightsTypes() {
+	var sights = [];
+
+	getSightsForType(placeTypes[0]).then(() => {
+		getSightsForType(placeTypes[1]).then(() => {
+			getSightsForType(placeTypes[2]).then(() => {
+				getSightsForType(placeTypes[3]).then(() => {
+					getSightsForType(placeTypes[4]).then(() => {
+						getSightsForType(placeTypes[5]).then(() => {
+							getSightsForType(placeTypes[6]).then(() => {
 								console.log(sights);
 								writeUserData(sights, "sights");
 							});
@@ -126,8 +179,10 @@ function writeSights() {
 	});
 }
 
-function makeRequest(path) {
+function getSightsForType(type) {
 	var county;
+	var sight = {};
+	var path = `${googlePlacesRoute}region=ie&type=${type}&key=${googlePlacesKey}`;
 
 	return (
 		rp(path, function (error, response, body) {
@@ -136,7 +191,6 @@ function makeRequest(path) {
 		  body = JSON.parse(body);
 
 		  body.results.map((place, index) => {
-
 		  	counties.map((c) => {
 		  		if(place.formatted_address.toLowerCase().includes(c.toLowerCase())) {
 		  			county = c;
