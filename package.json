@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm run build && node server.js",
     "build": "webpack",
-    "update-events": "node lib/events.js"
+    "update-events": "node lib/events.js",
+    "update-sights": "node lib/sights.js"
   },
   "author": "Kris Foster",
   "license": "ISC",

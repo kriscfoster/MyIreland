@@ -122,13 +122,10 @@ function gotData(data) {
   });
 
   data.sights.data.map((e) => {
-    counties[e.county].sights.push(e);
+    if(counties[e.county]) {
+      counties[e.county].sights.push(e);
+    }
   });
-
-
-  //counties[0].sights = data.sights.data;
-  // counties[0].events = data.events.data;
-  console.log(counties);
 }
 
 function errData(err) {
