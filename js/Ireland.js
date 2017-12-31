@@ -53,7 +53,7 @@ function onMouseDown(event) {
     const buttons = document.getElementById('Buttons');
     const hoverPlace = document.getElementById('hoverPlace');
     const reference = document.getElementById('reference');
-    var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date;
+    var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars;
 
     if(INTERSECTED.type != "Scene") {
       hoverPlace.innerText = "";
@@ -83,13 +83,24 @@ function onMouseDown(event) {
         imageDiv = document.createElement("div");
         imageDiv.setAttribute('class', "sightsListItemImageDiv");
         name = document.createTextNode(entry.name);
+
+        var stars = Math.round(entry.rating);
+
+
+        stars = document.createTextNode(entry.rating + "\u{272D}".repeat(Math.round(entry.rating)));
         image = document.createElement("img");
         image.setAttribute('class', "sightsListItemImage");
         image.src = entry.imageUrl;
         title = document.createElement("div");
         title.appendChild(name);
         title.setAttribute('class', "sightsListItemTitle");
+
+        starsDiv = document.createElement("div");
+        starsDiv.appendChild(stars);
+        starsDiv.setAttribute('class', "sightsListItemStars");
+
         textDiv.appendChild(title);
+        textDiv.appendChild(starsDiv);
         imageDiv.appendChild(image);
         link.appendChild(textDiv);
         link.appendChild(imageDiv);

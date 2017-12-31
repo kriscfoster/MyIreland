@@ -253,6 +253,18 @@ button:hover { opacity: 0.95 }
   text-overflow: ellipsis;
 }
 
+.sightsListItemStars {
+  color: #ff9800;
+  font-size: 20px;
+  float: left;
+  vertical-align: top;
+  padding-top: 0px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .sightsListItemInfo {
   width: 65%;
   height: 100%;
