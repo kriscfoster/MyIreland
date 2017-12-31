@@ -95,4 +95,39 @@ window.onload = function() {
   pauseButton.onclick = () => { pause(); }
   const stopButton = document.getElementById('stopButton');
   stopButton.onclick = () => { stop(); }
+
+  const firebaseConfig = {
+    apiKey: process.env.FB_API_KEY,
+    authDomain: process.env.FB_AUTH_DOMAIN,
+    databaseURL: process.env.FB_DATABASE_URL,
+    projectId: process.env.FB_PROJECT_ID,
+    storageBucket: process.env.FB_STORAGE_BUCKET,
+    messagingSenderId: process.env.FB_MESSAGING_SENDER_ID
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+  const ref = database.ref();
+  ref.once('value', gotData, errData);
+}
+
+
+function gotData(data) {
+  data = data.val();
+
+  data.events.data.map((e) => {
+    if(counties[e.county]) {
+      counties[e.county].events.push(e);
+    }
+  });
+
+  data.sights.data.map((e) => {
+    if(counties[e.county]) {
+      counties[e.county].sights.push(e);
+    }
+  });
+}
+
+function errData(err) {
+  console.log(err);
 }

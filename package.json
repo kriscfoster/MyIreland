@@ -5,13 +5,18 @@
   "main": "server.js",
   "scripts": {
     "start": "npm run build && node server.js",
-    "build": "webpack"
+    "build": "webpack",
+    "update-events": "node lib/events.js",
+    "update-sights": "node lib/sights.js"
   },
   "author": "Kris Foster",
   "license": "ISC",
   "dependencies": {
     "babel-core": "^6.26.0",
     "express": "^4.16.2",
+    "firebase": "^4.8.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
     "webpack": "^3.8.1"
   }
 }

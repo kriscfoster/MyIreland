@@ -10,17 +10,35 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 var INTERSECTED = null;
 
-const firebaseConfig = {
-  apiKey: process.env.FB_API_KEY,
-  authDomain: process.env.FB_AUTH_DOMAIN,
-  databaseURL: process.env.FB_DATABASE_URL,
-  projectId: process.env.FB_PROJECT_ID,
-  storageBucket: process.env.FB_STORAGE_BUCKET,
-  messagingSenderId: process.env.FB_MESSAGING_SENDER_ID
+counties = {
+  Carlow: { events: [], sights: [] },
+  Cavan: { events: [], sights: [] },
+  Clare: { events: [], sights: [] },
+  Cork: { events: [], sights: [] },
+  Donegal: { events: [], sights: [] },
+  Dublin: { events: [], sights: [] },
+  Galway: { events: [], sights: [] },
+  Kerry: { events: [], sights: [] },
+  Kildare: { events: [], sights: [] },
+  Kilkenny: { events: [], sights: [] },
+  Laois: { events: [], sights: [] },
+  Leitrim: { events: [], sights: [] },
+  Limerick: { events: [], sights: [] },
+  Longford: { events: [], sights: [] },
+  Louth: { events: [], sights: [] },
+  Mayo: { events: [], sights: [] },
+  Meath: { events: [], sights: [] },
+  Monaghan: { events: [], sights: [] },
+  Offaly: { events: [], sights: [] },
+  Roscommon: { events: [], sights: [] },
+  Sligo: { events: [], sights: [] },
+  Tipperary: { events: [], sights: [] },
+  Waterford: { events: [], sights: [] },
+  Westmeath: { events: [], sights: [] },
+  Wexford: { events: [], sights: [] },
+  Wicklow: { events: [], sights: [] },
+  NorthernIreland: { events: [], sights: [] }
 };
-
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -35,6 +53,7 @@ function onMouseDown(event) {
     const buttons = document.getElementById('Buttons');
     const hoverPlace = document.getElementById('hoverPlace');
     const reference = document.getElementById('reference');
+    var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date;
 
     if(INTERSECTED.type != "Scene") {
       hoverPlace.innerText = "";
@@ -44,8 +63,86 @@ function onMouseDown(event) {
       controls.enableRotate = false;
       controls.enablePan = false;
       placeHeading.innerHTML=INTERSECTED.name;
-      const ref = database.ref(INTERSECTED.name);
-      ref.once('value', gotData, errData);
+
+      var sightsUl = document.getElementById("sights-dynamic-list");
+      var eventsUl = document.getElementById("events-dynamic-list");
+
+      while(sightsUl.firstChild){
+        sightsUl.removeChild(sightsUl.firstChild);
+      }
+
+      counties[INTERSECTED.name].sights.forEach(function(entry, index) {
+        li = document.createElement("li");
+        li.id = index;
+        li.setAttribute('class', "sightsListItem");
+        link = document.createElement("a"); 
+        link.href = entry.link;       
+        link.target = "_blank";
+        textDiv = document.createElement("div");
+        textDiv.setAttribute('class', "sightsListItemInfo");
+        imageDiv = document.createElement("div");
+        imageDiv.setAttribute('class', "sightsListItemImageDiv");
+        name = document.createTextNode(entry.name);
+        image = document.createElement("img");
+        image.setAttribute('class', "sightsListItemImage");
+        image.src = entry.imageUrl;
+        title = document.createElement("div");
+        title.appendChild(name);
+        title.setAttribute('class', "sightsListItemTitle");
+        textDiv.appendChild(title);
+        imageDiv.appendChild(image);
+        link.appendChild(textDiv);
+        link.appendChild(imageDiv);
+        li.appendChild(link);
+        li.appendChild(link);
+        sightsUl.appendChild(li);
+      });
+
+      while(eventsUl.firstChild){
+        eventsUl.removeChild(eventsUl.firstChild);
+      }
+
+      counties[INTERSECTED.name].events.forEach(function(entry, index) {
+        li = document.createElement("li");
+        li.id = index;
+        li.setAttribute('class', "sightsListItem");
+        link = document.createElement("a"); 
+        link.href = entry.link;       
+        link.target = "_blank";
+        textDiv = document.createElement("div");
+        textDiv.setAttribute('class', "sightsListItemInfo");
+        imageDiv = document.createElement("div");
+        imageDiv.setAttribute('class', "sightsListItemImageDiv");
+        name = document.createTextNode(entry.name);
+        description = document.createTextNode(entry.description);
+        date = document.createTextNode("11/12/18");
+        image = document.createElement("img");
+        image.setAttribute('class', "sightsListItemImage");
+        image.src = entry.imageUrl;
+
+        title = document.createElement("div");
+        title.appendChild(name);
+        title.setAttribute('class', "sightsListItemTitle");
+
+        dateDiv = document.createElement("div");
+        dateDiv.appendChild(date);
+        dateDiv.setAttribute('class', "sightsListItemTitle");
+
+        descriptionDiv = document.createElement("div");
+        descriptionDiv.appendChild(description);
+        descriptionDiv.setAttribute('class', "sightsListItemTitle");
+
+        textDiv.appendChild(title);
+        textDiv.appendChild(dateDiv);
+
+        textDiv.appendChild(descriptionDiv);
+        imageDiv.appendChild(image);
+        link.appendChild(textDiv);
+        link.appendChild(imageDiv);
+        li.appendChild(link);
+        li.appendChild(link);
+        eventsUl.appendChild(li);
+      });
     }
   }
 }
