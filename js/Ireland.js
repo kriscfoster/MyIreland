@@ -83,10 +83,6 @@ function onMouseDown(event) {
         imageDiv = document.createElement("div");
         imageDiv.setAttribute('class', "sightsListItemImageDiv");
         name = document.createTextNode(entry.name);
-
-        var stars = Math.round(entry.rating);
-
-
         stars = document.createTextNode(entry.rating + "\u{272D}".repeat(Math.round(entry.rating)));
         image = document.createElement("img");
         image.setAttribute('class', "sightsListItemImage");
@@ -94,11 +90,9 @@ function onMouseDown(event) {
         title = document.createElement("div");
         title.appendChild(name);
         title.setAttribute('class', "sightsListItemTitle");
-
         starsDiv = document.createElement("div");
         starsDiv.appendChild(stars);
         starsDiv.setAttribute('class', "sightsListItemStars");
-
         textDiv.appendChild(title);
         textDiv.appendChild(starsDiv);
         imageDiv.appendChild(image);
@@ -145,8 +139,8 @@ function onMouseDown(event) {
 
         textDiv.appendChild(title);
         textDiv.appendChild(dateDiv);
-
         textDiv.appendChild(descriptionDiv);
+        
         imageDiv.appendChild(image);
         link.appendChild(textDiv);
         link.appendChild(imageDiv);
