@@ -123,7 +123,7 @@ function onMouseDown(event) {
         name = document.createTextNode(entry.name);
         description = document.createTextNode(entry.description);
         // var dateString = moment(entry.time).format("ddd, MMM Do HH:mm");
-        date = document.createTextNode(moment(entry.time).format("ddd, MMM D h:mm A"));
+        date = document.createTextNode(moment(entry.time).format("ddd, MMM D h:mmA"));
         image = document.createElement("img");
         image.setAttribute('class', "sightsListItemImage");
         image.src = entry.imageUrl;
