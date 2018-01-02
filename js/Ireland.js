@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 scene = new THREE.Scene();
 renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
 camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
@@ -120,7 +122,8 @@ function onMouseDown(event) {
         imageDiv.setAttribute('class', "sightsListItemImageDiv");
         name = document.createTextNode(entry.name);
         description = document.createTextNode(entry.description);
-        date = document.createTextNode("11/12/18");
+        // var dateString = moment(entry.time).format("ddd, MMM Do HH:mm");
+        date = document.createTextNode(moment(entry.time).format("ddd, MMM D h:mm A"));
         image = document.createElement("img");
         image.setAttribute('class', "sightsListItemImage");
         image.src = entry.imageUrl;
@@ -162,39 +165,6 @@ function gotData(data) {
   information.innerText = sentences;
   events.innerText = data.Events;
   
-  var ul = document.getElementById("dynamic-list");
-
-  while(ul.firstChild){
-    ul.removeChild(ul.firstChild);
-  }
-
-  data.Sights.forEach(function(entry, index) {
-    var li, aLink, textDiv, imageDiv, name, image, title;
-    li = document.createElement("li");
-    li.id = index;
-    li.setAttribute('class', "sightsListItem");
-    aLink = document.createElement("a"); 
-    aLink.href = entry.link;       
-    aLink.target = "_blank";
-    textDiv = document.createElement("div");
-    textDiv.setAttribute('class', "sightsListItemInfo");
-    imageDiv = document.createElement("div");
-    imageDiv.setAttribute('class', "sightsListItemImageDiv");
-    name = document.createTextNode(entry.name);
-    image = document.createElement("img");
-    image.setAttribute('class', "sightsListItemImage");
-    image.src = entry.imageUrl;
-    title = document.createElement("div");
-    title.appendChild(name);
-    title.setAttribute('class', "sightsListItemTitle");
-    textDiv.appendChild(title);
-    imageDiv.appendChild(image);
-    aLink.appendChild(textDiv);
-    aLink.appendChild(imageDiv);
-    li.appendChild(aLink);
-    li.appendChild(aLink);
-    ul.appendChild(li);
-  });
 
   if(data.Information.reference ) {
     reference.href = data.Information.reference;
