@@ -47,8 +47,11 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
+globalObject = {
+onMouseDown:function(event) {
 
-function onMouseDown(event) {
+  console.log(event);
+
   if(INTERSECTED) {
     const interestDiv = document.getElementById('interest');
     const placeHeading = document.getElementById('Place');
@@ -60,6 +63,7 @@ function onMouseDown(event) {
     if(INTERSECTED.type != "Scene") {
       hoverPlace.innerText = "";
       document.getElementById("Map").style.opacity = "0.15";
+      console.log("remove event listener");
       interestDiv.style.display="block";
       controls.enableZoom = false;
       controls.enableRotate = false;
@@ -114,7 +118,7 @@ function onMouseDown(event) {
         li.id = index;
         li.setAttribute('class', "sightsListItem");
         link = document.createElement("a"); 
-        link.href = entry.link;       
+        link.href = entry.url;       
         link.target = "_blank";
         textDiv = document.createElement("div");
         textDiv.setAttribute('class', "sightsListItemInfo");
@@ -123,7 +127,7 @@ function onMouseDown(event) {
         name = document.createTextNode(entry.name);
         description = document.createTextNode(entry.description);
         // var dateString = moment(entry.time).format("ddd, MMM Do HH:mm");
-        date = document.createTextNode(moment(entry.time).format("ddd, MMM D h:mmA"));
+        date = document.createTextNode(moment(entry.time).format("ddd, MMM D h:mmA").toUpperCase());
         image = document.createElement("img");
         image.setAttribute('class', "sightsListItemImage");
         image.src = entry.imageUrl;
@@ -134,11 +138,11 @@ function onMouseDown(event) {
 
         dateDiv = document.createElement("div");
         dateDiv.appendChild(date);
-        dateDiv.setAttribute('class', "sightsListItemTitle");
+        dateDiv.setAttribute('class', "sightsListItemTime");
 
         descriptionDiv = document.createElement("div");
         descriptionDiv.appendChild(description);
-        descriptionDiv.setAttribute('class', "sightsListItemTitle");
+        descriptionDiv.setAttribute('class', "sightsListItemDescription");
 
         textDiv.appendChild(title);
         textDiv.appendChild(dateDiv);
@@ -153,6 +157,9 @@ function onMouseDown(event) {
       });
     }
   }
+
+  document.removeEventListener("mousedown", globalObject.onMouseDown);
+}
 }
 
 function gotData(data) {
@@ -244,7 +251,7 @@ function render() {
 };
 
 document.addEventListener("mousemove", onMouseMove);
-document.addEventListener("mousedown", onMouseDown);
+document.addEventListener("mousedown", globalObject.onMouseDown);
 window.addEventListener('resize', onWindowResize);
 
 render();

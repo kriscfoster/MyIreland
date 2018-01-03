@@ -1,4 +1,5 @@
 function closeInterest() {
+  document.addEventListener("mousedown", globalObject.onMouseDown);
   document.getElementById("Map").style.opacity = "1";
   document.getElementById("interest").style.display="none";
   document.getElementById("information").style.display="block";
