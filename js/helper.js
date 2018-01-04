@@ -1,5 +1,5 @@
 function closeInterest() {
-  document.addEventListener("mousedown", globalObject.onMouseDown);
+  window.addEventListener("mousedown", globalObject.onMouseDown);
   document.getElementById("Map").style.opacity = "1";
   document.getElementById("interest").style.display="none";
   document.getElementById("information").style.display="block";
@@ -81,7 +81,6 @@ function stop() {
 }
 
 window.onload = function() {
-  document.body.appendChild(renderer.domElement);
   const closeButton = document.getElementById('closeButton');
   closeButton.onclick = () => { closeInterest(); }
   const informationButton = document.getElementById('informationButton');
@@ -127,6 +126,8 @@ function gotData(data) {
       counties[e.county].sights.push(e);
     }
   });
+
+  document.body.appendChild(renderer.domElement);
 }
 
 function errData(err) {
