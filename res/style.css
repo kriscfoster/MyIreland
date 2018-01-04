@@ -223,13 +223,14 @@ button:hover { opacity: 0.95 }
 .sightsListItem {
   list-style-type: none;
   box-shadow:0 4px 10px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
-  height: 25%;
+  height: 30%;
   width: 47%;
   display: inline-block;
   text-align: left;
   background-color: white;
   margin-bottom: 10px;
   margin-left: 2%;
+  z-index: 5;
 }
 
 .sightsListItem:hover {
@@ -242,8 +243,8 @@ button:hover { opacity: 0.95 }
 }
 
 .sightsListItemTitle {
-  color: #222;
-  font-size: 24px;
+  color: #000000de;
+  font-size: 22px;
   float: left;
   vertical-align: top;
   padding-top: 10px;
@@ -255,10 +256,10 @@ button:hover { opacity: 0.95 }
 
 .sightsListItemStars {
   color: #ff9800;
-  font-size: 20px;
+  font-size: 21px;
   float: left;
   vertical-align: top;
-  padding-top: 0px;
+  padding-top: 10px;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -279,4 +280,28 @@ button:hover { opacity: 0.95 }
   width: 30%;
   overflow: hidden;
   text-align: right;
+}
+
+.sightsListItemTime {
+  color: #ff9800;
+  font-size: 20px;
+  float: left;
+  vertical-align: top;
+  padding-top: 10px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sightsListItemDescription {
+  color: #000000b8;
+  font-size: 20px;
+  float: left;
+  vertical-align: top;
+  padding-top: 10px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

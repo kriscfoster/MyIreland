@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 scene = new THREE.Scene();
 renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
 camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
@@ -46,109 +48,114 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function onMouseDown(event) {
-  if(INTERSECTED) {
-    const interestDiv = document.getElementById('interest');
-    const placeHeading = document.getElementById('Place');
-    const buttons = document.getElementById('Buttons');
-    const hoverPlace = document.getElementById('hoverPlace');
-    const reference = document.getElementById('reference');
-    var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars;
+globalObject = {
+  onMouseDown:function(event) {
+    if(INTERSECTED) {
+      const interestDiv = document.getElementById('interest');
+      const placeHeading = document.getElementById('Place');
+      const buttons = document.getElementById('Buttons');
+      const hoverPlace = document.getElementById('hoverPlace');
+      const reference = document.getElementById('reference');
+      var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars;
 
-    if(INTERSECTED.type != "Scene") {
-      hoverPlace.innerText = "";
-      document.getElementById("Map").style.opacity = "0.15";
-      interestDiv.style.display="block";
-      controls.enableZoom = false;
-      controls.enableRotate = false;
-      controls.enablePan = false;
-      placeHeading.innerHTML=INTERSECTED.name;
+      if(INTERSECTED.type != "Scene") {
+        hoverPlace.innerText = "";
+        document.getElementById("Map").style.opacity = "0.15";
+        interestDiv.style.display="block";
+        controls.enableZoom = false;
+        controls.enableRotate = false;
+        controls.enablePan = false;
+        placeHeading.innerHTML=INTERSECTED.name;
 
-      var sightsUl = document.getElementById("sights-dynamic-list");
-      var eventsUl = document.getElementById("events-dynamic-list");
+        var sightsUl = document.getElementById("sights-dynamic-list");
+        var eventsUl = document.getElementById("events-dynamic-list");
 
-      while(sightsUl.firstChild){
-        sightsUl.removeChild(sightsUl.firstChild);
+        while(sightsUl.firstChild){
+          sightsUl.removeChild(sightsUl.firstChild);
+        }
+
+        counties[INTERSECTED.name].sights.forEach(function(entry, index) {
+          li = document.createElement("li");
+          li.id = index;
+          li.setAttribute('class', "sightsListItem");
+          link = document.createElement("a"); 
+          link.href = entry.url;       
+          link.target = "_blank";
+          textDiv = document.createElement("div");
+          textDiv.setAttribute('class', "sightsListItemInfo");
+          imageDiv = document.createElement("div");
+          imageDiv.setAttribute('class', "sightsListItemImageDiv");
+          name = document.createTextNode(entry.name);
+          stars = document.createTextNode(entry.rating + "\u{272D}".repeat(Math.round(entry.rating)));
+          image = document.createElement("img");
+          image.setAttribute('class', "sightsListItemImage");
+          image.src = entry.imageUrl;
+          title = document.createElement("div");
+          title.appendChild(name);
+          title.setAttribute('class', "sightsListItemTitle");
+          starsDiv = document.createElement("div");
+          starsDiv.appendChild(stars);
+          starsDiv.setAttribute('class', "sightsListItemStars");
+          textDiv.appendChild(title);
+          textDiv.appendChild(starsDiv);
+          imageDiv.appendChild(image);
+          link.appendChild(textDiv);
+          link.appendChild(imageDiv);
+          li.appendChild(link);
+          li.appendChild(link);
+          sightsUl.appendChild(li);
+        });
+
+        while(eventsUl.firstChild){
+          eventsUl.removeChild(eventsUl.firstChild);
+        }
+
+        counties[INTERSECTED.name].events.forEach(function(entry, index) {
+          li = document.createElement("li");
+          li.id = index;
+          li.setAttribute('class', "sightsListItem");
+          link = document.createElement("a"); 
+          link.href = entry.url;       
+          link.target = "_blank";
+          textDiv = document.createElement("div");
+          textDiv.setAttribute('class', "sightsListItemInfo");
+          imageDiv = document.createElement("div");
+          imageDiv.setAttribute('class', "sightsListItemImageDiv");
+          name = document.createTextNode(entry.name);
+          description = document.createTextNode(entry.description);
+          // var dateString = moment(entry.time).format("ddd, MMM Do HH:mm");
+          date = document.createTextNode(moment(entry.time).format("ddd, MMM D h:mmA").toUpperCase());
+          image = document.createElement("img");
+          image.setAttribute('class', "sightsListItemImage");
+          image.src = entry.imageUrl;
+
+          title = document.createElement("div");
+          title.appendChild(name);
+          title.setAttribute('class', "sightsListItemTitle");
+
+          dateDiv = document.createElement("div");
+          dateDiv.appendChild(date);
+          dateDiv.setAttribute('class', "sightsListItemTime");
+
+          descriptionDiv = document.createElement("div");
+          descriptionDiv.appendChild(description);
+          descriptionDiv.setAttribute('class', "sightsListItemDescription");
+
+          textDiv.appendChild(title);
+          textDiv.appendChild(dateDiv);
+          textDiv.appendChild(descriptionDiv);
+          
+          imageDiv.appendChild(image);
+          link.appendChild(textDiv);
+          link.appendChild(imageDiv);
+          li.appendChild(link);
+          li.appendChild(link);
+          eventsUl.appendChild(li);
+        });
       }
-
-      counties[INTERSECTED.name].sights.forEach(function(entry, index) {
-        li = document.createElement("li");
-        li.id = index;
-        li.setAttribute('class', "sightsListItem");
-        link = document.createElement("a"); 
-        link.href = entry.link;       
-        link.target = "_blank";
-        textDiv = document.createElement("div");
-        textDiv.setAttribute('class', "sightsListItemInfo");
-        imageDiv = document.createElement("div");
-        imageDiv.setAttribute('class', "sightsListItemImageDiv");
-        name = document.createTextNode(entry.name);
-        stars = document.createTextNode(entry.rating + "\u{272D}".repeat(Math.round(entry.rating)));
-        image = document.createElement("img");
-        image.setAttribute('class', "sightsListItemImage");
-        image.src = entry.imageUrl;
-        title = document.createElement("div");
-        title.appendChild(name);
-        title.setAttribute('class', "sightsListItemTitle");
-        starsDiv = document.createElement("div");
-        starsDiv.appendChild(stars);
-        starsDiv.setAttribute('class', "sightsListItemStars");
-        textDiv.appendChild(title);
-        textDiv.appendChild(starsDiv);
-        imageDiv.appendChild(image);
-        link.appendChild(textDiv);
-        link.appendChild(imageDiv);
-        li.appendChild(link);
-        li.appendChild(link);
-        sightsUl.appendChild(li);
-      });
-
-      while(eventsUl.firstChild){
-        eventsUl.removeChild(eventsUl.firstChild);
-      }
-
-      counties[INTERSECTED.name].events.forEach(function(entry, index) {
-        li = document.createElement("li");
-        li.id = index;
-        li.setAttribute('class', "sightsListItem");
-        link = document.createElement("a"); 
-        link.href = entry.link;       
-        link.target = "_blank";
-        textDiv = document.createElement("div");
-        textDiv.setAttribute('class', "sightsListItemInfo");
-        imageDiv = document.createElement("div");
-        imageDiv.setAttribute('class', "sightsListItemImageDiv");
-        name = document.createTextNode(entry.name);
-        description = document.createTextNode(entry.description);
-        date = document.createTextNode("11/12/18");
-        image = document.createElement("img");
-        image.setAttribute('class', "sightsListItemImage");
-        image.src = entry.imageUrl;
-
-        title = document.createElement("div");
-        title.appendChild(name);
-        title.setAttribute('class', "sightsListItemTitle");
-
-        dateDiv = document.createElement("div");
-        dateDiv.appendChild(date);
-        dateDiv.setAttribute('class', "sightsListItemTitle");
-
-        descriptionDiv = document.createElement("div");
-        descriptionDiv.appendChild(description);
-        descriptionDiv.setAttribute('class', "sightsListItemTitle");
-
-        textDiv.appendChild(title);
-        textDiv.appendChild(dateDiv);
-        textDiv.appendChild(descriptionDiv);
-        
-        imageDiv.appendChild(image);
-        link.appendChild(textDiv);
-        link.appendChild(imageDiv);
-        li.appendChild(link);
-        li.appendChild(link);
-        eventsUl.appendChild(li);
-      });
     }
+
+    window.removeEventListener("mousedown", globalObject.onMouseDown);
   }
 }
 
@@ -162,39 +169,6 @@ function gotData(data) {
   information.innerText = sentences;
   events.innerText = data.Events;
   
-  var ul = document.getElementById("dynamic-list");
-
-  while(ul.firstChild){
-    ul.removeChild(ul.firstChild);
-  }
-
-  data.Sights.forEach(function(entry, index) {
-    var li, aLink, textDiv, imageDiv, name, image, title;
-    li = document.createElement("li");
-    li.id = index;
-    li.setAttribute('class', "sightsListItem");
-    aLink = document.createElement("a"); 
-    aLink.href = entry.link;       
-    aLink.target = "_blank";
-    textDiv = document.createElement("div");
-    textDiv.setAttribute('class', "sightsListItemInfo");
-    imageDiv = document.createElement("div");
-    imageDiv.setAttribute('class', "sightsListItemImageDiv");
-    name = document.createTextNode(entry.name);
-    image = document.createElement("img");
-    image.setAttribute('class', "sightsListItemImage");
-    image.src = entry.imageUrl;
-    title = document.createElement("div");
-    title.appendChild(name);
-    title.setAttribute('class', "sightsListItemTitle");
-    textDiv.appendChild(title);
-    imageDiv.appendChild(image);
-    aLink.appendChild(textDiv);
-    aLink.appendChild(imageDiv);
-    li.appendChild(aLink);
-    li.appendChild(aLink);
-    ul.appendChild(li);
-  });
 
   if(data.Information.reference ) {
     reference.href = data.Information.reference;
@@ -273,8 +247,8 @@ function render() {
   renderer.render(scene, camera);
 };
 
-document.addEventListener("mousemove", onMouseMove);
-document.addEventListener("mousedown", onMouseDown);
+window.addEventListener("mousemove", onMouseMove);
+window.addEventListener("mousedown", globalObject.onMouseDown);
 window.addEventListener('resize', onWindowResize);
 
 render();
