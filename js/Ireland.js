@@ -50,6 +50,7 @@ function onWindowResize() {
 
 globalObject = {
   onMouseDown:function(event) {
+    console.log(event);
     if(INTERSECTED) {
       const interestDiv = document.getElementById('interest');
       const placeHeading = document.getElementById('Place');
@@ -62,6 +63,7 @@ globalObject = {
         hoverPlace.innerText = "";
         document.getElementById("Map").style.opacity = "0.15";
         interestDiv.style.display="block";
+        window.removeEventListener("mousedown", globalObject.onMouseDown);
         controls.enableZoom = false;
         controls.enableRotate = false;
         controls.enablePan = false;
@@ -154,8 +156,6 @@ globalObject = {
         });
       }
     }
-
-    window.removeEventListener("mousedown", globalObject.onMouseDown);
   }
 }
 
