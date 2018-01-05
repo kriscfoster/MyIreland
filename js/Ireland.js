@@ -155,7 +155,6 @@ globalObject = {
       }
     }
 
-    console.log(event);
     window.removeEventListener("mousedown", globalObject.onMouseDown);
   }
 }
@@ -183,8 +182,8 @@ function errData(err) {
 function onMouseMove(event) {
   const interestDiv = document.getElementById('interest');
   const hoverPlace = document.getElementById('hoverPlace');
-    const hoverPlaceSights = document.getElementById('hoverPlaceSights');
-        const hoverPlaceEvents = document.getElementById('hoverPlaceEvents');
+  const hoverPlaceSights = document.getElementById('hoverPlaceSights');
+  const hoverPlaceEvents = document.getElementById('hoverPlaceEvents');
   const hoverPlaceContainer = document.getElementById('hoverPlaceContainer');
 
   if(interestDiv.style.display != 'block') {
