@@ -1,5 +1,11 @@
 # MyIreland
-![screen shot 2017-12-08 at 22 49 39](https://user-images.githubusercontent.com/17026751/33788537-d73bf90e-dc6a-11e7-9b3f-952ceb8b676e.png)
+
+<img width="70%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/34599107-a1bd8bba-f1e8-11e7-9b16-e5badaf4be66.png">
+
+<img width="70%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/34599111-a2c8b8f4-f1e8-11e7-9776-9a63f870e7fd.png">
+
+<img width="70%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/34599113-a4a24618-f1e8-11e7-873f-d8be830a5a5c.png">
+
 ## Project Specification
 ### General Information:
 
