@@ -182,6 +182,8 @@ function errData(err) {
 function onMouseMove(event) {
   const interestDiv = document.getElementById('interest');
   const hoverPlace = document.getElementById('hoverPlace');
+  const hoverPlaceSights = document.getElementById('hoverPlaceSights');
+  const hoverPlaceEvents = document.getElementById('hoverPlaceEvents');
   const hoverPlaceContainer = document.getElementById('hoverPlaceContainer');
 
   if(interestDiv.style.display != 'block') {
@@ -215,7 +217,8 @@ function onMouseMove(event) {
           // set a new color for closest object
           INTERSECTED.material[0].color.setHex(0xff2d2d);
           hoverPlace.innerText = INTERSECTED.name;
-        //  console.log(INTERSECTED);
+          hoverPlaceSights.innerText = `${counties[INTERSECTED.name].sights.length} Sights`;
+          hoverPlaceEvents.innerText = `${counties[INTERSECTED.name].events.length} Nearby Events`;
           hoverPlaceContainer.style.display = 'block';
 
         } else {

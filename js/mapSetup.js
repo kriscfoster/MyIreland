@@ -75,7 +75,7 @@ loader.load('../res/galway.json',
 loader.load('../res/northernIreland.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials); // array
-    object.name = "Northern Ireland";
+    object.name = "NorthernIreland";
     object.type = "Place";
     object.rotation.x = 1;
     scene.add(object);

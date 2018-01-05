@@ -38,6 +38,8 @@ canvas { vertical-align: bottom; }
 
 .hoverPlace { font-size: 40px; }
 
+.hoverPlaceOther { font-size: 20px; }
+
 .interest {
   border-radius: 8px;
   color: black;
