@@ -304,3 +304,13 @@ loader.load('../res/monaghan.json',
     scene.add(object);
   }
 );
+
+loader.load('../res/donegal.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.rotation.x = 1;
+    object.name = "Donegal";
+    object.type = "Place";
+    scene.add(object);
+  }
+);
