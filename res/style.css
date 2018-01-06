@@ -2,7 +2,7 @@ body {
   height: 100%;
   margin: 0px;
   text-align: center;
-  font-family: "Bree Serif",serif;
+  font-family: sans-serif;
   background-color: #f3f8ff;
   color: white;
   background: #24C6DC; /* For browsers that do not support gradients */
@@ -28,7 +28,7 @@ canvas { vertical-align: bottom; }
 }
 
 .hoverPlaceInfo {
-  font-family: Comic Sans MS, Comic Sans, cursive;
+  font-family: sans-serif;
   color: black;
   padding: 10px;
   border-radius: 10px;
@@ -112,7 +112,7 @@ h1 {
 button {
   -webkit-transition-duration: 0.1s; /* Safari */
   transition-duration: 0.1s; /* Non Safari */
-  font-family: "Bree Serif",serif;
+  font-family: sans-serif;
   font-size:30px;
   background-color: transparent;
   z-index: 2;
