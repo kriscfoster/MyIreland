@@ -8,8 +8,9 @@ controls.maxDistance = 20;
 controls.minDistance = 4;
 scene.add(hemisphereLight)
 // scene.add(directionalLight);
-camera.position.z = 12;
-camera.position.y = -2
+camera.position.y = 3.9209337130532576;
+camera.position.x = 0;
+camera.position.z = 12.40092912677439;
 
 loader.load('../res/sea.json', 
   function (geometry, materials) {
