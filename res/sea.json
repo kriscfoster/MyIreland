@@ -26,7 +26,7 @@
         "wireframe":false,
         "DbgName":"Material.008",
         "blending":1,
-        "opacity":0.6,
+        "opacity":0.5,
         "shading":"phong",
         "DbgIndex":0,
         "DbgColor":15658734
