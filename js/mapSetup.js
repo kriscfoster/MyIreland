@@ -1,5 +1,5 @@
 const loader = new THREE.JSONLoader();
-const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x0808dd, 1.3);
+const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x0808dd, 1.5);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
 
 renderer.domElement.id = 'Map';
@@ -7,9 +7,10 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 controls.maxDistance = 20;
 controls.minDistance = 4;
 scene.add(hemisphereLight)
-scene.add(directionalLight);
-camera.position.z = 12;
-camera.position.y = -2
+// scene.add(directionalLight);
+camera.position.y = 3.9209337130532576;
+camera.position.x = 0;
+camera.position.z = 12.40092912677439;
 
 loader.load('../res/sea.json', 
   function (geometry, materials) {

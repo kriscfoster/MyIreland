@@ -4,8 +4,6 @@ scene = new THREE.Scene();
 renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
 camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 controls = new THREE.OrbitControls(camera);
-controls.target.y -= 0.8;
-controls.target.z = 2;
 require("./helper.js");
 require("./mapSetup.js");
 const raycaster = new THREE.Raycaster();
@@ -50,6 +48,7 @@ function onWindowResize() {
 
 globalObject = {
   onMouseDown:function(event) {
+    console.log(event);
     if(INTERSECTED) {
       const interestDiv = document.getElementById('interest');
       const placeHeading = document.getElementById('Place');
@@ -62,6 +61,7 @@ globalObject = {
         hoverPlace.innerText = "";
         document.getElementById("Map").style.opacity = "0.15";
         interestDiv.style.display="block";
+        window.removeEventListener("mousedown", globalObject.onMouseDown);
         controls.enableZoom = false;
         controls.enableRotate = false;
         controls.enablePan = false;
@@ -86,7 +86,7 @@ globalObject = {
           imageDiv = document.createElement("div");
           imageDiv.setAttribute('class', "sightsListItemImageDiv");
           name = document.createTextNode(entry.name);
-          stars = document.createTextNode(entry.rating + "\u{272D}".repeat(Math.round(entry.rating)));
+          stars = entry.rating > 0 ? document.createTextNode(entry.rating + "\u{272D}".repeat(Math.round(entry.rating))) : document.createTextNode("");
           image = document.createElement("img");
           image.setAttribute('class', "sightsListItemImage");
           image.src = entry.imageUrl;
@@ -154,8 +154,6 @@ globalObject = {
         });
       }
     }
-
-    window.removeEventListener("mousedown", globalObject.onMouseDown);
   }
 }
 
@@ -215,7 +213,7 @@ function onMouseMove(event) {
           // store color of closest object (for later restoration)
           INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
           // set a new color for closest object
-          INTERSECTED.material[0].color.setHex(0xff2d2d);
+          INTERSECTED.material[0].color.setHex(0x40f7ee);
           hoverPlace.innerText = INTERSECTED.name;
           hoverPlaceSights.innerText = `${counties[INTERSECTED.name].sights.length} Sights`;
           hoverPlaceEvents.innerText = `${counties[INTERSECTED.name].events.length} Nearby Events`;
@@ -244,7 +242,7 @@ function render() {
   requestAnimationFrame(render);
 
   if(INTERSECTED) {
-    INTERSECTED.position.y = 0.15;
+    INTERSECTED.position.y = 0.2;
   }
 
   renderer.render(scene, camera);
