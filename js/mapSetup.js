@@ -31,15 +31,15 @@ loader.load('../res/Sun.json',
   }
 );
 
-// loader.load('../res/myIreland.json', 
-//   function (geometry, materials) {
-//     const object = new THREE.Mesh(geometry, materials);
-//     object.rotation.x = 1;
-//     object.name = "The Giants Causeway";
-//     object.type = "Scene";
-//     scene.add(object);
-//   }
-// );
+loader.load('../res/myIreland.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.rotation.x = 1;
+    object.name = "The Giants Causeway";
+    object.type = "Scene";
+    scene.add(object);
+  }
+);
 
 loader.load('../res/dublin.json', 
   function (geometry, materials) {
