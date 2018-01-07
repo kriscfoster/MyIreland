@@ -1,6 +1,6 @@
 # MyIreland
 
-<img width="70%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/34599107-a1bd8bba-f1e8-11e7-9b16-e5badaf4be66.png">
+<img width="70%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/34648762-50160182-f398-11e7-9d73-a8fa1546ad46.png">
 
 <img width="70%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/34599111-a2c8b8f4-f1e8-11e7-9776-9a63f870e7fd.png">
 
