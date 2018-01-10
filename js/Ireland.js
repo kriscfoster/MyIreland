@@ -4,11 +4,6 @@ scene = new THREE.Scene();
 renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
 camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 controls = new THREE.OrbitControls(camera);
-require("./helper.js");
-require("./mapSetup.js");
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-var INTERSECTED = null;
 
 counties = {
   Carlow: { events: [], sights: [] },
@@ -39,6 +34,12 @@ counties = {
   Wicklow: { events: [], sights: [] },
   NorthernIreland: { events: [], sights: [] }
 };
+
+require("./helper.js");
+require("./mapSetup.js");
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+var INTERSECTED = null;
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
