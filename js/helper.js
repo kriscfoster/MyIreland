@@ -127,6 +127,49 @@ function gotData(data) {
     }
   });
 
+// var collisionBoxes = [];
+
+// for(var i=0; i< 60; i++) {
+//   console.log(i);
+//   var geometry = new THREE.CylinderGeometry( 1, 1, 0.5, 32 );
+//   var material = new THREE.MeshBasicMaterial({color: 0xfffff, wireframe: false});
+//   THREE.ImageUtils.crossOrigin = '';
+
+//   const random = Math.floor(Math.random() * (counties.Dublin.sights.length - 1));
+
+//   var materials = [
+//     new THREE.MeshBasicMaterial({color: 0xfffff, wireframe: false}),
+//      new THREE.MeshLambertMaterial({
+//          map: THREE.ImageUtils.loadTexture(counties.Dublin.sights[random].imageUrl)
+//      }),
+//   ];
+
+//   var cube = new THREE.Mesh(geometry, materials);
+//   cubetype = "Scene";
+//   cube.rotation.y = 1;
+//   cube.position.x = Math.random() * 40 - 20;
+//   cube.position.z = Math.random() * 20 - 10;
+//   scene.add(cube);
+//   bb = new THREE.Box3().setFromObject(cube);
+//   var collide = false;
+
+//   if(collisionBoxes.length < 1) {
+//     collisionBoxes.push(bb);
+//   } else {
+//     for(var j=0; j<collisionBoxes.length; j++) {
+//       if(bb.isIntersectionBox(collisionBoxes[j])) {
+//         collide = true;
+//       }
+//     }
+
+//     if(collide === true) {
+//       scene.remove(cube);
+//     } else {
+//       collisionBoxes.push(bb);
+//     }
+//   }
+// }
+
   document.body.appendChild(renderer.domElement);
 }
 
