@@ -7,33 +7,53 @@ import os
 counties_info = json.load(open('../res/counties_info.json'))
 
 counties = {
-	"cavan": {
+	"Cavan": {
 		"link": counties_info["cavan"]["link"], 
 		"summary": summarize(counties_info["cavan"]["text"], ratio = 0.5) 
 	},
-	"monaghan": {
+	"Monaghan": {
 		"link": counties_info["monaghan"]["link"], 
 		"summary": summarize(counties_info["monaghan"]["text"], ratio = 0.5) 
 	},
-	"louth": {
+	"Louth": {
 		"link": counties_info["louth"]["link"], 
 		"summary": summarize(counties_info["louth"]["text"], ratio = 0.5) 
 	},
-	"meath": {
+	"Meath": {
 		"link": counties_info["meath"]["link"], 
 		"summary": summarize(counties_info["meath"]["text"], ratio = 0.5) 
 	},
-	"westmeath": {
+	"Westmeath": {
 		"link": counties_info["westmeath"]["link"], 
 		"summary": summarize(counties_info["westmeath"]["text"], ratio = 0.5) 
 	},
-	"donegal": {
+	"Donegal": {
 		"link": counties_info["donegal"]["link"], 
 		"summary": summarize(counties_info["donegal"]["text"], ratio = 0.5) 
 	},
-	"leitrim": {
+	"Leitrim": {
 		"link": counties_info["leitrim"]["link"], 
 		"summary": summarize(counties_info["leitrim"]["text"], ratio = 0.5) 
+	},
+	"Carlow": {
+		"link": counties_info["carlow"]["link"], 
+		"summary": summarize(counties_info["carlow"]["text"], ratio = 0.5) 
+	},
+	"Clare": {
+		"link": counties_info["clare"]["link"], 
+		"summary": summarize(counties_info["clare"]["text"], ratio = 0.5) 
+	},
+	"Cork": {
+		"link": counties_info["cork"]["link"], 
+		"summary": summarize(counties_info["cork"]["text"], ratio = 0.5) 
+	},
+	"Dublin": {
+		"link": counties_info["cork"]["link"], 
+		"summary": summarize(counties_info["dublin"]["text"], ratio = 0.5) 
+	},
+	"Galway": {
+		"link": counties_info["galway"]["link"], 
+		"summary": summarize(counties_info["galway"]["text"], ratio = 0.5) 
 	}
 }
 
