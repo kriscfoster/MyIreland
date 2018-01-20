@@ -127,8 +127,6 @@ function gotData(data) {
     }
   });
 
-  console.log("aaa");
-
   for(var key in data.counties) {
     if (counties[key]) {
       counties[key].information = data.counties[key];

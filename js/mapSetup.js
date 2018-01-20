@@ -8,9 +8,9 @@ controls.maxDistance = 30;
 controls.minDistance = 4;
 scene.add(hemisphereLight)
 //scene.add(directionalLight);
-camera.position.y = 3.9209337130532576;
+camera.position.y = 12.605131600565837;
 camera.position.x = 0;
-camera.position.z = 12.40092912677439;
+camera.position.z = 3.204281779409495;
 
 
 loader.load('../res/sea.json', 
@@ -18,7 +18,6 @@ loader.load('../res/sea.json',
     const object = new THREE.Mesh(geometry, materials); // array
     object.name = "Sea";
     object.type = "Scene";
-    // object.rotation.x = 1;
     scene.add(object);
   }
 );
@@ -26,7 +25,6 @@ loader.load('../res/sea.json',
 loader.load('../res/Sun.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Historic Sight";
     object.type = "Scene";
     scene.add(object);
@@ -36,7 +34,6 @@ loader.load('../res/Sun.json',
 loader.load('../res/IrelandLabel.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "The Giants Causeway";
     object.type = "Scene";
     scene.add(object);
@@ -46,7 +43,6 @@ loader.load('../res/IrelandLabel.json',
 loader.load('../res/dublin.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Dublin";
     object.type = "Place";
     scene.add(object);
@@ -58,7 +54,6 @@ loader.load('../res/cork.json',
     const object = new THREE.Mesh(geometry, materials); // array
     object.name = "Cork";
     object.type = "Place";
-    // object.rotation.x = 1;
     object.direction = 0.005;
     scene.add(object);
   }
@@ -69,7 +64,6 @@ loader.load('../res/galway.json',
     const object = new THREE.Mesh(geometry, materials); // array
     object.name = "Galway";
     object.type = "Place";
-    // object.rotation.x = 1;
     scene.add(object);
   }
 );
@@ -79,7 +73,6 @@ loader.load('../res/northernIreland.json',
     const object = new THREE.Mesh(geometry, materials); // array
     object.name = "NorthernIreland";
     object.type = "Place";
-    // object.rotation.x = 1;
     scene.add(object);
   }
 );
@@ -87,7 +80,6 @@ loader.load('../res/northernIreland.json',
 loader.load('../res/kerry.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Kerry";
     object.type = "Place";
         object.direction = 0.005;
@@ -98,7 +90,6 @@ loader.load('../res/kerry.json',
 loader.load('../res/limerick.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Limerick";
     object.type = "Place";
      object.direction = 0.005;
@@ -109,7 +100,6 @@ loader.load('../res/limerick.json',
 loader.load('../res/clare.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Clare";
     object.type = "Place";
      object.direction = 0.005;
@@ -120,7 +110,6 @@ loader.load('../res/clare.json',
 loader.load('../res/tipperary.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Tipperary";
     object.type = "Place";
     scene.add(object);
@@ -130,7 +119,6 @@ loader.load('../res/tipperary.json',
 loader.load('../res/waterford.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Waterford";
     object.type = "Place";
     scene.add(object);
@@ -140,7 +128,6 @@ loader.load('../res/waterford.json',
 loader.load('../res/wexford.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Wexford";
     object.type = "Place";
     scene.add(object);
@@ -150,7 +137,6 @@ loader.load('../res/wexford.json',
 loader.load('../res/kilkenny.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Kilkenny";
     object.type = "Place";
     scene.add(object);
@@ -160,7 +146,6 @@ loader.load('../res/kilkenny.json',
 loader.load('../res/carlow.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Carlow";
     object.type = "Place";
     scene.add(object);
@@ -170,7 +155,6 @@ loader.load('../res/carlow.json',
 loader.load('../res/wicklow.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Wicklow";
     object.type = "Place";
     scene.add(object);
@@ -180,7 +164,6 @@ loader.load('../res/wicklow.json',
 loader.load('../res/laois.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Laois";
     object.type = "Place";
     scene.add(object);
@@ -190,7 +173,6 @@ loader.load('../res/laois.json',
 loader.load('../res/kildare.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Kildare";
     object.type = "Place";
     scene.add(object);
@@ -200,7 +182,6 @@ loader.load('../res/kildare.json',
 loader.load('../res/offaly.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Offaly";
     object.type = "Place";
     scene.add(object);
@@ -210,7 +191,6 @@ loader.load('../res/offaly.json',
 loader.load('../res/westmeath.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Westmeath";
     object.type = "Place";
     scene.add(object);
@@ -220,7 +200,6 @@ loader.load('../res/westmeath.json',
 loader.load('../res/meath.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Meath";
     object.type = "Place";
     scene.add(object);
@@ -230,7 +209,6 @@ loader.load('../res/meath.json',
 loader.load('../res/louth.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Louth";
     object.type = "Place";
     scene.add(object);
@@ -240,7 +218,6 @@ loader.load('../res/louth.json',
 loader.load('../res/longford.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Longford";
     object.type = "Place";
     scene.add(object);
@@ -250,7 +227,6 @@ loader.load('../res/longford.json',
 loader.load('../res/roscommon.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Roscommon";
     object.type = "Place";
     scene.add(object);
@@ -260,7 +236,6 @@ loader.load('../res/roscommon.json',
 loader.load('../res/leitrim.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Leitrim";
     object.type = "Place";
     scene.add(object);
@@ -270,7 +245,6 @@ loader.load('../res/leitrim.json',
 loader.load('../res/sligo.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Sligo";
     object.type = "Place";
     scene.add(object);
@@ -280,7 +254,6 @@ loader.load('../res/sligo.json',
 loader.load('../res/mayo.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Mayo";
     object.type = "Place";
     scene.add(object);
@@ -290,7 +263,6 @@ loader.load('../res/mayo.json',
 loader.load('../res/cavan.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Cavan";
     object.type = "Place";
     scene.add(object);
@@ -300,7 +272,6 @@ loader.load('../res/cavan.json',
 loader.load('../res/monaghan.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Monaghan";
     object.type = "Place";
     scene.add(object);
@@ -310,7 +281,6 @@ loader.load('../res/monaghan.json',
 loader.load('../res/donegal.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    // object.rotation.x = 1;
     object.name = "Donegal";
     object.type = "Place";
     scene.add(object);

@@ -166,10 +166,6 @@ globalObject = {
   }
 }
 
-function errData(err) {
-  console.log(err);
-}
-
 function onMouseMove(event) {
   const interestDiv = document.getElementById('interest');
   const hoverPlace = document.getElementById('hoverPlace');
@@ -217,9 +213,7 @@ function onMouseMove(event) {
         }
       } else {
         // there are no intersections
-        // restore previous intersection object (if it exists) to its original color
         if (INTERSECTED) {
-
           INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
           hoverPlaceContainer.style.display = 'none';         
         }

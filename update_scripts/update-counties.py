@@ -54,6 +54,34 @@ counties = {
 	"Galway": {
 		"link": counties_info["galway"]["link"], 
 		"summary": summarize(counties_info["galway"]["text"], ratio = 0.5) 
+	},
+	"Kerry": {
+		"link": counties_info["kerry"]["link"], 
+		"summary": summarize(counties_info["kerry"]["text"], ratio = 0.5) 
+	},
+	"Kildare": {
+		"link": counties_info["kildare"]["link"], 
+		"summary": summarize(counties_info["kildare"]["text"], ratio = 0.5) 
+	},
+	"Kilkenny": {
+		"link": counties_info["kilkenny"]["link"], 
+		"summary": summarize(counties_info["kilkenny"]["text"], ratio = 0.5) 
+	},
+	"Laois": {
+		"link": counties_info["laois"]["link"], 
+		"summary": summarize(counties_info["laois"]["text"], ratio = 0.5) 
+	},
+	"Limerick": {
+		"link": counties_info["limerick"]["link"], 
+		"summary": summarize(counties_info["limerick"]["text"], ratio = 0.5) 
+	},
+	"Longford": {
+		"link": counties_info["longford"]["link"], 
+		"summary": summarize(counties_info["longford"]["text"], ratio = 0.5) 
+	}
+	"Mayo": {
+		"link": counties_info["mayo"]["link"], 
+		"summary": summarize(counties_info["mayo"]["text"], ratio = 0.5) 
 	}
 }
 
