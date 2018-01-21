@@ -225,13 +225,11 @@ button:hover { opacity: 0.95 }
 .sightsListItem {
   list-style-type: none;
   box-shadow:0 4px 10px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
-  height: 30%;
-  width: 47%;
+  height: 175px;
+  width: 45%;
   display: inline-block;
   text-align: left;
   background-color: white;
-  margin-bottom: 10px;
-  margin-left: 2%;
   z-index: 5;
 }
 
@@ -306,4 +304,14 @@ button:hover { opacity: 0.95 }
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.events-dynamic-list {
+  text-align: center;
+  padding: 0px;
+}
+
+.sights-dynamic-list {
+  text-align: center;
+  padding: 0px;
 }

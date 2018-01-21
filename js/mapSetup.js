@@ -22,7 +22,7 @@ loader.load('../res/sea.json',
   }
 );
 
-loader.load('../res/Sun.json', 
+loader.load('../res/sun.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = "Historic Sight";
@@ -31,11 +31,11 @@ loader.load('../res/Sun.json',
   }
 );
 
-loader.load('../res/IrelandLabel.json', 
+loader.load('../res/irelandLabel.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    object.name = "The Giants Causeway";
-    object.type = "Scene";
+    object.name = "Ireland Label";
+    object.type = "Label";
     scene.add(object);
   }
 );

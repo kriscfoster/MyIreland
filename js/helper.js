@@ -133,7 +133,13 @@ function gotData(data) {
     }
   }
 
+// console.log(scene);
 
+// scene.children.forEach((child) => {
+//   if (child.type != 'Scene' && child.type != 'HemisphereLight') {
+//     child.visible = false;
+//   }
+// })
 
 // var collisionBoxes = [];
 
