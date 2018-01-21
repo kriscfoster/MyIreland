@@ -202,7 +202,7 @@ function onMouseMove(event) {
           // store color of closest object (for later restoration)
           INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
           // set a new color for closest object
-          INTERSECTED.material[0].color.setHex(0x40f7ee);
+          INTERSECTED.material[0].color.setHex(0xffffff);
           hoverPlace.innerText = INTERSECTED.name;
           hoverPlaceSights.innerText = `${counties[INTERSECTED.name].sights.length} Sights`;
           hoverPlaceEvents.innerText = `${counties[INTERSECTED.name].events.length} Nearby Events`;
