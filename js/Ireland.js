@@ -49,7 +49,6 @@ function onWindowResize() {
 
 globalObject = {
   onMouseDown:function(event) {
-    console.log(event);
     if(INTERSECTED) {
       const interestDiv = document.getElementById('interest');
       const placeHeading = document.getElementById('Place');
@@ -71,9 +70,6 @@ globalObject = {
         var sightsUl = document.getElementById("sights-dynamic-list");
         var eventsUl = document.getElementById("events-dynamic-list");
         const information =document.getElementById('informationText');
-
-
-        console.log(counties[INTERSECTED.name]);
         const text = counties[INTERSECTED.name].information.summary;
         const sentences = text.replace(/(\S\.)\s*([A-Z])/g, "$1\n\n$2");
         information.innerText = sentences;
