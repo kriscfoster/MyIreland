@@ -127,6 +127,14 @@ function gotData(data) {
     }
   });
 
+  for(var key in data.counties) {
+    if (counties[key]) {
+      counties[key].information = data.counties[key];
+    }
+  }
+
+
+
 // var collisionBoxes = [];
 
 // for(var i=0; i< 60; i++) {

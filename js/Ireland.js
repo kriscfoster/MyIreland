@@ -6,33 +6,33 @@ camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0
 controls = new THREE.OrbitControls(camera);
 
 counties = {
-  Carlow: { events: [], sights: [] },
-  Cavan: { events: [], sights: [] },
-  Clare: { events: [], sights: [] },
-  Cork: { events: [], sights: [] },
-  Donegal: { events: [], sights: [] },
-  Dublin: { events: [], sights: [] },
-  Galway: { events: [], sights: [] },
-  Kerry: { events: [], sights: [] },
-  Kildare: { events: [], sights: [] },
-  Kilkenny: { events: [], sights: [] },
-  Laois: { events: [], sights: [] },
-  Leitrim: { events: [], sights: [] },
-  Limerick: { events: [], sights: [] },
-  Longford: { events: [], sights: [] },
-  Louth: { events: [], sights: [] },
-  Mayo: { events: [], sights: [] },
-  Meath: { events: [], sights: [] },
-  Monaghan: { events: [], sights: [] },
-  Offaly: { events: [], sights: [] },
-  Roscommon: { events: [], sights: [] },
-  Sligo: { events: [], sights: [] },
-  Tipperary: { events: [], sights: [] },
-  Waterford: { events: [], sights: [] },
-  Westmeath: { events: [], sights: [] },
-  Wexford: { events: [], sights: [] },
-  Wicklow: { events: [], sights: [] },
-  NorthernIreland: { events: [], sights: [] }
+  Carlow: { events: [], sights: [], information: {} },
+  Cavan: { events: [], sights: [], information: {} },
+  Clare: { events: [], sights: [], information: {} },
+  Cork: { events: [], sights: [], information: {} },
+  Donegal: { events: [], sights: [], information: {} },
+  Dublin: { events: [], sights: [], information: {} },
+  Galway: { events: [], sights: [], information: {} },
+  Kerry: { events: [], sights: [], information: {} },
+  Kildare: { events: [], sights: [], information: {} },
+  Kilkenny: { events: [], sights: [], information: {} },
+  Laois: { events: [], sights: [], information: {} },
+  Leitrim: { events: [], sights: [], information: {} },
+  Limerick: { events: [], sights: [], information: {} },
+  Longford: { events: [], sights: [], information: {} },
+  Louth: { events: [], sights: [], information: {} },
+  Mayo: { events: [], sights: [], information: {} },
+  Meath: { events: [], sights: [], information: {} },
+  Monaghan: { events: [], sights: [], information: {} },
+  Offaly: { events: [], sights: [], information: {} },
+  Roscommon: { events: [], sights: [], information: {} },
+  Sligo: { events: [], sights: [], information: {} },
+  Tipperary: { events: [], sights: [], information: {} },
+  Waterford: { events: [], sights: [], information: {} },
+  Westmeath: { events: [], sights: [], information: {} },
+  Wexford: { events: [], sights: [], information: {} },
+  Wicklow: { events: [], sights: [], information: {} },
+  NorthernIreland: { events: [], sights: [], information: {} }
 };
 
 require("./helper.js");
@@ -49,7 +49,6 @@ function onWindowResize() {
 
 globalObject = {
   onMouseDown:function(event) {
-    console.log(event);
     if(INTERSECTED) {
       const interestDiv = document.getElementById('interest');
       const placeHeading = document.getElementById('Place');
@@ -70,6 +69,11 @@ globalObject = {
 
         var sightsUl = document.getElementById("sights-dynamic-list");
         var eventsUl = document.getElementById("events-dynamic-list");
+        const information =document.getElementById('informationText');
+        const text = counties[INTERSECTED.name].information.summary;
+        const sentences = text.replace(/(\S\.)\s*([A-Z])/g, "$1\n\n$2");
+        information.innerText = sentences;
+        reference.href = counties[INTERSECTED.name].information.link;
 
         while(sightsUl.firstChild){
           sightsUl.removeChild(sightsUl.firstChild);
@@ -158,26 +162,6 @@ globalObject = {
   }
 }
 
-function gotData(data) {
-  data = data.val();
-  const information =document.getElementById('informationText');
-  const events =document.getElementById('events');
-  const sights =document.getElementById('sights');
-  const text = data.Information.text;
-  const sentences = text.replace(/(\S\.)\s*([A-Z])/g, "$1\n\n$2");
-  information.innerText = sentences;
-  events.innerText = data.Events;
-  
-
-  if(data.Information.reference ) {
-    reference.href = data.Information.reference;
-  }
-}
-
-function errData(err) {
-  console.log(err);
-}
-
 function onMouseMove(event) {
   const interestDiv = document.getElementById('interest');
   const hoverPlace = document.getElementById('hoverPlace');
@@ -214,7 +198,7 @@ function onMouseMove(event) {
           // store color of closest object (for later restoration)
           INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
           // set a new color for closest object
-          INTERSECTED.material[0].color.setHex(0x40f7ee);
+          INTERSECTED.material[0].color.setHex(0xffffff);
           hoverPlace.innerText = INTERSECTED.name;
           hoverPlaceSights.innerText = `${counties[INTERSECTED.name].sights.length} Sights`;
           hoverPlaceEvents.innerText = `${counties[INTERSECTED.name].events.length} Nearby Events`;
@@ -225,9 +209,7 @@ function onMouseMove(event) {
         }
       } else {
         // there are no intersections
-        // restore previous intersection object (if it exists) to its original color
         if (INTERSECTED) {
-
           INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
           hoverPlaceContainer.style.display = 'none';         
         }
