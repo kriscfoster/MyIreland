@@ -3,7 +3,6 @@ const firebase = require('firebase');
 
 const eventbriteKey = process.env.EVENTBRITE_KEY;
 const eventfulKey = process.env.EVENTFUL_KEY;
-
 const eventbriteEventsRoute = "https://www.eventbriteapi.com/v3/events/search/";
 const eventbriteVenuesRoute = "https://www.eventbriteapi.com/v3/venues/";
 const eventfulEventsRoute = "http://api.eventful.com/json/events/search?";
@@ -22,12 +21,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
-
-if(process.env.USE_EVENTFUL) {
-	//eventfulGetEventsForEveryCounty(counties);
-} else {
-	eventbriteGetEventsForEveryCounty(counties);
-}
 
 function eventfulGetEventsForEveryCounty(counties) {
 	var events = [];
@@ -56,7 +49,7 @@ function eventfulGetEventsForEveryCounty(counties) {
 				} else {
 					console.log("updated events")
 					console.log(`total events: ${events.length}`);
-					//writeUserData(events, "events");
+					writeUserData(events, "events");
 				}
 			}
 		});
@@ -166,7 +159,6 @@ function eventbriteGetEventsForCounty(county) {
 					if (itemsProcessed === events.length) {
 						return resolve(eventsForCounty);
 					}
-
 		  		});
 			}
 		})
@@ -180,4 +172,10 @@ function writeUserData(data, location) {
   database.ref(location).set({
   	data
   });
+}
+
+if(process.env.USE_EVENTFUL) {
+	eventfulGetEventsForEveryCounty(counties);
+} else {
+	eventbriteGetEventsForEveryCounty(counties);
 }

@@ -5,7 +5,6 @@ const Flickr = require("flickrapi");
 const googlePlacesRoute = 'https://maps.googleapis.com/maps/api/place/textsearch/json?';
 const googlePhotoRoute = 'https://maps.googleapis.com/maps/api/place/photo?';
 const googlePlacesKey = 'AIzaSyC2t91Kl0Z0vlafB5xM3z8CGYLanQLRDOM';
-
 const flickrKey = process.env.FLICKR_KEY;
 const flickrSecret = process.env.FLICKR_SECRET;
 const flickrOptions = { api_key: flickrKey, secret: flickrSecret };
@@ -22,8 +21,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
-
-//getSightsForEveryCounty(counties);
 
 function getSightsForEveryCounty(counties) {
 	var sights = [];
@@ -135,3 +132,5 @@ function writeUserData(data, location) {
   	data
   });
 }
+
+getSightsForEveryCounty(counties);
