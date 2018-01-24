@@ -69,11 +69,21 @@ globalObject = {
 
         var sightsUl = document.getElementById("sights-dynamic-list");
         var eventsUl = document.getElementById("events-dynamic-list");
-        const information =document.getElementById('informationText');
-        const text = counties[INTERSECTED.name].information.summary;
-        const sentences = text.replace(/(\S\.)\s*([A-Z])/g, "$1\n\n$2");
-        information.innerText = sentences;
+        const informationUl =document.getElementById('information-dynamic-list');
         reference.href = counties[INTERSECTED.name].information.link;
+
+        while (informationUl.firstChild) {
+          informationUl.removeChild(informationUl.firstChild);
+        }
+
+        counties[INTERSECTED.name].information.summary.forEach(function(entry, index) {
+          li = document.createElement("li");
+          li.id = index;
+          li.setAttribute('class', "informationListItem");
+          fact = document.createTextNode(entry);
+          li.appendChild(fact);
+          informationUl.appendChild(li);
+        });
 
         while(sightsUl.firstChild){
           sightsUl.removeChild(sightsUl.firstChild);
