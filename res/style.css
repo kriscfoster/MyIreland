@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body { 
   height: 100%;
   margin: 0px;
@@ -45,7 +50,7 @@ canvas { vertical-align: bottom; }
   color: black;
   overflow: hidden;
   text-align: left;
-  font-size: 28px;
+  font-size: 20px;
   position: absolute;
   width: 70%;
   height: 85%;
@@ -59,7 +64,7 @@ canvas { vertical-align: bottom; }
 
 .headerPlace {
   display:inline-block;
-  font-size: 65px;
+  font-size: 38px;
   text-decoration: none
 }
 
@@ -74,13 +79,8 @@ canvas { vertical-align: bottom; }
   float: left;
 }
 
-.informationText {
-  line-height: 40px;
-  height: 100%;
-}
-
-.buttonContainer {
-  display: inline-block;
+.categoryButton {
+  padding-right: 20px;
 }
 
 .header {
@@ -97,11 +97,6 @@ canvas { vertical-align: bottom; }
   z-index: 1;
 }
 
-.reference {
-  font-size: 24px;
-  font-weight: bold;
-}
-
 h1 {
   font-size: 60px;
   text-decoration: underline;
@@ -113,13 +108,10 @@ button {
   -webkit-transition-duration: 0.1s; /* Safari */
   transition-duration: 0.1s; /* Non Safari */
   font-family: sans-serif;
-  font-size:30px;
+  font-size:24px;
   background-color: transparent;
   z-index: 2;
   border: none;
-  margin: 15px;
-  margin-top: 2px;
-  padding-top: 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -225,12 +217,13 @@ button:hover { opacity: 0.95 }
 .sightsListItem {
   list-style-type: none;
   box-shadow:0 4px 10px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
-  height: 175px;
+  height: 100px;
   width: 45%;
   display: inline-block;
   text-align: left;
   background-color: white;
   z-index: 5;
+  padding-left: 5px;
 }
 
 .sightsListItem:hover {
@@ -244,7 +237,7 @@ button:hover { opacity: 0.95 }
 
 .sightsListItemTitle {
   color: #000000de;
-  font-size: 22px;
+  font-size: 18px;
   float: left;
   vertical-align: top;
   padding-top: 10px;
@@ -256,7 +249,7 @@ button:hover { opacity: 0.95 }
 
 .sightsListItemStars {
   color: #ff9800;
-  font-size: 21px;
+  font-size: 15px;
   float: left;
   vertical-align: top;
   padding-top: 10px;
@@ -270,21 +263,20 @@ button:hover { opacity: 0.95 }
   width: 65%;
   height: 100%;
   display: inline-block;
-  padding-left: 10px;
 }
 
 .sightsListItemImageDiv {
   display: inline-block;
   float: right;
   height: 100%;
-  width: 30%;
+  width: 35%;
   overflow: hidden;
   text-align: right;
 }
 
 .sightsListItemTime {
   color: #ff9800;
-  font-size: 20px;
+  font-size: 15px;
   float: left;
   vertical-align: top;
   padding-top: 10px;
@@ -296,7 +288,7 @@ button:hover { opacity: 0.95 }
 
 .sightsListItemDescription {
   color: #000000b8;
-  font-size: 20px;
+  font-size: 15px;
   float: left;
   vertical-align: top;
   padding-top: 10px;
@@ -314,4 +306,17 @@ button:hover { opacity: 0.95 }
 .sights-dynamic-list {
   text-align: center;
   padding: 0px;
+}
+
+.information-dynamic-list {
+  list-style: none;
+}
+
+.informationListItem {
+  margin-bottom: 10px;
+}
+
+.readButtonContainer {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }

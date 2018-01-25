@@ -5,9 +5,9 @@ function closeInterest() {
   document.getElementById("information").style.display="block";
   document.getElementById("events").style.display="none";
   document.getElementById("sights").style.display="none";
-  document.getElementById("informationButton").className = "selected";
-  document.getElementById("sightsButton").className = "";
-  document.getElementById("eventsButton").className = "";
+  document.getElementById("informationButton").className = "categoryButton selected";
+  document.getElementById("sightsButton").className = "categoryButton";
+  document.getElementById("eventsButton").className = "categoryButton";
   document.getElementById("readButton").style.display = "inline-block";
   document.getElementById("pauseButton").style.display = "none";
   document.getElementById("stopButton").style.display = "none";
@@ -21,27 +21,27 @@ function showInformation() {
   document.getElementById("information").style.display="block";
   document.getElementById("events").style.display="none";
   document.getElementById("sights").style.display="none";
-  document.getElementById("informationButton").className = "selected";
-  document.getElementById("eventsButton").className = "";
-  document.getElementById("sightsButton").className = "";
+  document.getElementById("informationButton").className = "categoryButton selected";
+  document.getElementById("eventsButton").className = "categoryButton";
+  document.getElementById("sightsButton").className = "categoryButton";
 }
 
 function showSights() {
   document.getElementById("information").style.display="none";
   document.getElementById("events").style.display="none";
   document.getElementById("sights").style.display="block";
-  document.getElementById("informationButton").className = "";
-  document.getElementById("eventsButton").className = "";
-  document.getElementById("sightsButton").className = "selected";
+  document.getElementById("informationButton").className = "categoryButton";
+  document.getElementById("eventsButton").className = "categoryButton";
+  document.getElementById("sightsButton").className = "categoryButton selected";
 }
 
 function showEvents() {
   document.getElementById("information").style.display="none";
   document.getElementById("events").style.display="block";
   document.getElementById("sights").style.display="none";
-  document.getElementById("informationButton").className = "";
-  document.getElementById("eventsButton").className = "selected";
-  document.getElementById("sightsButton").className = "";
+  document.getElementById("informationButton").className = "categoryButton";
+  document.getElementById("eventsButton").className = "categoryButton selected";
+  document.getElementById("sightsButton").className = "categoryButton";
 }
 
 function read() {
