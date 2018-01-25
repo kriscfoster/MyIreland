@@ -9,21 +9,12 @@ body {
   text-align: center;
   font-family: sans-serif;
   background-color: #f3f8ff;
-  color: white;
+  color: black;
   background: #24C6DC; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(left top, #1F75FE, #A6FFCB); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(bottom right, #1F75FE, #A6FFCB); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(bottom right, #1F75FE, #A6FFCB); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, #1F75FE, #A6FFCB); /* Standard syntax */
-}
-
-canvas { vertical-align: bottom; }
-
-.info {
-  width:100%;
-  height: 100%;
-  position: absolute;
-  text-align: center;
 }
 
 .hoverPlaceContainer {
@@ -33,61 +24,73 @@ canvas { vertical-align: bottom; }
 }
 
 .hoverPlaceInfo {
-  font-family: sans-serif;
-  color: black;
   padding: 10px;
   border-radius: 10px;
   background-color: white;
-  font-size: 28px;
+  font-size: 24px;
 }
 
-.hoverPlace { font-size: 40px; }
+.hoverPlace { font-size: 34px; }
 
 .hoverPlaceOther { font-size: 20px; }
 
 .interest {
   border-radius: 8px;
-  color: black;
   overflow: hidden;
   text-align: left;
-  font-size: 20px;
+  font-size: 18px;
   position: absolute;
   width: 70%;
   height: 85%;
-  background-color: whitesmoke;
-  box-shadow: 0 10px 20px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+  background-color: white;
   left: 15%;
   top: 7.5%;
   display: none;
   z-index: 1;
 }
 
+.header {
+  border-bottom: 5px solid #9E9E9E;
+  height: 20%;
+}
+
+.headerContainer {
+  padding: 15px;
+}
+
 .headerPlace {
   display:inline-block;
-  font-size: 38px;
+  font-size: 36px;
   text-decoration: none
 }
 
-.content {
-  overflow: scroll;
-  height: calc(80% - 40px);
-  padding: 20px;
+.closeButton {
+  opacity: 1;
+  float: right
 }
 
-.information {
-  width: 100%;
-  float: left;
+i.close {
+  background-color: #f44336;
+  padding: 8px;
+  font-size: 18px;
+  border-radius: 50px;
+  float: right;
+  box-shadow: inset 0px 0px 0px 2px #000;
 }
 
 .categoryButton {
   padding-right: 20px;
 }
 
-.header {
-  text-align: left;
-  border-bottom: 5px solid #9E9E9E;
-  padding: 20px;
-  background-color: white;
+.content {
+  overflow: scroll;
+  height: calc(80% - 20px);
+  padding: 10px;
+}
+
+.information {
+  width: 100%;
+  float: left;
 }
 
 .info {
@@ -126,23 +129,6 @@ button {
 
 button:hover { opacity: 0.95 }
 
-.closeButton {
-  opacity: 1;
-  padding-top: 0px;
-  float: right
-}
-
-.close {
-  display: inline-block;
-  color: black;
-  background-color: #f44336;
-  opacity: 1;
-  padding: 8px;
-  border-radius: 50px;
-  float: right;
-  box-shadow: inset 0px 0px 0px 2px #000;
-}
-
 .top-button {
   margin-top: 10px;
   font-size: 100px;
@@ -164,12 +150,13 @@ button:hover { opacity: 0.95 }
     opacity: 0.95;
 }
 
-.read {
+i.read {
   display: inline-block;
   color: black;
+  font-size: 20px;
   background-color: #24dc2a;
   opacity: 1;
-  border-radius: 50px;
+  border-radius: 20px;
   padding: 8px;
   box-shadow: inset 0px 0px 0px 2px #000;
 }
@@ -179,11 +166,12 @@ button:hover { opacity: 0.95 }
   box-shadow: inset 0px 0px 0px 4px #000;
 }
 
-.pause {
+i.pause {
   display: inline-block;
   color: black;
   background-color: #ff9800;
   opacity: 1;
+  font-size: 20px;
   border-radius: 50px;
   padding: 8px;
   box-shadow: inset 0px 0px 0px 2px #000;
@@ -194,9 +182,10 @@ button:hover { opacity: 0.95 }
   box-shadow: inset 0px 0px 0px 4px #000;
 }
 
-.stop {
+i.stop {
   display: inline-block;
   color: black;
+  font-size: 20px;
   background-color: #f44336;
   opacity: 1;
   border-radius: 50px;
@@ -319,4 +308,14 @@ button:hover { opacity: 0.95 }
 .readButtonContainer {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.readButton {
+  opacity: 1;
+  padding-top: 0px;
+  margin: 0px;
+}
+
+.hidden {
+  display: none;
 }
