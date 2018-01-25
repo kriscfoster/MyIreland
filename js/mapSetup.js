@@ -35,7 +35,7 @@ loader.load('../res/irelandLabel.json',
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = "Ireland Label";
-    object.type = "Label";
+    object.type = "Scene";
     scene.add(object);
   }
 );

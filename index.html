@@ -25,22 +25,21 @@
       </div>
       <div class="interest" id="interest">
         <div class = "header">
-          <strong><h1 class="headerPlace" id="Place"></h1></strong>
-          <button
-            class="closeButton"
-            id="closeButton">
-            <strong>
+          <div class="headerContainer">
+            <h1 class="headerPlace" id="Place"></h1>
+            <button
+              class="closeButton"
+              id="closeButton">
               <i
-                class="material-icons close"
-                style="font-size:35px;">
+                class="close material-icons">
                 close
               </i>
-            </strong>
-          </button>
-          <div class="buttonContainer" id="Buttons">
-            <button class="selected" id="informationButton">Information</button>
-            <button id="sightsButton">Sights</button>
-            <button id="eventsButton">Nearby Events</button>
+            </button>
+            <div class="buttonContainer" id="Buttons">
+              <button class="selected categoryButton" id="informationButton">Information</button>
+              <button class="categoryButton" id="sightsButton">Sights</button>
+              <button class="categoryButton" id="eventsButton">Nearby Events</button>
+            </div>
           </div>
         </div>
         <div id="content" class="content">
@@ -51,40 +50,30 @@
               <a id="reference" href='#' target="_blank">here</a>
               and was summarised using Gensim's Text Summarisation tool.
             </div>
-            <br/>
-            <div>               
+            <div class="readButtonContainer">               
               <button
-                id="readButton"
-                style="opacity: 1; padding-top: 0px; margin: 0px;">
-                <strong>
-                  <i
-                    class="material-icons read"
-                    style="font-size:40px;">
-                    play_arrow
-                  </i>
-                </strong>
+                class="readButton"
+                id="readButton">
+                <i
+                  class="read material-icons">
+                  play_arrow
+                </i>
               </button>
               <button
-                style="opacity: 1; padding-top: 0px; display: none; margin: 0px;"
+                class="readButton hidden"
                 id="pauseButton">
-                <strong>
-                  <i
-                    class="material-icons pause"
-                    style="font-size:40px;">
-                    pause
-                  </i>
-                </strong>
+                <i
+                  class="pause material-icons">
+                  pause
+                </i>
               </button>
               <button
-                style="opacity: 1; padding-top: 0px; display: none; margin: 0px;"
+                class="readButton hidden"
                 id="stopButton">
-                <strong>
-                  <i
-                  class="material-icons stop"
-                  style="font-size:40px;">
+                <i
+                  class="stop material-icons">
                   stop
                 </i>
-              </strong>
               </button>
             </div>
             <div
