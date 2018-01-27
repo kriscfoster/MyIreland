@@ -6,8 +6,11 @@
 body { 
   height: 100%;
   margin: 0px;
-  text-align: center;
   font-family: sans-serif;
+  color: black;
+}
+
+.mapCanvas {
   background-color: #f3f8ff;
   color: black;
   background: #24C6DC; /* For browsers that do not support gradients */
@@ -16,7 +19,6 @@ body {
   background: -moz-linear-gradient(bottom right, #1F75FE, #A6FFCB); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, #1F75FE, #A6FFCB); /* Standard syntax */
 }
-
 .hoverPlaceContainer {
   position: absolute;
   text-align: left;

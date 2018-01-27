@@ -2,7 +2,7 @@ const moment = require('moment');
 
 scene = new THREE.Scene();
 renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
-camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+camera = new THREE.PerspectiveCamera(75, (window.innerWidth * 0.70) / window.innerHeight, 0.1, 1000);
 controls = new THREE.OrbitControls(camera);
 
 counties = {
@@ -42,9 +42,9 @@ const mouse = new THREE.Vector2();
 var INTERSECTED = null;
 
 function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.aspect = window.innerWidth * 0.70 / window.innerHeight;
   camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(window.innerWidth * 0.70, window.innerHeight);
 }
 
 globalObject = {
@@ -181,7 +181,7 @@ function onMouseMove(event) {
 
   if(interestDiv.style.display != 'block') {
     // calculate mouse position in normalized coordinates
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.x = (event.clientX / (window.innerWidth * 0.70)) * 2 - 1;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
 

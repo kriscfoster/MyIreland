@@ -1,9 +1,10 @@
 const loader = new THREE.JSONLoader();
 const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x0808dd, 1.5);
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.1);
 
 renderer.domElement.id = 'Map';
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.domElement.className = 'mapCanvas';
+renderer.setSize(window.innerWidth * 0.75, window.innerHeight);
 controls.maxDistance = 30;
 controls.minDistance = 4;
 scene.add(hemisphereLight)

@@ -133,7 +133,7 @@ function gotData(data) {
     }
   }
 
-// console.log(scene);
+ console.log(scene);
 
 // scene.children.forEach((child) => {
 //   if (child.type != 'Scene' && child.type != 'HemisphereLight') {
@@ -184,6 +184,7 @@ function gotData(data) {
 //   }
 // }
 
+  console.log(document);
   document.body.appendChild(renderer.domElement);
 }
 
