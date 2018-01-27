@@ -4,7 +4,7 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.1);
 
 renderer.domElement.id = 'Map';
 renderer.domElement.className = 'mapCanvas';
-renderer.setSize(window.innerWidth * 0.75, window.innerHeight);
+renderer.setSize(window.innerWidth * 0.70, window.innerHeight);
 controls.maxDistance = 30;
 controls.minDistance = 4;
 scene.add(hemisphereLight)
