@@ -3,11 +3,22 @@
   padding: 0;
 }
 
+html {
+  height: 100%;
+}
+
 body { 
   height: 100%;
   margin: 0px;
   font-family: sans-serif;
   color: black;
+}
+
+.sidePanel {
+  height: 100%;
+  width: 30%;
+  float: right;
+  text-align: center;
 }
 
 .mapCanvas {
@@ -41,13 +52,9 @@ body {
   overflow: hidden;
   text-align: left;
   font-size: 18px;
-  position: absolute;
-  width: 70%;
-  height: 85%;
   background-color: white;
   left: 15%;
   top: 7.5%;
-  display: none;
   z-index: 1;
 }
 

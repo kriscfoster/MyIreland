@@ -1,7 +1,6 @@
 function closeInterest() {
   window.addEventListener("mousedown", globalObject.onMouseDown);
   document.getElementById("Map").style.opacity = "1";
-  document.getElementById("interest").style.display="none";
   document.getElementById("information").style.display="block";
   document.getElementById("events").style.display="none";
   document.getElementById("sights").style.display="none";
@@ -80,21 +79,67 @@ function stop() {
   window.speechSynthesis.cancel();
 }
 
+function enteredSidePanel() {
+  controls.enabled = false;
+}
+
+function exitedSidePanel() {
+    document.getElementById('sidePanel').style.color = 'black';
+    controls.enabled = true;
+}
+
+function filterCounties(substr) {
+  const countiesUl = document.getElementById('counties-dynamic-list');
+  let li, countyName;
+
+  while (countiesUl.firstChild) {
+    countiesUl.removeChild(countiesUl.firstChild);
+  }
+
+  scene.children.forEach((child) => {
+    if(child.type === "Place") {
+      if(child.name.toLowerCase().startsWith(substr) || !substr) {
+        child.position.y = 0;
+        li = document.createElement("li");
+        countyName = document.createTextNode(`${child.order} - ${child.name}`);
+        li.appendChild(countyName);
+        countiesUl.appendChild(li);
+      } else {
+        child.position.y = -1;
+      }
+    }
+  });
+}
+
+function searchChanged(event) {
+  filterCounties(event.target.value);
+}
+
+function checkSceneState() {
+  if(scene.children.length === 31) {
+    filterCounties("");
+  }
+}
+
 window.onload = function() {
-  const closeButton = document.getElementById('closeButton');
-  closeButton.onclick = () => { closeInterest(); }
-  const informationButton = document.getElementById('informationButton');
-  informationButton.onclick = () => { showInformation(); }
-  const sightsButton = document.getElementById('sightsButton');
-  sightsButton.onclick = () => { showSights(); }
-  const eventsButton = document.getElementById('eventsButton');
-  eventsButton.onclick = () => { showEvents(); }
-  const readButton = document.getElementById('readButton');
-  readButton.onclick = () => { read(); }
-  const pauseButton = document.getElementById('pauseButton');
-  pauseButton.onclick = () => { pause(); }
-  const stopButton = document.getElementById('stopButton');
-  stopButton.onclick = () => { stop(); }
+  // const closeButton = document.getElementById('closeButton');
+  // closeButton.onclick = () => { closeInterest(); }
+  // const informationButton = document.getElementById('informationButton');
+  // informationButton.onclick = () => { showInformation(); }
+  // const sightsButton = document.getElementById('sightsButton');
+  // sightsButton.onclick = () => { showSights(); }
+  // const eventsButton = document.getElementById('eventsButton');
+  // eventsButton.onclick = () => { showEvents(); }
+  // const readButton = document.getElementById('readButton');
+  // readButton.onclick = () => { read(); }
+  // const pauseButton = document.getElementById('pauseButton');
+  // pauseButton.onclick = () => { pause(); }
+  // const stopButton = document.getElementById('stopButton');
+  // stopButton.onclick = () => { stop(); }
+
+  document.getElementById('sidePanel').addEventListener('mouseenter', enteredSidePanel);
+  document.getElementById('sidePanel').addEventListener('mouseleave', exitedSidePanel);
+  document.getElementById('searchCounties').addEventListener('input', searchChanged);
 
   const firebaseConfig = {
     apiKey: process.env.FB_API_KEY,
@@ -133,59 +178,8 @@ function gotData(data) {
     }
   }
 
- console.log(scene);
-
-// scene.children.forEach((child) => {
-//   if (child.type != 'Scene' && child.type != 'HemisphereLight') {
-//     child.visible = false;
-//   }
-// })
-
-// var collisionBoxes = [];
-
-// for(var i=0; i< 60; i++) {
-//   console.log(i);
-//   var geometry = new THREE.CylinderGeometry( 1, 1, 0.5, 32 );
-//   var material = new THREE.MeshBasicMaterial({color: 0xfffff, wireframe: false});
-//   THREE.ImageUtils.crossOrigin = '';
-
-//   const random = Math.floor(Math.random() * (counties.Dublin.sights.length - 1));
-
-//   var materials = [
-//     new THREE.MeshBasicMaterial({color: 0xfffff, wireframe: false}),
-//      new THREE.MeshLambertMaterial({
-//          map: THREE.ImageUtils.loadTexture(counties.Dublin.sights[random].imageUrl)
-//      }),
-//   ];
-
-//   var cube = new THREE.Mesh(geometry, materials);
-//   cubetype = "Scene";
-//   cube.rotation.y = 1;
-//   cube.position.x = Math.random() * 40 - 20;
-//   cube.position.z = Math.random() * 20 - 10;
-//   scene.add(cube);
-//   bb = new THREE.Box3().setFromObject(cube);
-//   var collide = false;
-
-//   if(collisionBoxes.length < 1) {
-//     collisionBoxes.push(bb);
-//   } else {
-//     for(var j=0; j<collisionBoxes.length; j++) {
-//       if(bb.isIntersectionBox(collisionBoxes[j])) {
-//         collide = true;
-//       }
-//     }
-
-//     if(collide === true) {
-//       scene.remove(cube);
-//     } else {
-//       collisionBoxes.push(bb);
-//     }
-//   }
-// }
-
-  console.log(document);
   document.body.appendChild(renderer.domElement);
+  checkSceneState();
 }
 
 function errData(err) {

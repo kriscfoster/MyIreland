@@ -13,6 +13,45 @@ camera.position.y = 12.605131600565837;
 camera.position.x = 0;
 camera.position.z = 3.204281779409495;
 
+loader.load('../res/dublin.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.name = "Dublin";
+    object.order = 1;
+    object.type = "Place";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/wicklow.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.name = "Wicklow";
+    object.order = 2;
+    object.type = "Place";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/wexford.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.name = "Wexford";
+    object.order = 3;
+    object.type = "Place";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/carlow.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials);
+    object.name = "Carlow";
+    object.order = 4;
+    object.type = "Place";
+    scene.add(object);
+  }
+);
 
 loader.load('../res/sea.json', 
   function (geometry, materials) {
@@ -37,15 +76,6 @@ loader.load('../res/irelandLabel.json',
     const object = new THREE.Mesh(geometry, materials);
     object.name = "Ireland Label";
     object.type = "Scene";
-    scene.add(object);
-  }
-);
-
-loader.load('../res/dublin.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.name = "Dublin";
-    object.type = "Place";
     scene.add(object);
   }
 );
@@ -126,37 +156,10 @@ loader.load('../res/waterford.json',
   }
 );
 
-loader.load('../res/wexford.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.name = "Wexford";
-    object.type = "Place";
-    scene.add(object);
-  }
-);
-
 loader.load('../res/kilkenny.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = "Kilkenny";
-    object.type = "Place";
-    scene.add(object);
-  }
-);
-
-loader.load('../res/carlow.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.name = "Carlow";
-    object.type = "Place";
-    scene.add(object);
-  }
-);
-
-loader.load('../res/wicklow.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.name = "Wicklow";
     object.type = "Place";
     scene.add(object);
   }

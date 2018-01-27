@@ -37,6 +37,8 @@ counties = {
 
 require("./helper.js");
 require("./mapSetup.js");
+console.log(scene);
+console.log("ssdfdfdsfds");
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 var INTERSECTED = null;
@@ -58,13 +60,7 @@ globalObject = {
       var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars;
 
       if(INTERSECTED.type != "Scene") {
-        hoverPlace.innerText = "";
-        document.getElementById("Map").style.opacity = "0.15";
-        interestDiv.style.display="block";
-        window.removeEventListener("mousedown", globalObject.onMouseDown);
-        controls.enableZoom = false;
-        controls.enableRotate = false;
-        controls.enablePan = false;
+
         placeHeading.innerHTML=INTERSECTED.name;
 
         var sightsUl = document.getElementById("sights-dynamic-list");
@@ -173,59 +169,56 @@ globalObject = {
 }
 
 function onMouseMove(event) {
-  const interestDiv = document.getElementById('interest');
   const hoverPlace = document.getElementById('hoverPlace');
   const hoverPlaceSights = document.getElementById('hoverPlaceSights');
   const hoverPlaceEvents = document.getElementById('hoverPlaceEvents');
   const hoverPlaceContainer = document.getElementById('hoverPlaceContainer');
 
-  if(interestDiv.style.display != 'block') {
-    // calculate mouse position in normalized coordinates
-    mouse.x = (event.clientX / (window.innerWidth * 0.70)) * 2 - 1;
-    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-    raycaster.setFromCamera(mouse, camera);
+  // calculate mouse position in normalized coordinates
+  mouse.x = (event.clientX / (window.innerWidth * 0.70)) * 2 - 1;
+  mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
 
-    // calculate objects intersecting the ray
-    const intersects = raycaster.intersectObjects(scene.children);
+  // calculate objects intersecting the ray
+  const intersects = raycaster.intersectObjects(scene.children);
 
-    for (var i=0; i < intersects.length; i++) {
+  for (var i=0; i < intersects.length; i++) {
 
-      if(intersects[i].object != INTERSECTED) {
+    if(intersects[i].object != INTERSECTED) {
 
-        // restore previous intersection object (if it exists) to its original color
-        if (INTERSECTED != null) { 
-          INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex);
-          INTERSECTED.position.y = 0;
-          INTERSECTED = null;
-        }
-
-        // store reference to closest object as current intersection object
-        if(intersects[0].object.type != "Scene") {
-          //hoverPlaceContainer.style.backgroundColor = "blue";
-          hoverPlaceContainer.style.left = event.clientX + "px";
-          hoverPlaceContainer.style.top = event.clientY + "px";
-          INTERSECTED = intersects[0].object;
-          // store color of closest object (for later restoration)
-          INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
-          // set a new color for closest object
-          INTERSECTED.material[0].color.setHex(0xffffff);
-          hoverPlace.innerText = INTERSECTED.name;
-          hoverPlaceSights.innerText = `${counties[INTERSECTED.name].sights.length} Sights`;
-          hoverPlaceEvents.innerText = `${counties[INTERSECTED.name].events.length} Nearby Events`;
-          hoverPlaceContainer.style.display = 'block';
-
-        } else {
-          hoverPlaceContainer.style.display = 'none';
-        }
-      } else {
-        // there are no intersections
-        if (INTERSECTED) {
-          INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
-          hoverPlaceContainer.style.display = 'none';         
-        }
-
+      // restore previous intersection object (if it exists) to its original color
+      if (INTERSECTED != null) { 
+        INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex);
+        INTERSECTED.position.y = 0;
         INTERSECTED = null;
       }
+
+      // store reference to closest object as current intersection object
+      if(intersects[0].object.type != "Scene") {
+        //hoverPlaceContainer.style.backgroundColor = "blue";
+        hoverPlaceContainer.style.left = event.clientX + "px";
+        hoverPlaceContainer.style.top = event.clientY + "px";
+        INTERSECTED = intersects[0].object;
+        // store color of closest object (for later restoration)
+        INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
+        // set a new color for closest object
+        INTERSECTED.material[0].color.setHex(0xffffff);
+        hoverPlace.innerText = INTERSECTED.name;
+        hoverPlaceSights.innerText = `${counties[INTERSECTED.name].sights.length} Sights`;
+        hoverPlaceEvents.innerText = `${counties[INTERSECTED.name].events.length} Nearby Events`;
+        hoverPlaceContainer.style.display = 'block';
+
+      } else {
+        hoverPlaceContainer.style.display = 'none';
+      }
+    } else {
+      // there are no intersections
+      if (INTERSECTED) {
+        INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
+        hoverPlaceContainer.style.display = 'none';         
+      }
+
+      INTERSECTED = null;
     }
   }
 }

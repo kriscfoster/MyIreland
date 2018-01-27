@@ -15,15 +15,20 @@
     <script src="bundle.js"></script>
   </head>
   <body>
-    <div>
-      <div id="hoverPlaceContainer" class="hoverPlaceContainer">
-        <div class="hoverPlaceInfo">
+    <div id="hoverPlaceContainer" class="hoverPlaceContainer">
+      <div class="hoverPlaceInfo">
         <strong><div class="hoverPlace" id="hoverPlace"></div></strong>
         <strong><div class="hoverPlaceOther" id="hoverPlaceSights"></div></strong>
         <strong><div class="hoverPlaceOther" id="hoverPlaceEvents"></div></strong>
       </div>
-      </div>
-      <div class="interest" id="interest">
+    </div>
+    <div class="mapPanel" id="mapPanel" style="width: 70%; float: left;">
+    </div>
+    <div class="sidePanel" id="sidePanel">
+      <input type="text" id="searchCounties" name="search" placeholder="Search..">
+      <ul class="counties-dynamic-list" id="counties-dynamic-list"></ul>
+
+      <!-- <div class="interest" id="interest">
         <div class = "header">
           <div class="headerContainer">
             <h1 class="headerPlace" id="Place"></h1>
@@ -96,12 +101,7 @@
             <ul class="events-dynamic-list" id="events-dynamic-list"></ul>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="mapPanel" id="mapPanel" style="width: 70%; float: left;">
-    </div>
-    <div class="sidePanel" style="width: 30%; float: right;">
-      <h1>MyIreland</h1>
+      </div> -->
     </div>
   </body>
 </html>
