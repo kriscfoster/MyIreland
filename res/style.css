@@ -19,6 +19,7 @@ body {
   width: 30%;
   float: right;
   text-align: center;
+  overflow: scroll;
 }
 
 .mapCanvas {
@@ -53,6 +54,7 @@ body {
   text-align: left;
   font-size: 18px;
   background-color: white;
+  display: none;
   left: 15%;
   top: 7.5%;
   z-index: 1;

@@ -1,6 +1,6 @@
 function closeInterest() {
-  window.addEventListener("mousedown", globalObject.onMouseDown);
-  document.getElementById("Map").style.opacity = "1";
+  document.getElementById("interest").style.display = "none";
+  document.getElementById("homeView").style.display = "block";
   document.getElementById("information").style.display="block";
   document.getElementById("events").style.display="none";
   document.getElementById("sights").style.display="none";
@@ -116,26 +116,26 @@ function searchChanged(event) {
 }
 
 function checkSceneState() {
-  if(scene.children.length === 30) {
+  if(scene.children.length === 31) {
     filterCounties();
   }
 }
 
 window.onload = function() {
-  // const closeButton = document.getElementById('closeButton');
-  // closeButton.onclick = () => { closeInterest(); }
-  // const informationButton = document.getElementById('informationButton');
-  // informationButton.onclick = () => { showInformation(); }
-  // const sightsButton = document.getElementById('sightsButton');
-  // sightsButton.onclick = () => { showSights(); }
-  // const eventsButton = document.getElementById('eventsButton');
-  // eventsButton.onclick = () => { showEvents(); }
-  // const readButton = document.getElementById('readButton');
-  // readButton.onclick = () => { read(); }
-  // const pauseButton = document.getElementById('pauseButton');
-  // pauseButton.onclick = () => { pause(); }
-  // const stopButton = document.getElementById('stopButton');
-  // stopButton.onclick = () => { stop(); }
+  const closeButton = document.getElementById('closeButton');
+  closeButton.onclick = () => { closeInterest(); }
+  const informationButton = document.getElementById('informationButton');
+  informationButton.onclick = () => { showInformation(); }
+  const sightsButton = document.getElementById('sightsButton');
+  sightsButton.onclick = () => { showSights(); }
+  const eventsButton = document.getElementById('eventsButton');
+  eventsButton.onclick = () => { showEvents(); }
+  const readButton = document.getElementById('readButton');
+  readButton.onclick = () => { read(); }
+  const pauseButton = document.getElementById('pauseButton');
+  pauseButton.onclick = () => { pause(); }
+  const stopButton = document.getElementById('stopButton');
+  stopButton.onclick = () => { stop(); }
 
   document.getElementById('sidePanel').addEventListener('mouseenter', enteredSidePanel);
   document.getElementById('sidePanel').addEventListener('mouseleave', exitedSidePanel);

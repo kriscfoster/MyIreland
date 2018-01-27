@@ -52,6 +52,8 @@ function onWindowResize() {
 globalObject = {
   onMouseDown:function(event) {
     if(INTERSECTED) {
+      document.getElementById('homeView').style.display = 'none';
+      document.getElementById("interest").style.display = "block";
       const interestDiv = document.getElementById('interest');
       const placeHeading = document.getElementById('Place');
       const buttons = document.getElementById('Buttons');
