@@ -116,8 +116,8 @@ function searchChanged(event) {
 }
 
 function checkSceneState() {
-  if(scene.children.length === 31) {
-    filterCounties("");
+  if(scene.children.length === 30) {
+    filterCounties();
   }
 }
 
