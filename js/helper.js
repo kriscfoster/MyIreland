@@ -112,7 +112,19 @@ function filterCounties(substr) {
 }
 
 function searchChanged(event) {
-  filterCounties(event.target.value);
+  let valid = false;
+
+  scene.children.forEach((child) => {
+    if (child.name.toLowerCase().startsWith(event.target.value)) {
+      valid = true;
+    }
+  });
+
+  if(valid) {
+    filterCounties(event.target.value);
+  } else {
+    document.getElementById(event.target.id).value = event.target.value.slice(0, -1);
+  }
 }
 
 function checkSceneState() {
