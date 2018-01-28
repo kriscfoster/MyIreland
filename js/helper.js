@@ -160,6 +160,11 @@ function checkSceneState() {
 }
 
 window.onload = function() {
+
+    document.body.appendChild(renderer.domElement);
+  controls = new THREE.OrbitControls(camera, document.getElementById("Map"));
+  controls.maxDistance = 30;
+  controls.minDistance = 4;
   const closeButton = document.getElementById('closeButton');
   closeButton.onclick = () => { closeInterest(); }
   const informationButton = document.getElementById('informationButton');
@@ -216,7 +221,6 @@ function gotData(data) {
     }
   }
 
-  document.body.appendChild(renderer.domElement);
   checkSceneState();
 }
 

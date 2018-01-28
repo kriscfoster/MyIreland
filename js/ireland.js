@@ -3,7 +3,8 @@ const moment = require('moment');
 scene = new THREE.Scene();
 renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
 camera = new THREE.PerspectiveCamera(75, (window.innerWidth * 0.70) / window.innerHeight, 0.1, 1000);
-controls = new THREE.OrbitControls(camera);
+
+console.log(camera);
 
 counties = {
   Carlow: { events: [], sights: [], information: {} },
@@ -37,7 +38,6 @@ counties = {
 
 require("./helper.js");
 require("./mapSetup.js");
-console.log(scene);
 console.log("ssdfdfdsfds");
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -51,6 +51,9 @@ function onWindowResize() {
 
 globalObject = {
   onMouseDown:function(event) {
+
+    console.log(event);
+
     if(INTERSECTED) {
       window.speechSynthesis.cancel();
       document.getElementById("readButton").style.display = "inline-block";
@@ -240,7 +243,7 @@ function onMouseMove(event) {
 }
 
 function render() {
-  controls.update();
+  //controls.update();
   requestAnimationFrame(render);
 
   if(INTERSECTED) {
