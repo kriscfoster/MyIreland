@@ -153,15 +153,8 @@ function searchChanged(event) {
   }
 }
 
-function checkSceneState() {
-  if(scene.children.length === 31) {
-    filterCounties();
-  }
-}
-
 window.onload = function() {
-
-    document.body.appendChild(renderer.domElement);
+  document.body.appendChild(renderer.domElement);
   controls = new THREE.OrbitControls(camera, document.getElementById("Map"));
   controls.maxDistance = 30;
   controls.minDistance = 4;
@@ -221,7 +214,9 @@ function gotData(data) {
     }
   }
 
-  checkSceneState();
+  filterCounties();
+  console.log(document.getElementById("spinnerDiv"))
+  document.getElementById("spinnerDiv").style.display = "none";
 }
 
 function errData(err) {
