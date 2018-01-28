@@ -214,9 +214,10 @@ function gotData(data) {
     }
   }
 
-  filterCounties();
-  console.log(document.getElementById("spinnerDiv"))
-  document.getElementById("spinnerDiv").style.display = "none";
+  setTimeout(() => {
+    filterCounties();
+    document.getElementById("spinnerDiv").style.display = "none";
+  }, 100);
 }
 
 function errData(err) {
