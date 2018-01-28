@@ -52,6 +52,10 @@ function onWindowResize() {
 globalObject = {
   onMouseDown:function(event) {
     if(INTERSECTED) {
+      window.speechSynthesis.cancel();
+      document.getElementById("readButton").style.display = "inline-block";
+      document.getElementById("pauseButton").style.display = "none";
+      document.getElementById("stopButton").style.display = "none";
       document.getElementById('homeView').style.display = 'none';
       document.getElementById("interest").style.display = "block";
       document.getElementById("closeButton").style.display="block";

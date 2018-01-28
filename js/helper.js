@@ -11,9 +11,6 @@ function closeInterest() {
   document.getElementById("readButton").style.display = "inline-block";
   document.getElementById("pauseButton").style.display = "none";
   document.getElementById("stopButton").style.display = "none";
-  controls.enableZoom = true;
-  controls.enableRotate = true;
-  controls.enablePan = true;
   window.speechSynthesis.cancel();
 }
 
@@ -85,8 +82,7 @@ function enteredSidePanel() {
 }
 
 function exitedSidePanel() {
-    document.getElementById('sidePanel').style.color = 'black';
-    controls.enabled = true;
+  controls.enabled = true;
 }
 
 function filterCounties(substr) {
@@ -126,17 +122,6 @@ function filterCounties(substr) {
   });
 
   validCounties.forEach((county) => {
-    // li = document.createElement("li");
-    // countyId = document.createTextNode(county.id);
-    // countyName = document.createTextNode(county.name);
-    // link = document.createElement("a");
-    // link.appendChild(countyName);
-    // link.target = "_blank";
-    // li.appendChild(countyId);
-    // li.appendChild(link);
-    // li.setAttribute('class', "countyNameListItem");
-    // countiesUl.appendChild(li);
-
     tr = document.createElement("tr");
     td = document.createElement("td");
     countyId = document.createTextNode(county.id);
@@ -149,15 +134,7 @@ function filterCounties(substr) {
     td.setAttribute('class', "tableCountyName");
     tr.appendChild(td);
     countiesTable.appendChild(tr);
-
-    //countyName = document.createTextNode(county.name);
-  })
-
-
-
-
-
-
+  });
 }
 
 function searchChanged(event) {
@@ -177,7 +154,7 @@ function searchChanged(event) {
 }
 
 function checkSceneState() {
-  if(scene.children.length === 30) {
+  if(scene.children.length === 31) {
     filterCounties();
   }
 }

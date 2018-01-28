@@ -51,19 +51,15 @@ body {
   text-align: left;
 }
 
-.countyNameListItem {
-
-}
-
 .mapCanvas {
   background-color: #f3f8ff;
-  color: black;
   background: #24C6DC; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(left top, #1F75FE, #A6FFCB); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(bottom right, #1F75FE, #A6FFCB); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(bottom right, #1F75FE, #A6FFCB); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, #1F75FE, #A6FFCB); /* Standard syntax */
 }
+
 .hoverPlaceContainer {
   position: absolute;
   text-align: left;
@@ -82,29 +78,11 @@ body {
 .hoverPlaceOther { font-size: 20px; }
 
 .interest {
-  border-radius: 8px;
-  overflow: hidden;
-  text-align: left;
-  font-size: 18px;
-  background-color: white;
   display: none;
-  left: 15%;
-  top: 7.5%;
-  z-index: 1;
-}
-
-.header {
-
 }
 
 .headerContainer {
   text-align: center;
-}
-
-.headerPlace {
-  display:inline-block;
-  font-size: 36px;
-  text-decoration: none
 }
 
 i.close {
@@ -134,37 +112,10 @@ i.categoryButton:hover {
   padding: 10px;
 }
 
-.information {
-  width: 100%;
-  float: left;
-}
-
-.info {
-  color: white;
-  position: absolute;
-  display: block;
-  z-index: 1;
-}
-
 h1 {
   text-align: center;
   font-size: 45px;
   font-family: fantasy;
-}
-
-button {
-  -webkit-transition-duration: 0.1s; /* Safari */
-  transition-duration: 0.1s; /* Non Safari */
-  font-family: sans-serif;
-  font-size:24px;
-  background-color: transparent;
-  z-index: 2;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  color: black;
-  opacity: 0.70;
 }
 
 .selected { 
@@ -177,14 +128,12 @@ button {
 
 i.read {
   display: inline-block;
-  color: white;
   font-size: 40px;
-  background-color: black;
   opacity: 1;
 }
 
 i.read:hover {
-  background-color: red;
+  color: red;
   cursor: pointer;
 }
 
@@ -214,10 +163,8 @@ i.hidden {
 }
 
 .sightsListItemTitle {
-  color: #000000de;
-  font-size: 18px;
+  color: black;
   float: left;
-  vertical-align: top;
   padding-top: 10px;
   width: 100%;
   white-space: nowrap;
@@ -227,14 +174,8 @@ i.hidden {
 
 .sightsListItemStars {
   color: #ff9800;
-  font-size: 15px;
   float: left;
-  vertical-align: top;
   padding-top: 10px;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .sightsListItemInfo {
@@ -245,18 +186,14 @@ i.hidden {
 
 .sightsListItemImageDiv {
   display: inline-block;
-  float: right;
   height: 100%;
   width: 35%;
   overflow: hidden;
-  text-align: right;
 }
 
 .sightsListItemTime {
-  color: #ff9800;
-  font-size: 15px;
+  color: black;
   float: left;
-  vertical-align: top;
   padding-top: 10px;
   width: 100%;
   white-space: nowrap;
@@ -265,10 +202,8 @@ i.hidden {
 }
 
 .sightsListItemDescription {
-  color: #000000b8;
-  font-size: 15px;
+  color: black;
   float: left;
-  vertical-align: top;
   padding-top: 10px;
   width: 100%;
   white-space: nowrap;
@@ -276,18 +211,7 @@ i.hidden {
   text-overflow: ellipsis;
 }
 
-.events-dynamic-list {
-  text-align: center;
-  padding: 0px;
-  list-style-type: none;
-}
-
-.sights-dynamic-list {
-  text-align: center;
-  padding: 0px;
-}
-
-.information-dynamic-list {
+.dynamic-list {
   list-style: none;
 }
 

@@ -1,6 +1,6 @@
 const loader = new THREE.JSONLoader();
 const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x0808dd, 1.5);
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.1);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.05);
 
 renderer.domElement.id = 'Map';
 renderer.domElement.className = 'mapCanvas';
@@ -8,7 +8,7 @@ renderer.setSize(window.innerWidth * 0.70, window.innerHeight);
 controls.maxDistance = 30;
 controls.minDistance = 4;
 scene.add(hemisphereLight)
-//scene.add(directionalLight);
+scene.add(directionalLight);
 camera.position.y = 12.605131600565837;
 camera.position.x = 0;
 camera.position.z = 3.204281779409495;
@@ -300,13 +300,3 @@ loader.load('../res/sun.json',
     scene.add(object);
   }
 );
-
-// loader.load('../res/irelandLabel.json', 
-//   function (geometry, materials) {
-//     const object = new THREE.Mesh(geometry, materials);
-//     object.name = "Ireland Label";
-//     object.type = "Scene";
-//     scene.add(object);
-//   }
-// );
-
