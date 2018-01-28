@@ -3,13 +3,56 @@
   padding: 0;
 }
 
+html {
+  height: 100%;
+}
+
 body { 
   height: 100%;
   margin: 0px;
-  text-align: center;
   font-family: sans-serif;
-  background-color: #f3f8ff;
   color: black;
+  font-size: 17px;
+}
+
+.searchCountiesInput {
+  border: 1px solid #BEBEBE;
+  padding: 5px;
+  font-size: 15px;
+}
+
+.sidePanel {
+  height: 100%;
+  width: 30%;
+  float: right;
+  overflow: scroll;
+}
+
+.sidePanelContent {
+  padding: 30px;
+  min-height: 100%;
+  border-left: 5px solid black;
+}
+
+.homeView {
+  text-align: center;
+}
+
+.countiesDynamicTable {
+  margin: auto;
+  padding-top: 10px;
+}
+
+.tableCountyId {
+  padding-right: 20px;
+}
+
+.tableCountyName {
+  text-align: left;
+}
+
+.mapCanvas {
+  background-color: #f3f8ff;
   background: #24C6DC; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(left top, #1F75FE, #A6FFCB); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(bottom right, #1F75FE, #A6FFCB); /* For Opera 11.1 to 12.0 */
@@ -35,179 +78,74 @@ body {
 .hoverPlaceOther { font-size: 20px; }
 
 .interest {
-  border-radius: 8px;
-  overflow: hidden;
-  text-align: left;
-  font-size: 18px;
-  position: absolute;
-  width: 70%;
-  height: 85%;
-  background-color: white;
-  left: 15%;
-  top: 7.5%;
   display: none;
-  z-index: 1;
-}
-
-.header {
-  border-bottom: 5px solid #9E9E9E;
-  height: 20%;
 }
 
 .headerContainer {
-  padding: 15px;
-}
-
-.headerPlace {
-  display:inline-block;
-  font-size: 36px;
-  text-decoration: none
-}
-
-.closeButton {
-  opacity: 1;
-  float: right
+  text-align: center;
 }
 
 i.close {
-  background-color: #f44336;
-  padding: 8px;
-  font-size: 18px;
-  border-radius: 50px;
-  float: right;
-  box-shadow: inset 0px 0px 0px 2px #000;
+  font-size: 40px;
+  opacity: 1;
+  display: none;
+  cursor: pointer;
 }
 
-.categoryButton {
-  padding-right: 20px;
+i.close:hover {
+  color: red;
+}
+
+i.categoryButton {
+  width: 30%;
+  opacity: 1;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+i.categoryButton:hover {
+  color: red;
 }
 
 .content {
   overflow: scroll;
-  height: calc(80% - 20px);
   padding: 10px;
 }
 
-.information {
-  width: 100%;
-  float: left;
-}
-
-.info {
-  color: white;
-  position: absolute;
-  display: block;
-  z-index: 1;
-}
-
 h1 {
-  font-size: 60px;
-  text-decoration: underline;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-button {
-  -webkit-transition-duration: 0.1s; /* Safari */
-  transition-duration: 0.1s; /* Non Safari */
-  font-family: sans-serif;
-  font-size:24px;
-  background-color: transparent;
-  z-index: 2;
-  border: none;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  color: black;
-  opacity: 0.70;
+  font-size: 45px;
+  font-family: fantasy;
 }
 
 .selected { 
-  opacity: 0.95;
-  text-decoration: underline;
+  border-bottom: 3px solid black;
 }
 
-button:hover { opacity: 0.95 }
-
-.top-button {
-  margin-top: 10px;
-  font-size: 100px;
-  color: #464646;
-  padding: 20px;
-  opacity: 0.95;
-  box-shadow: inset 0px 0px 0px 5px #000;
-  border-radius: 100px;
-}
-
-.top-button-map { background-color: #c0f5b3; }
-
-.top-button-sights { background-color: #f3f5b3; }
-
-.top-button-events { background-color: #f5b3b3; }
-
-.top-button:hover {
-    box-shadow: inset 0px 0px 0px 8px #000;
-    opacity: 0.95;
+.selected:hover {
+  border-bottom: 3px solid red;
 }
 
 i.read {
   display: inline-block;
-  color: black;
-  font-size: 20px;
-  background-color: #24dc2a;
+  font-size: 40px;
   opacity: 1;
-  border-radius: 20px;
-  padding: 8px;
-  box-shadow: inset 0px 0px 0px 2px #000;
 }
 
-.read:hover {
-  opacity: 0.75;
-  box-shadow: inset 0px 0px 0px 4px #000;
+i.read:hover {
+  color: red;
+  cursor: pointer;
 }
 
-i.pause {
-  display: inline-block;
-  color: black;
-  background-color: #ff9800;
-  opacity: 1;
-  font-size: 20px;
-  border-radius: 50px;
-  padding: 8px;
-  box-shadow: inset 0px 0px 0px 2px #000;
-}
-
-.pause:hover {
-  opacity: 0.75;
-  box-shadow: inset 0px 0px 0px 4px #000;
-}
-
-i.stop {
-  display: inline-block;
-  color: black;
-  font-size: 20px;
-  background-color: #f44336;
-  opacity: 1;
-  border-radius: 50px;
-  padding: 8px;
-    box-shadow: inset 0px 0px 0px 2px #000;
-}
-
-.stop:hover {
-  opacity: 0.75;
-  box-shadow: inset 0px 0px 0px 4px #000;
-}
-
-.close:hover {
-  opacity: 0.75;
-  box-shadow: inset 0px 0px 0px 4px #000;
+i.hidden {
+  display: none;
 }
 
 .sightsListItem {
   list-style-type: none;
   box-shadow:0 4px 10px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
   height: 100px;
-  width: 45%;
+  width: 95%;
   display: inline-block;
   text-align: left;
   background-color: white;
@@ -225,10 +163,8 @@ i.stop {
 }
 
 .sightsListItemTitle {
-  color: #000000de;
-  font-size: 18px;
+  color: black;
   float: left;
-  vertical-align: top;
   padding-top: 10px;
   width: 100%;
   white-space: nowrap;
@@ -238,14 +174,8 @@ i.stop {
 
 .sightsListItemStars {
   color: #ff9800;
-  font-size: 15px;
   float: left;
-  vertical-align: top;
   padding-top: 10px;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .sightsListItemInfo {
@@ -256,18 +186,14 @@ i.stop {
 
 .sightsListItemImageDiv {
   display: inline-block;
-  float: right;
   height: 100%;
   width: 35%;
   overflow: hidden;
-  text-align: right;
 }
 
 .sightsListItemTime {
-  color: #ff9800;
-  font-size: 15px;
+  color: black;
   float: left;
-  vertical-align: top;
   padding-top: 10px;
   width: 100%;
   white-space: nowrap;
@@ -276,10 +202,8 @@ i.stop {
 }
 
 .sightsListItemDescription {
-  color: #000000b8;
-  font-size: 15px;
+  color: black;
   float: left;
-  vertical-align: top;
   padding-top: 10px;
   width: 100%;
   white-space: nowrap;
@@ -287,35 +211,19 @@ i.stop {
   text-overflow: ellipsis;
 }
 
-.events-dynamic-list {
-  text-align: center;
-  padding: 0px;
-}
-
-.sights-dynamic-list {
-  text-align: center;
-  padding: 0px;
-}
-
-.information-dynamic-list {
+.dynamic-list {
   list-style: none;
 }
 
 .informationListItem {
   margin-bottom: 10px;
+  padding: 20px;
+  background-color: #92ff7e;
+  border: 2px solid black;
 }
 
 .readButtonContainer {
   padding-top: 10px;
   padding-bottom: 10px;
-}
-
-.readButton {
-  opacity: 1;
-  padding-top: 0px;
-  margin: 0px;
-}
-
-.hidden {
-  display: none;
+  text-align: center;
 }

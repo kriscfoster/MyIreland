@@ -1,19 +1,16 @@
 function closeInterest() {
-  window.addEventListener("mousedown", globalObject.onMouseDown);
-  document.getElementById("Map").style.opacity = "1";
-  document.getElementById("interest").style.display="none";
+  document.getElementById("interest").style.display = "none";
+  document.getElementById("homeView").style.display = "block";
   document.getElementById("information").style.display="block";
   document.getElementById("events").style.display="none";
   document.getElementById("sights").style.display="none";
-  document.getElementById("informationButton").className = "categoryButton selected";
-  document.getElementById("sightsButton").className = "categoryButton";
-  document.getElementById("eventsButton").className = "categoryButton";
+  document.getElementById("closeButton").style.display="none";
+  document.getElementById("informationButton").className = "categoryButton selected material-icons";
+  document.getElementById("sightsButton").className = "categoryButton material-icons";
+  document.getElementById("eventsButton").className = "categoryButton material-icons";
   document.getElementById("readButton").style.display = "inline-block";
   document.getElementById("pauseButton").style.display = "none";
   document.getElementById("stopButton").style.display = "none";
-  controls.enableZoom = true;
-  controls.enableRotate = true;
-  controls.enablePan = true;
   window.speechSynthesis.cancel();
 }
 
@@ -21,27 +18,27 @@ function showInformation() {
   document.getElementById("information").style.display="block";
   document.getElementById("events").style.display="none";
   document.getElementById("sights").style.display="none";
-  document.getElementById("informationButton").className = "categoryButton selected";
-  document.getElementById("eventsButton").className = "categoryButton";
-  document.getElementById("sightsButton").className = "categoryButton";
+  document.getElementById("informationButton").className = "categoryButton selected material-icons";
+  document.getElementById("eventsButton").className = "categoryButton material-icons";
+  document.getElementById("sightsButton").className = "categoryButton material-icons";
 }
 
 function showSights() {
   document.getElementById("information").style.display="none";
   document.getElementById("events").style.display="none";
   document.getElementById("sights").style.display="block";
-  document.getElementById("informationButton").className = "categoryButton";
-  document.getElementById("eventsButton").className = "categoryButton";
-  document.getElementById("sightsButton").className = "categoryButton selected";
+  document.getElementById("informationButton").className = "categoryButton material-icons";
+  document.getElementById("eventsButton").className = "categoryButton material-icons";
+  document.getElementById("sightsButton").className = "categoryButton selected material-icons";
 }
 
 function showEvents() {
   document.getElementById("information").style.display="none";
   document.getElementById("events").style.display="block";
   document.getElementById("sights").style.display="none";
-  document.getElementById("informationButton").className = "categoryButton";
-  document.getElementById("eventsButton").className = "categoryButton selected";
-  document.getElementById("sightsButton").className = "categoryButton";
+  document.getElementById("informationButton").className = "categoryButton material-icons";
+  document.getElementById("eventsButton").className = "categoryButton selected material-icons";
+  document.getElementById("sightsButton").className = "categoryButton material-icons";
 }
 
 function read() {
@@ -80,6 +77,88 @@ function stop() {
   window.speechSynthesis.cancel();
 }
 
+function enteredSidePanel() {
+  controls.enabled = false;
+}
+
+function exitedSidePanel() {
+  controls.enabled = true;
+}
+
+function filterCounties(substr) {
+  const countiesTable = document.getElementById('counties-dynamic-table');
+  let li, countyName, countyId, link, td, tr;
+  const validCounties = [];
+
+  while (countiesTable.firstChild) {
+    countiesTable.removeChild(countiesTable.firstChild);
+  }
+
+  scene.children.forEach((child) => {
+    let test = false;
+    if(child.type === "Place") {
+      if (!substr) {
+        test = true;
+      } else if (child.name.toLowerCase().startsWith(substr.toLowerCase())) {
+        test = true;
+      }
+
+      if (test) {
+        child.position.y = 0;
+        validCounties.push(
+          {
+            id: child.order,
+            name: child.name
+          } 
+        );
+      } else {
+        child.position.y = -1;
+      }
+    }
+  });
+
+  validCounties.sort((a, b) => {
+    return a.id - b.id;
+  });
+
+  validCounties.forEach((county) => {
+    tr = document.createElement("tr");
+    td = document.createElement("td");
+    countyId = document.createTextNode(county.id);
+    countyName = document.createTextNode(county.name);
+    td.appendChild(countyId);
+    td.setAttribute('class', "tableCountyId");
+    tr.appendChild(td);
+    td = document.createElement("td");
+    td.appendChild(countyName);
+    td.setAttribute('class', "tableCountyName");
+    tr.appendChild(td);
+    countiesTable.appendChild(tr);
+  });
+}
+
+function searchChanged(event) {
+  let valid = false;
+
+  scene.children.forEach((child) => {
+    if (child.name.toLowerCase().startsWith(event.target.value.toLowerCase())) {
+      valid = true;
+    }
+  });
+
+  if(valid) {
+    filterCounties(event.target.value);
+  } else {
+    document.getElementById(event.target.id).value = event.target.value.slice(0, -1);
+  }
+}
+
+function checkSceneState() {
+  if(scene.children.length === 31) {
+    filterCounties();
+  }
+}
+
 window.onload = function() {
   const closeButton = document.getElementById('closeButton');
   closeButton.onclick = () => { closeInterest(); }
@@ -95,6 +174,10 @@ window.onload = function() {
   pauseButton.onclick = () => { pause(); }
   const stopButton = document.getElementById('stopButton');
   stopButton.onclick = () => { stop(); }
+
+  document.getElementById('sidePanel').addEventListener('mouseenter', enteredSidePanel);
+  document.getElementById('sidePanel').addEventListener('mouseleave', exitedSidePanel);
+  document.getElementById('searchCounties').addEventListener('input', searchChanged);
 
   const firebaseConfig = {
     apiKey: process.env.FB_API_KEY,
@@ -133,58 +216,8 @@ function gotData(data) {
     }
   }
 
-// console.log(scene);
-
-// scene.children.forEach((child) => {
-//   if (child.type != 'Scene' && child.type != 'HemisphereLight') {
-//     child.visible = false;
-//   }
-// })
-
-// var collisionBoxes = [];
-
-// for(var i=0; i< 60; i++) {
-//   console.log(i);
-//   var geometry = new THREE.CylinderGeometry( 1, 1, 0.5, 32 );
-//   var material = new THREE.MeshBasicMaterial({color: 0xfffff, wireframe: false});
-//   THREE.ImageUtils.crossOrigin = '';
-
-//   const random = Math.floor(Math.random() * (counties.Dublin.sights.length - 1));
-
-//   var materials = [
-//     new THREE.MeshBasicMaterial({color: 0xfffff, wireframe: false}),
-//      new THREE.MeshLambertMaterial({
-//          map: THREE.ImageUtils.loadTexture(counties.Dublin.sights[random].imageUrl)
-//      }),
-//   ];
-
-//   var cube = new THREE.Mesh(geometry, materials);
-//   cubetype = "Scene";
-//   cube.rotation.y = 1;
-//   cube.position.x = Math.random() * 40 - 20;
-//   cube.position.z = Math.random() * 20 - 10;
-//   scene.add(cube);
-//   bb = new THREE.Box3().setFromObject(cube);
-//   var collide = false;
-
-//   if(collisionBoxes.length < 1) {
-//     collisionBoxes.push(bb);
-//   } else {
-//     for(var j=0; j<collisionBoxes.length; j++) {
-//       if(bb.isIntersectionBox(collisionBoxes[j])) {
-//         collide = true;
-//       }
-//     }
-
-//     if(collide === true) {
-//       scene.remove(cube);
-//     } else {
-//       collisionBoxes.push(bb);
-//     }
-//   }
-// }
-
   document.body.appendChild(renderer.domElement);
+  checkSceneState();
 }
 
 function errData(err) {
