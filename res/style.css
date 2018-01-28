@@ -12,14 +12,40 @@ body {
   margin: 0px;
   font-family: sans-serif;
   color: black;
+  font-size: 17px;
+}
+
+.searchCountiesInput {
+  border: 1px solid #BEBEBE;
+  padding: 5px;
+  font-size: 15px;
 }
 
 .sidePanel {
   height: 100%;
   width: 30%;
   float: right;
-  text-align: center;
   overflow: scroll;
+}
+
+.sidePanelContent {
+  padding: 30px;
+  min-height: 100%;
+  border-left: 3px solid black;
+}
+
+.homeView {
+  text-align: center;
+}
+
+.countiesDynamicList {
+  text-align: left;
+  list-style-type: none;
+  padding-top: 10px;
+}
+
+.countyNameListItem {
+
 }
 
 .mapCanvas {
@@ -61,12 +87,11 @@ body {
 }
 
 .header {
-  border-bottom: 5px solid #9E9E9E;
-  height: 20%;
+
 }
 
 .headerContainer {
-  padding: 15px;
+  text-align: center;
 }
 
 .headerPlace {
@@ -76,21 +101,18 @@ body {
 }
 
 .closeButton {
-  opacity: 1;
-  float: right
+  display: none;
 }
 
 i.close {
-  background-color: #f44336;
-  padding: 8px;
-  font-size: 18px;
-  border-radius: 50px;
-  float: right;
-  box-shadow: inset 0px 0px 0px 2px #000;
+  font-size: 40px;
 }
 
-.categoryButton {
-  padding-right: 20px;
+i.categoryButton {
+  width: 30%;
+  opacity: 1;
+  font-size: 35px;
+  cursor: pointer;
 }
 
 .content {
@@ -112,10 +134,9 @@ i.close {
 }
 
 h1 {
-  font-size: 60px;
-  text-decoration: underline;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  text-align: center;
+  font-size: 45px;
+  font-family: fantasy;
 }
 
 button {
@@ -209,16 +230,11 @@ i.stop {
   box-shadow: inset 0px 0px 0px 4px #000;
 }
 
-.close:hover {
-  opacity: 0.75;
-  box-shadow: inset 0px 0px 0px 4px #000;
-}
-
 .sightsListItem {
   list-style-type: none;
   box-shadow:0 4px 10px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
   height: 100px;
-  width: 45%;
+  width: 95%;
   display: inline-block;
   text-align: left;
   background-color: white;
@@ -301,6 +317,7 @@ i.stop {
 .events-dynamic-list {
   text-align: center;
   padding: 0px;
+  list-style-type: none;
 }
 
 .sights-dynamic-list {

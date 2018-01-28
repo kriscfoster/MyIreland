@@ -25,82 +25,85 @@
     <div class="mapPanel" id="mapPanel" style="width: 70%; float: left;">
     </div>
     <div class="sidePanel" id="sidePanel">
-      <div class="homeView" id="homeView">
-        <input type="text" id="searchCounties" name="search" placeholder="Search..">
-        <ul class="counties-dynamic-list" id="counties-dynamic-list"></ul>
-      </div>
-
-      <div class="interest" id="interest">
-        <div class = "header">
-          <div class="headerContainer">
-            <h1 class="headerPlace" id="Place"></h1>
-            <button
-              class="closeButton"
-              id="closeButton">
-              <i
-                class="close material-icons">
-                close
-              </i>
-            </button>
-            <div class="buttonContainer" id="Buttons">
-              <button class="selected categoryButton" id="informationButton">Information</button>
-              <button class="categoryButton" id="sightsButton">Sights</button>
-              <button class="categoryButton" id="eventsButton">Nearby Events</button>
-            </div>
-          </div>
+      <div class="sidePanelContent">
+        <button
+          class="closeButton"
+          id="closeButton">
+          <i
+            class="close material-icons">
+            arrow_back
+          </i>
+        </button>
+        <div class="homeView" id="homeView">
+          <h1>MyIreland</h1>
+          <input type="text" autocomplete="off" class="searchCountiesInput" id="searchCounties" name="search" placeholder="Search for a County..">
+          <ul class="countiesDynamicList" id="counties-dynamic-list"></ul>
         </div>
-        <div id="content" class="content">
-          <div id="information">
-            <div
-              class="reference">
-              This information came from
-              <a id="reference" href='#' target="_blank">here</a>
-              and was summarised using Gensim's Text Summarisation tool.
-            </div>
-            <div class="readButtonContainer">               
-              <button
-                class="readButton"
-                id="readButton">
-                <i
-                  class="read material-icons">
-                  play_arrow
-                </i>
-              </button>
-              <button
-                class="readButton hidden"
-                id="pauseButton">
-                <i
-                  class="pause material-icons">
-                  pause
-                </i>
-              </button>
-              <button
-                class="readButton hidden"
-                id="stopButton">
-                <i
-                  class="stop material-icons">
-                  stop
-                </i>
-              </button>
-            </div>
-            <div
-              id="informationText"
-              class="information">
-              <ul 
-                class="information-dynamic-list"
-                id="information-dynamic-list">
-              </ul>
+
+        <div class="interest" id="interest">
+          <div class = "header">
+            <div class="headerContainer">
+              <h1 id="Place"></h1>
+              <div class="buttonContainer" id="Buttons">
+                <i id="informationButton"  class="selected categoryButton material-icons">info</i>
+                <i class="categoryButton material-icons" id="sightsButton">photo_camera</i>
+                <i class="categoryButton material-icons" id="eventsButton">event</i>
+              </div>
             </div>
           </div>
-          <div
-            id="sights"
-            style="display: none; width: 100%; float: left; height: 100%; text-align: center;">
-            <ul class="sights-dynamic-list" id="sights-dynamic-list"></ul>
-          </div>
-          <div
-            id="events"
-            style="display: none; width: 100%; float: left; height: 100%; text-align: center;">
-            <ul class="events-dynamic-list" id="events-dynamic-list"></ul>
+          <div id="content" class="content">
+            <div id="information">
+              <div
+                class="reference">
+                This information came from
+                <a id="reference" href='#' target="_blank">here</a>
+                and was summarised using Gensim's Text Summarisation tool.
+              </div>
+              <div class="readButtonContainer">               
+                <button
+                  class="readButton"
+                  id="readButton">
+                  <i
+                    class="read material-icons">
+                    play_arrow
+                  </i>
+                </button>
+                <button
+                  class="readButton hidden"
+                  id="pauseButton">
+                  <i
+                    class="pause material-icons">
+                    pause
+                  </i>
+                </button>
+                <button
+                  class="readButton hidden"
+                  id="stopButton">
+                  <i
+                    class="stop material-icons">
+                    stop
+                  </i>
+                </button>
+              </div>
+              <div
+                id="informationText"
+                class="information">
+                <ul 
+                  class="information-dynamic-list"
+                  id="information-dynamic-list">
+                </ul>
+              </div>
+            </div>
+            <div
+              id="sights"
+              style="display: none; width: 100%; float: left; height: 100%; text-align: center;">
+              <ul class="sights-dynamic-list" id="sights-dynamic-list"></ul>
+            </div>
+            <div
+              id="events"
+              style="display: none; width: 100%; float: left; height: 100%; text-align: center;">
+              <ul class="events-dynamic-list" id="events-dynamic-list"></ul>
+            </div>
           </div>
         </div>
       </div>

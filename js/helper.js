@@ -4,9 +4,10 @@ function closeInterest() {
   document.getElementById("information").style.display="block";
   document.getElementById("events").style.display="none";
   document.getElementById("sights").style.display="none";
-  document.getElementById("informationButton").className = "categoryButton selected";
-  document.getElementById("sightsButton").className = "categoryButton";
-  document.getElementById("eventsButton").className = "categoryButton";
+  document.getElementById("closeButton").style.display="none";
+  document.getElementById("informationButton").className = "categoryButton selected material-icons";
+  document.getElementById("sightsButton").className = "categoryButton material-icons";
+  document.getElementById("eventsButton").className = "categoryButton material-icons";
   document.getElementById("readButton").style.display = "inline-block";
   document.getElementById("pauseButton").style.display = "none";
   document.getElementById("stopButton").style.display = "none";
@@ -20,27 +21,27 @@ function showInformation() {
   document.getElementById("information").style.display="block";
   document.getElementById("events").style.display="none";
   document.getElementById("sights").style.display="none";
-  document.getElementById("informationButton").className = "categoryButton selected";
-  document.getElementById("eventsButton").className = "categoryButton";
-  document.getElementById("sightsButton").className = "categoryButton";
+  document.getElementById("informationButton").className = "categoryButton selected material-icons";
+  document.getElementById("eventsButton").className = "categoryButton material-icons";
+  document.getElementById("sightsButton").className = "categoryButton material-icons";
 }
 
 function showSights() {
   document.getElementById("information").style.display="none";
   document.getElementById("events").style.display="none";
   document.getElementById("sights").style.display="block";
-  document.getElementById("informationButton").className = "categoryButton";
-  document.getElementById("eventsButton").className = "categoryButton";
-  document.getElementById("sightsButton").className = "categoryButton selected";
+  document.getElementById("informationButton").className = "categoryButton material-icons";
+  document.getElementById("eventsButton").className = "categoryButton material-icons";
+  document.getElementById("sightsButton").className = "categoryButton selected material-icons";
 }
 
 function showEvents() {
   document.getElementById("information").style.display="none";
   document.getElementById("events").style.display="block";
   document.getElementById("sights").style.display="none";
-  document.getElementById("informationButton").className = "categoryButton";
-  document.getElementById("eventsButton").className = "categoryButton selected";
-  document.getElementById("sightsButton").className = "categoryButton";
+  document.getElementById("informationButton").className = "categoryButton material-icons";
+  document.getElementById("eventsButton").className = "categoryButton selected material-icons";
+  document.getElementById("sightsButton").className = "categoryButton material-icons";
 }
 
 function read() {
@@ -90,32 +91,65 @@ function exitedSidePanel() {
 
 function filterCounties(substr) {
   const countiesUl = document.getElementById('counties-dynamic-list');
-  let li, countyName;
+  let li, countyName, countyId, link;
+  const validCounties = [];
 
   while (countiesUl.firstChild) {
     countiesUl.removeChild(countiesUl.firstChild);
   }
 
   scene.children.forEach((child) => {
+    let test = false;
     if(child.type === "Place") {
-      if(child.name.toLowerCase().startsWith(substr) || !substr) {
+      if (!substr) {
+        test = true;
+      } else if (child.name.toLowerCase().startsWith(substr.toLowerCase())) {
+        test = true;
+      }
+
+      if (test) {
         child.position.y = 0;
-        li = document.createElement("li");
-        countyName = document.createTextNode(`${child.order} - ${child.name}`);
-        li.appendChild(countyName);
-        countiesUl.appendChild(li);
+        validCounties.push(
+          {
+            id: child.order,
+            name: child.name
+          } 
+        );
       } else {
         child.position.y = -1;
       }
     }
   });
+
+  validCounties.sort((a, b) => {
+    return a.id - b.id;
+  });
+
+  validCounties.forEach((county) => {
+    li = document.createElement("li");
+    countyId = document.createTextNode(county.id);
+    countyName = document.createTextNode(county.name);
+    link = document.createElement("a");
+    link.appendChild(countyName);
+    link.target = "_blank";
+    li.appendChild(countyId);
+    li.appendChild(link);
+    li.setAttribute('class', "countyNameListItem");
+    countiesUl.appendChild(li);
+  })
+
+
+
+
+
+
 }
 
 function searchChanged(event) {
   let valid = false;
 
   scene.children.forEach((child) => {
-    if (child.name.toLowerCase().startsWith(event.target.value)) {
+    if (child.name.toLowerCase().startsWith(event.target.value.toLowerCase())) {
       valid = true;
     }
   });
