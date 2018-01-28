@@ -1,10 +1,12 @@
 # MyIreland
 
-<img width="70%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/34648762-50160182-f398-11e7-9d73-a8fa1546ad46.png">
+<img width="60%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/35483737-60e34910-043d-11e8-9f3b-cd98e66ad4fc.png">
 
-<img width="70%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/34599111-a2c8b8f4-f1e8-11e7-9776-9a63f870e7fd.png">
+<img width="60%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/35483643-a307797a-043c-11e8-8ec6-fcd340c915e0.png">
 
-<img width="70%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/34599113-a4a24618-f1e8-11e7-873f-d8be830a5a5c.png">
+<img width="60%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/35483648-ae08a0ec-043c-11e8-8e00-3cdcfb57149e.png">
+
+<img width="60%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/35483652-ba516f50-043c-11e8-9f19-cb93deb0b2fb.png">
 
 ## Project Specification
 ### General Information:
