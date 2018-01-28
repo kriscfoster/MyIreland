@@ -276,7 +276,7 @@ loader.load('../res/donegal.json',
 loader.load('../res/northernIreland.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials); // array
-    object.name = "NorthernIreland";
+    object.name = "Northern Ireland";
     object.order = 27;
     object.type = "Place";
     scene.add(object);

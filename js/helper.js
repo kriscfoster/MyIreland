@@ -91,7 +91,7 @@ function exitedSidePanel() {
 
 function filterCounties(substr) {
   const countiesTable = document.getElementById('counties-dynamic-table');
-  let li, countyName, countyId, link;
+  let li, countyName, countyId, link, td, tr;
   const validCounties = [];
 
   while (countiesTable.firstChild) {
@@ -138,13 +138,15 @@ function filterCounties(substr) {
     // countiesUl.appendChild(li);
 
     tr = document.createElement("tr");
-    td = document.createElement("th");
+    td = document.createElement("td");
     countyId = document.createTextNode(county.id);
     countyName = document.createTextNode(county.name);
     td.appendChild(countyId);
+    td.setAttribute('class', "tableCountyId");
     tr.appendChild(td);
-    td = document.createElement("th");
+    td = document.createElement("td");
     td.appendChild(countyName);
+    td.setAttribute('class', "tableCountyName");
     tr.appendChild(td);
     countiesTable.appendChild(tr);
 

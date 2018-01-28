@@ -75,7 +75,7 @@ globalObject = {
           informationUl.removeChild(informationUl.firstChild);
         }
 
-        counties[INTERSECTED.name].information.summary.forEach(function(entry, index) {
+        counties[INTERSECTED.name.replace(/\s/g, '')].information.summary.forEach(function(entry, index) {
           li = document.createElement("li");
           li.id = index;
           li.setAttribute('class', "informationListItem");
@@ -88,7 +88,7 @@ globalObject = {
           sightsUl.removeChild(sightsUl.firstChild);
         }
 
-        counties[INTERSECTED.name].sights.forEach(function(entry, index) {
+        counties[INTERSECTED.name.replace(/\s/g, '')].sights.forEach(function(entry, index) {
           li = document.createElement("li");
           li.id = index;
           li.setAttribute('class', "sightsListItem");
@@ -124,7 +124,7 @@ globalObject = {
           eventsUl.removeChild(eventsUl.firstChild);
         }
 
-        counties[INTERSECTED.name].events.forEach(function(entry, index) {
+        counties[INTERSECTED.name.replace(/\s/g, '')].events.forEach(function(entry, index) {
           li = document.createElement("li");
           li.id = index;
           li.setAttribute('class', "sightsListItem");
@@ -207,8 +207,8 @@ function onMouseMove(event) {
         // set a new color for closest object
         INTERSECTED.material[0].color.setHex(0xffffff);
         hoverPlace.innerText = INTERSECTED.name;
-        hoverPlaceSights.innerText = `${counties[INTERSECTED.name].sights.length} Sights`;
-        hoverPlaceEvents.innerText = `${counties[INTERSECTED.name].events.length} Nearby Events`;
+        hoverPlaceSights.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].sights.length} Sights`;
+        hoverPlaceEvents.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].events.length} Nearby Events`;
         hoverPlaceContainer.style.display = 'block';
 
       } else {
