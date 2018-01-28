@@ -22,7 +22,6 @@
         <strong><div class="hoverPlaceOther" id="hoverPlaceEvents"></div></strong>
       </div>
     </div>
-    <div class="mapPanel" id="mapPanel" style="width: 70%; float: left;">
     </div>
     <div class="sidePanel" id="sidePanel">
       <div class="sidePanelContent">
@@ -33,7 +32,6 @@
         <div class="homeView" id="homeView">
           <h1>MyIreland</h1>
           <input type="text" autocomplete="off" class="searchCountiesInput" id="searchCounties" name="search" placeholder="Search for a County..">
-<!--           <ul class="countiesDynamicList" id="counties-dynamic-list"></ul> -->
           <table class="countiesDynamicTable" id=counties-dynamic-table></table>
         </div>
 
@@ -50,37 +48,22 @@
           </div>
           <div id="content" class="content">
             <div id="information">
-              <div
-                class="reference">
-                This information came from
-                <a id="reference" href='#' target="_blank">here</a>
-                and was summarised using Gensim's Text Summarisation tool.
-              </div>
               <div class="readButtonContainer">               
-                <button
-                  class="readButton"
+                <i
+                  class="read material-icons"
                   id="readButton">
-                  <i
-                    class="read material-icons">
-                    play_arrow
-                  </i>
-                </button>
-                <button
-                  class="readButton hidden"
-                  id="pauseButton">
-                  <i
-                    class="pause material-icons">
-                    pause
-                  </i>
-                </button>
-                <button
-                  class="readButton hidden"
+                  play_arrow
+                </i>
+                <i
+                  class="read material-icons hidden"
+                  id=pauseButton>
+                  pause
+                </i>
+                <i
+                  class="read material-icons hidden"
                   id="stopButton">
-                  <i
-                    class="stop material-icons">
-                    stop
-                  </i>
-                </button>
+                  stop
+                </i>
               </div>
               <div
                 id="informationText"

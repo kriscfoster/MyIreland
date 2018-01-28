@@ -59,8 +59,7 @@ globalObject = {
       const placeHeading = document.getElementById('Place');
       const buttons = document.getElementById('Buttons');
       const hoverPlace = document.getElementById('hoverPlace');
-      const reference = document.getElementById('reference');
-      var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars;
+      var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars, reference;
 
       if(INTERSECTED.type != "Scene") {
 
@@ -69,7 +68,6 @@ globalObject = {
         var sightsUl = document.getElementById("sights-dynamic-list");
         var eventsUl = document.getElementById("events-dynamic-list");
         const informationUl =document.getElementById('information-dynamic-list');
-        reference.href = counties[INTERSECTED.name].information.link;
 
         while (informationUl.firstChild) {
           informationUl.removeChild(informationUl.firstChild);
@@ -83,6 +81,17 @@ globalObject = {
           li.appendChild(fact);
           informationUl.appendChild(li);
         });
+
+        li = document.createElement("li");
+        li.setAttribute('class', "informationListItem");
+        fact = document.createTextNode("This information was summarised using Gensim's Summarisation tool but it originally came from ");
+        li.appendChild(fact);
+        reference = document.createElement("a");
+        reference.appendChild(document.createTextNode("here"));
+        reference.href = counties[INTERSECTED.name.replace(/\s/g, '')].information.link;
+        reference.target= "_blank";
+        li.appendChild(reference);
+        informationUl.appendChild(li);
 
         while(sightsUl.firstChild){
           sightsUl.removeChild(sightsUl.firstChild);
