@@ -301,12 +301,12 @@ loader.load('../res/sun.json',
   }
 );
 
-loader.load('../res/irelandLabel.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials);
-    object.name = "Ireland Label";
-    object.type = "Scene";
-    scene.add(object);
-  }
-);
+// loader.load('../res/irelandLabel.json', 
+//   function (geometry, materials) {
+//     const object = new THREE.Mesh(geometry, materials);
+//     object.name = "Ireland Label";
+//     object.type = "Scene";
+//     scene.add(object);
+//   }
+// );
 

@@ -38,9 +38,9 @@ body {
   text-align: center;
 }
 
-.countiesDynamicList {
+.countiesDynamicTable {
   text-align: left;
-  list-style-type: none;
+  margin: auto;
   padding-top: 10px;
 }
 
@@ -113,6 +113,10 @@ i.categoryButton {
   opacity: 1;
   font-size: 35px;
   cursor: pointer;
+}
+
+i.categoryButton:hover {
+  color: red;
 }
 
 .content {
