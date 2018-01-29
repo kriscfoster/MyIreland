@@ -153,12 +153,6 @@ function searchChanged(event) {
   }
 }
 
-function checkSceneState() {
-  if(scene.children.length === 31) {
-    filterCounties();
-  }
-}
-
 window.onload = function() {
   const closeButton = document.getElementById('closeButton');
   closeButton.onclick = () => { closeInterest(); }
@@ -188,10 +182,14 @@ window.onload = function() {
     messagingSenderId: process.env.FB_MESSAGING_SENDER_ID
   };
 
-  firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
-  const ref = database.ref();
-  ref.once('value', gotData, errData);
+    filterCounties();
+    document.body.appendChild(renderer.domElement);
+    document.getElementById("spinnerDiv").style.display = "none";
+
+  // firebase.initializeApp(firebaseConfig);
+  // const database = firebase.database();
+  // const ref = database.ref();
+  // ref.once('value', gotData, errData);
 }
 
 
@@ -216,8 +214,10 @@ function gotData(data) {
     }
   }
 
-  document.body.appendChild(renderer.domElement);
-  checkSceneState();
+  setTimeout(() => {
+    filterCounties();
+    document.getElementById("spinnerDiv").style.display = "none";
+  }, 100);
 }
 
 function errData(err) {

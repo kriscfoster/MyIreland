@@ -4,6 +4,10 @@ scene = new THREE.Scene();
 renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
 camera = new THREE.PerspectiveCamera(75, (window.innerWidth * 0.70) / window.innerHeight, 0.1, 1000);
 controls = new THREE.OrbitControls(camera);
+controls.maxDistance = 30;
+controls.minDistance = 4;
+
+console.log(camera);
 
 counties = {
   Carlow: { events: [], sights: [], information: {} },
@@ -37,7 +41,6 @@ counties = {
 
 require("./helper.js");
 require("./mapSetup.js");
-console.log(scene);
 console.log("ssdfdfdsfds");
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -51,6 +54,9 @@ function onWindowResize() {
 
 globalObject = {
   onMouseDown:function(event) {
+
+    console.log(event);
+
     if(INTERSECTED) {
       window.speechSynthesis.cancel();
       document.getElementById("readButton").style.display = "inline-block";
@@ -66,7 +72,8 @@ globalObject = {
       var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars, reference;
 
       if(INTERSECTED.type != "Scene") {
-
+        // controls.target = INTERSECTED.geometry.boundingSphere.center;
+        // controls.update();
         placeHeading.innerHTML=INTERSECTED.name;
 
         var sightsUl = document.getElementById("sights-dynamic-list");
@@ -244,7 +251,7 @@ function render() {
   requestAnimationFrame(render);
 
   if(INTERSECTED) {
-    INTERSECTED.position.y = 0.2;
+    INTERSECTED.position.y = 0.3;
   }
 
   renderer.render(scene, camera);
