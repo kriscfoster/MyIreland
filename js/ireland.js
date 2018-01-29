@@ -53,7 +53,7 @@ function onWindowResize() {
 
 globalObject = {
   onMouseDown:function(event) {
-    if (event.path.event.target.id === "Map" || event.target.id === "hoverPlaceContainer") {
+    if (event.target.id === "Map" || event.target.id === "hoverPlaceContainer") {
       if (INTERSECTED.type === "Scene") {
         TARGET = originTarget;
         scene.children.forEach((child) => {
