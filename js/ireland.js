@@ -61,9 +61,6 @@ globalObject = {
         });
       }
 
-
-
-
       if(INTERSECTED) {
         window.speechSynthesis.cancel();
         document.getElementById("readButton").style.display = "inline-block";
