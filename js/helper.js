@@ -154,10 +154,6 @@ function searchChanged(event) {
 }
 
 window.onload = function() {
-  document.body.appendChild(renderer.domElement);
-  controls = new THREE.OrbitControls(camera, document.getElementById("Map"));
-  controls.maxDistance = 30;
-  controls.minDistance = 4;
   const closeButton = document.getElementById('closeButton');
   closeButton.onclick = () => { closeInterest(); }
   const informationButton = document.getElementById('informationButton');
@@ -186,10 +182,14 @@ window.onload = function() {
     messagingSenderId: process.env.FB_MESSAGING_SENDER_ID
   };
 
-  firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
-  const ref = database.ref();
-  ref.once('value', gotData, errData);
+    filterCounties();
+    document.body.appendChild(renderer.domElement);
+    document.getElementById("spinnerDiv").style.display = "none";
+
+  // firebase.initializeApp(firebaseConfig);
+  // const database = firebase.database();
+  // const ref = database.ref();
+  // ref.once('value', gotData, errData);
 }
 
 

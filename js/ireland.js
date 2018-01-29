@@ -3,6 +3,9 @@ const moment = require('moment');
 scene = new THREE.Scene();
 renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
 camera = new THREE.PerspectiveCamera(75, (window.innerWidth * 0.70) / window.innerHeight, 0.1, 1000);
+controls = new THREE.OrbitControls(camera);
+controls.maxDistance = 30;
+controls.minDistance = 4;
 
 console.log(camera);
 
@@ -69,7 +72,8 @@ globalObject = {
       var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars, reference;
 
       if(INTERSECTED.type != "Scene") {
-
+        // controls.target = INTERSECTED.geometry.boundingSphere.center;
+        // controls.update();
         placeHeading.innerHTML=INTERSECTED.name;
 
         var sightsUl = document.getElementById("sights-dynamic-list");
@@ -243,11 +247,11 @@ function onMouseMove(event) {
 }
 
 function render() {
-  //controls.update();
+  controls.update();
   requestAnimationFrame(render);
 
   if(INTERSECTED) {
-    INTERSECTED.position.y = 0.2;
+    INTERSECTED.position.y = 0.3;
   }
 
   renderer.render(scene, camera);
