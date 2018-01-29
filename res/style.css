@@ -87,7 +87,7 @@ body {
 }
 
 i.close {
-  font-size: 40px;
+  font-size: 30px;
   opacity: 1;
   display: none;
   cursor: pointer;
@@ -100,7 +100,7 @@ i.close:hover {
 i.categoryButton {
   width: 30%;
   opacity: 1;
-  font-size: 35px;
+  font-size: 25px;
   cursor: pointer;
 }
 
@@ -115,7 +115,7 @@ i.categoryButton:hover {
 
 h1 {
   text-align: center;
-  font-size: 45px;
+  font-size: 40px;
   font-family: fantasy;
 }
 
@@ -129,7 +129,7 @@ h1 {
 
 i.read {
   display: inline-block;
-  font-size: 40px;
+  font-size: 25px;
   opacity: 1;
 }
 
