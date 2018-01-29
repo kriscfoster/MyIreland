@@ -53,138 +53,154 @@ function onWindowResize() {
 
 globalObject = {
   onMouseDown:function(event) {
-    if (!TARGET) {
-      TARGET = originTarget;
-    }
+    if (event.target.id === "Map" || event.target.id === "hoverPlaceContainer") {
+      if (INTERSECTED.type === "Scene") {
+        TARGET = originTarget;
+        scene.children.forEach((child) => {
+          child.visible = true;
+        });
+      }
 
 
-    if(INTERSECTED) {
-      window.speechSynthesis.cancel();
-      document.getElementById("readButton").style.display = "inline-block";
-      document.getElementById("pauseButton").style.display = "none";
-      document.getElementById("stopButton").style.display = "none";
-      document.getElementById('homeView').style.display = 'none';
-      document.getElementById("interest").style.display = "block";
-      document.getElementById("closeButton").style.display="block";
-      const interestDiv = document.getElementById('interest');
-      const placeHeading = document.getElementById('Place');
-      const buttons = document.getElementById('Buttons');
-      const hoverPlace = document.getElementById('hoverPlace');
-      var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars, reference;
 
-      if(INTERSECTED.type != "Scene") {
-        TARGET = INTERSECTED.geometry.boundingSphere.center;
-        placeHeading.innerHTML=INTERSECTED.name;
-        // var sightsUl = document.getElementById("sights-dynamic-list");
-        // var eventsUl = document.getElementById("events-dynamic-list");
-        // const informationUl =document.getElementById('information-dynamic-list');
 
-        // while (informationUl.firstChild) {
-        //   informationUl.removeChild(informationUl.firstChild);
-        // }
+      if(INTERSECTED) {
+        window.speechSynthesis.cancel();
+        document.getElementById("readButton").style.display = "inline-block";
+        document.getElementById("pauseButton").style.display = "none";
+        document.getElementById("stopButton").style.display = "none";
+        document.getElementById('homeView').style.display = 'none';
+        document.getElementById("interest").style.display = "block";
+        document.getElementById("closeButton").style.display="block";
+        const interestDiv = document.getElementById('interest');
+        const placeHeading = document.getElementById('Place');
+        const buttons = document.getElementById('Buttons');
+        const hoverPlace = document.getElementById('hoverPlace');
+        var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars, reference;
 
-        // counties[INTERSECTED.name.replace(/\s/g, '')].information.summary.forEach(function(entry, index) {
-        //   li = document.createElement("li");
-        //   li.id = index;
-        //   li.setAttribute('class', "informationListItem");
-        //   fact = document.createTextNode(entry);
-        //   li.appendChild(fact);
-        //   informationUl.appendChild(li);
-        // });
 
-        // li = document.createElement("li");
-        // li.setAttribute('class', "informationListItem");
-        // fact = document.createTextNode("This information was summarised using Gensim's Summarisation tool but it originally came from ");
-        // li.appendChild(fact);
-        // reference = document.createElement("a");
-        // reference.appendChild(document.createTextNode("here"));
-        // reference.href = counties[INTERSECTED.name.replace(/\s/g, '')].information.link;
-        // reference.target= "_blank";
-        // li.appendChild(reference);
-        // informationUl.appendChild(li);
+        if(INTERSECTED.type != "Scene") {
+          TARGET = INTERSECTED.geometry.boundingSphere.center;
 
-        // while(sightsUl.firstChild){
-        //   sightsUl.removeChild(sightsUl.firstChild);
-        // }
+          scene.children.forEach((child) => {
+            if(child.type === 'Place' && child.name !== INTERSECTED.name) {
+              child.visible = false;
+            }
+          });
 
-        // counties[INTERSECTED.name.replace(/\s/g, '')].sights.forEach(function(entry, index) {
-        //   li = document.createElement("li");
-        //   li.id = index;
-        //   li.setAttribute('class', "sightsListItem");
-        //   link = document.createElement("a"); 
-        //   link.href = entry.url;       
-        //   link.target = "_blank";
-        //   textDiv = document.createElement("div");
-        //   textDiv.setAttribute('class', "sightsListItemInfo");
-        //   imageDiv = document.createElement("div");
-        //   imageDiv.setAttribute('class', "sightsListItemImageDiv");
-        //   name = document.createTextNode(entry.name);
-        //   stars = entry.rating > 0 ? document.createTextNode(entry.rating + "\u{272D}".repeat(Math.round(entry.rating))) : document.createTextNode("");
-        //   image = document.createElement("img");
-        //   image.setAttribute('class', "sightsListItemImage");
-        //   image.src = entry.imageUrl;
-        //   title = document.createElement("div");
-        //   title.appendChild(name);
-        //   title.setAttribute('class', "sightsListItemTitle");
-        //   starsDiv = document.createElement("div");
-        //   starsDiv.appendChild(stars);
-        //   starsDiv.setAttribute('class', "sightsListItemStars");
-        //   textDiv.appendChild(title);
-        //   textDiv.appendChild(starsDiv);
-        //   imageDiv.appendChild(image);
-        //   link.appendChild(textDiv);
-        //   link.appendChild(imageDiv);
-        //   li.appendChild(link);
-        //   li.appendChild(link);
-        //   sightsUl.appendChild(li);
-        // });
 
-        // while(eventsUl.firstChild){
-        //   eventsUl.removeChild(eventsUl.firstChild);
-        // }
+          placeHeading.innerHTML=INTERSECTED.name;
+          // var sightsUl = document.getElementById("sights-dynamic-list");
+          // var eventsUl = document.getElementById("events-dynamic-list");
+          // const informationUl =document.getElementById('information-dynamic-list');
 
-        // counties[INTERSECTED.name.replace(/\s/g, '')].events.forEach(function(entry, index) {
-        //   li = document.createElement("li");
-        //   li.id = index;
-        //   li.setAttribute('class', "sightsListItem");
-        //   link = document.createElement("a"); 
-        //   link.href = entry.url;       
-        //   link.target = "_blank";
-        //   textDiv = document.createElement("div");
-        //   textDiv.setAttribute('class', "sightsListItemInfo");
-        //   imageDiv = document.createElement("div");
-        //   imageDiv.setAttribute('class', "sightsListItemImageDiv");
-        //   name = document.createTextNode(entry.name);
-        //   description = document.createTextNode(entry.description);
-        //   // var dateString = moment(entry.time).format("ddd, MMM Do HH:mm");
-        //   date = document.createTextNode(moment(entry.time).format("ddd, MMM D h:mmA").toUpperCase());
-        //   image = document.createElement("img");
-        //   image.setAttribute('class', "sightsListItemImage");
-        //   image.src = entry.imageUrl;
+          // while (informationUl.firstChild) {
+          //   informationUl.removeChild(informationUl.firstChild);
+          // }
 
-        //   title = document.createElement("div");
-        //   title.appendChild(name);
-        //   title.setAttribute('class', "sightsListItemTitle");
+          // counties[INTERSECTED.name.replace(/\s/g, '')].information.summary.forEach(function(entry, index) {
+          //   li = document.createElement("li");
+          //   li.id = index;
+          //   li.setAttribute('class', "informationListItem");
+          //   fact = document.createTextNode(entry);
+          //   li.appendChild(fact);
+          //   informationUl.appendChild(li);
+          // });
 
-        //   dateDiv = document.createElement("div");
-        //   dateDiv.appendChild(date);
-        //   dateDiv.setAttribute('class', "sightsListItemTime");
+          // li = document.createElement("li");
+          // li.setAttribute('class', "informationListItem");
+          // fact = document.createTextNode("This information was summarised using Gensim's Summarisation tool but it originally came from ");
+          // li.appendChild(fact);
+          // reference = document.createElement("a");
+          // reference.appendChild(document.createTextNode("here"));
+          // reference.href = counties[INTERSECTED.name.replace(/\s/g, '')].information.link;
+          // reference.target= "_blank";
+          // li.appendChild(reference);
+          // informationUl.appendChild(li);
 
-        //   descriptionDiv = document.createElement("div");
-        //   descriptionDiv.appendChild(description);
-        //   descriptionDiv.setAttribute('class', "sightsListItemDescription");
+          // while(sightsUl.firstChild){
+          //   sightsUl.removeChild(sightsUl.firstChild);
+          // }
 
-        //   textDiv.appendChild(title);
-        //   textDiv.appendChild(dateDiv);
-        //   textDiv.appendChild(descriptionDiv);
-          
-        //   imageDiv.appendChild(image);
-        //   link.appendChild(textDiv);
-        //   link.appendChild(imageDiv);
-        //   li.appendChild(link);
-        //   li.appendChild(link);
-        //   eventsUl.appendChild(li);
-        // });
+          // counties[INTERSECTED.name.replace(/\s/g, '')].sights.forEach(function(entry, index) {
+          //   li = document.createElement("li");
+          //   li.id = index;
+          //   li.setAttribute('class', "sightsListItem");
+          //   link = document.createElement("a"); 
+          //   link.href = entry.url;       
+          //   link.target = "_blank";
+          //   textDiv = document.createElement("div");
+          //   textDiv.setAttribute('class', "sightsListItemInfo");
+          //   imageDiv = document.createElement("div");
+          //   imageDiv.setAttribute('class', "sightsListItemImageDiv");
+          //   name = document.createTextNode(entry.name);
+          //   stars = entry.rating > 0 ? document.createTextNode(entry.rating + "\u{272D}".repeat(Math.round(entry.rating))) : document.createTextNode("");
+          //   image = document.createElement("img");
+          //   image.setAttribute('class', "sightsListItemImage");
+          //   image.src = entry.imageUrl;
+          //   title = document.createElement("div");
+          //   title.appendChild(name);
+          //   title.setAttribute('class', "sightsListItemTitle");
+          //   starsDiv = document.createElement("div");
+          //   starsDiv.appendChild(stars);
+          //   starsDiv.setAttribute('class', "sightsListItemStars");
+          //   textDiv.appendChild(title);
+          //   textDiv.appendChild(starsDiv);
+          //   imageDiv.appendChild(image);
+          //   link.appendChild(textDiv);
+          //   link.appendChild(imageDiv);
+          //   li.appendChild(link);
+          //   li.appendChild(link);
+          //   sightsUl.appendChild(li);
+          // });
+
+          // while(eventsUl.firstChild){
+          //   eventsUl.removeChild(eventsUl.firstChild);
+          // }
+
+          // counties[INTERSECTED.name.replace(/\s/g, '')].events.forEach(function(entry, index) {
+          //   li = document.createElement("li");
+          //   li.id = index;
+          //   li.setAttribute('class', "sightsListItem");
+          //   link = document.createElement("a"); 
+          //   link.href = entry.url;       
+          //   link.target = "_blank";
+          //   textDiv = document.createElement("div");
+          //   textDiv.setAttribute('class', "sightsListItemInfo");
+          //   imageDiv = document.createElement("div");
+          //   imageDiv.setAttribute('class', "sightsListItemImageDiv");
+          //   name = document.createTextNode(entry.name);
+          //   description = document.createTextNode(entry.description);
+          //   // var dateString = moment(entry.time).format("ddd, MMM Do HH:mm");
+          //   date = document.createTextNode(moment(entry.time).format("ddd, MMM D h:mmA").toUpperCase());
+          //   image = document.createElement("img");
+          //   image.setAttribute('class', "sightsListItemImage");
+          //   image.src = entry.imageUrl;
+
+          //   title = document.createElement("div");
+          //   title.appendChild(name);
+          //   title.setAttribute('class', "sightsListItemTitle");
+
+          //   dateDiv = document.createElement("div");
+          //   dateDiv.appendChild(date);
+          //   dateDiv.setAttribute('class', "sightsListItemTime");
+
+          //   descriptionDiv = document.createElement("div");
+          //   descriptionDiv.appendChild(description);
+          //   descriptionDiv.setAttribute('class', "sightsListItemDescription");
+
+          //   textDiv.appendChild(title);
+          //   textDiv.appendChild(dateDiv);
+          //   textDiv.appendChild(descriptionDiv);
+            
+          //   imageDiv.appendChild(image);
+          //   link.appendChild(textDiv);
+          //   link.appendChild(imageDiv);
+          //   li.appendChild(link);
+          //   li.appendChild(link);
+          //   eventsUl.appendChild(li);
+          // });
+        }
       }
     }
   }
@@ -209,18 +225,23 @@ function onMouseMove(event) {
     if(intersects[i].object != INTERSECTED) {
 
       // restore previous intersection object (if it exists) to its original color
-      if (INTERSECTED != null) { 
+      if (INTERSECTED) {
+        if(INTERSECTED.type !== "Scene") {
         INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex);
         INTERSECTED.position.y = 0;
         INTERSECTED = null;
+
+        } 
       }
 
+      INTERSECTED = intersects[0].object;
+
       // store reference to closest object as current intersection object
-      if(intersects[0].object.type != "Scene") {
+      if(INTERSECTED.type != "Scene") {
         //hoverPlaceContainer.style.backgroundColor = "blue";
         hoverPlaceContainer.style.left = event.clientX + "px";
         hoverPlaceContainer.style.top = event.clientY + "px";
-        INTERSECTED = intersects[0].object;
+        //INTERSECTED = intersects[0].object;
         // store color of closest object (for later restoration)
         INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
         // set a new color for closest object
@@ -236,11 +257,13 @@ function onMouseMove(event) {
     } else {
       // there are no intersections
       if (INTERSECTED) {
-        INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
-        hoverPlaceContainer.style.display = 'none';         
+        if (INTERSECTED.type !== "Scene") {
+          INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
+          hoverPlaceContainer.style.display = 'none';  
+        }       
       }
 
-      INTERSECTED = null;
+      //INTERSECTED = null;
     }
   }
 }
@@ -295,7 +318,9 @@ function render() {
   requestAnimationFrame(render);
 
   if(INTERSECTED) {
+    if(INTERSECTED.type !== "Scene") {
     INTERSECTED.position.y = 0.3;
+    }
   }
 
   renderer.render(scene, camera);
