@@ -283,6 +283,16 @@ loader.load('../res/northernIreland.json',
   }
 );
 
+loader.load('../res/croughPatrick.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "Crough Patrick";
+    object.type = "Sight";
+    object.county = "Mayo";
+    scene.add(object);
+  }
+);
+
 loader.load('../res/sea.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials); // array
@@ -295,7 +305,7 @@ loader.load('../res/sea.json',
 loader.load('../res/sun.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
-    object.name = "Historic Sight";
+    object.name = "Sun";
     object.type = "Scene";
     scene.add(object);
   }

@@ -43,7 +43,7 @@ require("./mapSetup.js");
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 var INTERSECTED = null;
-var TARGET = null;
+var TARGET = originTarget;
 
 function onWindowResize() {
   camera.aspect = window.innerWidth * 0.70 / window.innerHeight;
@@ -61,7 +61,7 @@ globalObject = {
         });
       }
 
-      if(INTERSECTED) {
+      if (INTERSECTED) {
         window.speechSynthesis.cancel();
         document.getElementById("readButton").style.display = "inline-block";
         document.getElementById("pauseButton").style.display = "none";
@@ -75,12 +75,10 @@ globalObject = {
         const hoverPlace = document.getElementById('hoverPlace');
         var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars, reference;
 
-
-        if(INTERSECTED.type != "Scene") {
+        if (INTERSECTED.type != "Scene") {
           TARGET = INTERSECTED.geometry.boundingSphere.center;
-
           scene.children.forEach((child) => {
-            if(child.type === 'Place' && child.name !== INTERSECTED.name) {
+            if((child.type === 'Place' && child.name !== INTERSECTED.name) || (child.type === "Sight" && child.county !== INTERSECTED.name)) {
               child.visible = false;
             }
           });
@@ -167,7 +165,6 @@ globalObject = {
             imageDiv.setAttribute('class', "sightsListItemImageDiv");
             name = document.createTextNode(entry.name);
             description = document.createTextNode(entry.description);
-            // var dateString = moment(entry.time).format("ddd, MMM Do HH:mm");
             date = document.createTextNode(moment(entry.time).format("ddd, MMM D h:mmA").toUpperCase());
             image = document.createElement("img");
             image.setAttribute('class', "sightsListItemImage");
@@ -217,49 +214,76 @@ function onMouseMove(event) {
   const intersects = raycaster.intersectObjects(scene.children);
 
   for (var i=0; i < intersects.length; i++) {
-
     if(intersects[i].object != INTERSECTED) {
-
       // restore previous intersection object (if it exists) to its original color
       if (INTERSECTED) {
-        if(INTERSECTED.type !== "Scene") {
-        INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex);
-        INTERSECTED.position.y = 0;
-        INTERSECTED = null;
+        if(INTERSECTED.type === "Place") {
+          INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex);
+          scene.children.forEach((sight) => {
+            if(sight.type === "Place" || sight.type === "Sight") {
+              sight.position.y = 0;
+            }
+          });
 
-        } 
+          INTERSECTED = null;
+        }
       }
 
       INTERSECTED = intersects[0].object;
 
       // store reference to closest object as current intersection object
-      if(INTERSECTED.type != "Scene") {
-        //hoverPlaceContainer.style.backgroundColor = "blue";
+      if(INTERSECTED.type === "Place") {
+        INTERSECTED.position.y = 0.3;
+
+        scene.children.forEach((sight) => {
+          if(sight.type === "Sight" && sight.county === INTERSECTED.name) {
+            sight.position.y = 0.3;
+          }
+        });
+
         hoverPlaceContainer.style.left = event.clientX + "px";
         hoverPlaceContainer.style.top = event.clientY + "px";
-        //INTERSECTED = intersects[0].object;
-        // store color of closest object (for later restoration)
+        // Store color of closest object (for later restoration)
         INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
-        // set a new color for closest object
+        // Set a new color for closest object
         INTERSECTED.material[0].color.setHex(0xffffff);
         hoverPlace.innerText = INTERSECTED.name;
         hoverPlaceSights.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].sights.length} Sights`;
         hoverPlaceEvents.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].events.length} Nearby Events`;
         hoverPlaceContainer.style.display = 'block';
 
+      } else if (INTERSECTED.type === "Sight") {
+        let hoveredSight = INTERSECTED;
+        hoveredSight.position.y = 0.3;
+
+        scene.children.forEach((sight) => {
+          if(sight.name === hoveredSight.county) {
+            INTERSECTED = sight;
+            INTERSECTED.position.y = 0.3;
+          }
+        });
+
+        hoverPlaceContainer.style.left = event.clientX + "px";
+        hoverPlaceContainer.style.top = event.clientY + "px";
+        // Store color of closest object (for later restoration)
+        INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
+        // Set a new color for closest object
+        INTERSECTED.material[0].color.setHex(0xffffff);
+        hoverPlace.innerText = INTERSECTED.name;
+        hoverPlaceSights.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].sights.length} Sights`;
+        hoverPlaceEvents.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].events.length} Nearby Events`;
+        hoverPlaceContainer.style.display = 'block';
       } else {
         hoverPlaceContainer.style.display = 'none';
       }
     } else {
-      // there are no intersections
+      // There are no intersections
       if (INTERSECTED) {
         if (INTERSECTED.type !== "Scene") {
           INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
           hoverPlaceContainer.style.display = 'none';  
         }       
       }
-
-      //INTERSECTED = null;
     }
   }
 }
@@ -313,11 +337,6 @@ function render() {
   controls.update();
   requestAnimationFrame(render);
 
-  if(INTERSECTED) {
-    if(INTERSECTED.type !== "Scene") {
-    INTERSECTED.position.y = 0.3;
-    }
-  }
 
   renderer.render(scene, camera);
 };
