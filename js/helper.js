@@ -182,14 +182,11 @@ window.onload = function() {
     messagingSenderId: process.env.FB_MESSAGING_SENDER_ID
   };
 
-    filterCounties();
-    document.body.appendChild(renderer.domElement);
-    document.getElementById("spinnerDiv").style.display = "none";
-
-  // firebase.initializeApp(firebaseConfig);
-  // const database = firebase.database();
-  // const ref = database.ref();
-  // ref.once('value', gotData, errData);
+  document.body.appendChild(renderer.domElement);
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+  const ref = database.ref();
+  ref.once('value', gotData, errData);
 }
 
 

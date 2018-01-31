@@ -43,7 +43,8 @@ require("./mapSetup.js");
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 var INTERSECTED = null;
-var TARGET = null;
+var TARGET = originTarget;
+var zoomedAtTarget = false;
 
 function onWindowResize() {
   camera.aspect = window.innerWidth * 0.70 / window.innerHeight;
@@ -53,138 +54,150 @@ function onWindowResize() {
 
 globalObject = {
   onMouseDown:function(event) {
-    if (!TARGET) {
-      TARGET = originTarget;
-    }
+    console.log(event.target);
+    if (event.target.id === "Map" || event.target.id === "hoverPlaceContainer") {
+      if (INTERSECTED) {
+        window.speechSynthesis.cancel();
+        if (INTERSECTED.type === "Scene") {
+          document.getElementById('homeView').style.display = 'block';
+          document.getElementById("interest").style.display = "none";
+          document.getElementById("closeButton").style.display="none";
+          TARGET = originTarget;
+          zoomedAtTarget = false;
+          scene.children.forEach((child) => {
+            child.visible = true;
+          });
+        } else if (INTERSECTED.type === "Place") {
+          var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars, reference;
+          const interestDiv = document.getElementById('interest');
+          const placeHeading = document.getElementById('Place');
+          const buttons = document.getElementById('Buttons');
+          const hoverPlace = document.getElementById('hoverPlace');
+          document.getElementById('homeView').style.display = 'none';
+          interestDiv.style.display = "block";
+          document.getElementById("readButton").style.display = "inline-block";
+          document.getElementById("pauseButton").style.display = "none";
+          document.getElementById("stopButton").style.display = "none";
+          document.getElementById("closeButton").style.display="block";
+          TARGET = INTERSECTED.geometry.boundingSphere.center;
+          zoomedAtTarget = true;
+          scene.children.forEach((child) => {
+            if((child.type === 'Place' && child.name !== INTERSECTED.name) || (child.type === "Sight" && child.county !== INTERSECTED.name)) {
+              child.visible = false;
+            }
+          });
 
+          placeHeading.innerHTML=INTERSECTED.name;
+          var sightsUl = document.getElementById("sights-dynamic-list");
+          var eventsUl = document.getElementById("events-dynamic-list");
+          const informationUl =document.getElementById('information-dynamic-list');
 
-    if(INTERSECTED) {
-      window.speechSynthesis.cancel();
-      document.getElementById("readButton").style.display = "inline-block";
-      document.getElementById("pauseButton").style.display = "none";
-      document.getElementById("stopButton").style.display = "none";
-      document.getElementById('homeView').style.display = 'none';
-      document.getElementById("interest").style.display = "block";
-      document.getElementById("closeButton").style.display="block";
-      const interestDiv = document.getElementById('interest');
-      const placeHeading = document.getElementById('Place');
-      const buttons = document.getElementById('Buttons');
-      const hoverPlace = document.getElementById('hoverPlace');
-      var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars, reference;
+          while (informationUl.firstChild) {
+            informationUl.removeChild(informationUl.firstChild);
+          }
 
-      if(INTERSECTED.type != "Scene") {
-        TARGET = INTERSECTED.geometry.boundingSphere.center;
-        placeHeading.innerHTML=INTERSECTED.name;
-        // var sightsUl = document.getElementById("sights-dynamic-list");
-        // var eventsUl = document.getElementById("events-dynamic-list");
-        // const informationUl =document.getElementById('information-dynamic-list');
+          counties[INTERSECTED.name.replace(/\s/g, '')].information.summary.forEach(function(entry, index) {
+            li = document.createElement("li");
+            li.id = index;
+            li.setAttribute('class', "informationListItem");
+            fact = document.createTextNode(entry);
+            li.appendChild(fact);
+            informationUl.appendChild(li);
+          });
 
-        // while (informationUl.firstChild) {
-        //   informationUl.removeChild(informationUl.firstChild);
-        // }
+          li = document.createElement("li");
+          li.setAttribute('class', "informationListItem");
+          fact = document.createTextNode("This information was summarised using Gensim's Summarisation tool but it originally came from ");
+          li.appendChild(fact);
+          reference = document.createElement("a");
+          reference.appendChild(document.createTextNode("here"));
+          reference.href = counties[INTERSECTED.name.replace(/\s/g, '')].information.link;
+          reference.target= "_blank";
+          li.appendChild(reference);
+          informationUl.appendChild(li);
 
-        // counties[INTERSECTED.name.replace(/\s/g, '')].information.summary.forEach(function(entry, index) {
-        //   li = document.createElement("li");
-        //   li.id = index;
-        //   li.setAttribute('class', "informationListItem");
-        //   fact = document.createTextNode(entry);
-        //   li.appendChild(fact);
-        //   informationUl.appendChild(li);
-        // });
+          while(sightsUl.firstChild){
+            sightsUl.removeChild(sightsUl.firstChild);
+          }
 
-        // li = document.createElement("li");
-        // li.setAttribute('class', "informationListItem");
-        // fact = document.createTextNode("This information was summarised using Gensim's Summarisation tool but it originally came from ");
-        // li.appendChild(fact);
-        // reference = document.createElement("a");
-        // reference.appendChild(document.createTextNode("here"));
-        // reference.href = counties[INTERSECTED.name.replace(/\s/g, '')].information.link;
-        // reference.target= "_blank";
-        // li.appendChild(reference);
-        // informationUl.appendChild(li);
+          counties[INTERSECTED.name.replace(/\s/g, '')].sights.forEach(function(entry, index) {
+            li = document.createElement("li");
+            li.id = index;
+            li.setAttribute('class', "sightsListItem");
+            link = document.createElement("a"); 
+            link.href = entry.url;       
+            link.target = "_blank";
+            textDiv = document.createElement("div");
+            textDiv.setAttribute('class', "sightsListItemInfo");
+            imageDiv = document.createElement("div");
+            imageDiv.setAttribute('class', "sightsListItemImageDiv");
+            name = document.createTextNode(entry.name);
+            stars = entry.rating > 0 ? document.createTextNode(entry.rating + "\u{272D}".repeat(Math.round(entry.rating))) : document.createTextNode("");
+            image = document.createElement("img");
+            image.setAttribute('class', "sightsListItemImage");
+            image.src = entry.imageUrl;
+            title = document.createElement("div");
+            title.appendChild(name);
+            title.setAttribute('class', "sightsListItemTitle");
+            starsDiv = document.createElement("div");
+            starsDiv.appendChild(stars);
+            starsDiv.setAttribute('class', "sightsListItemStars");
+            textDiv.appendChild(title);
+            textDiv.appendChild(starsDiv);
+            imageDiv.appendChild(image);
+            link.appendChild(textDiv);
+            link.appendChild(imageDiv);
+            li.appendChild(link);
+            li.appendChild(link);
+            sightsUl.appendChild(li);
+          });
 
-        // while(sightsUl.firstChild){
-        //   sightsUl.removeChild(sightsUl.firstChild);
-        // }
+          while(eventsUl.firstChild){
+            eventsUl.removeChild(eventsUl.firstChild);
+          }
 
-        // counties[INTERSECTED.name.replace(/\s/g, '')].sights.forEach(function(entry, index) {
-        //   li = document.createElement("li");
-        //   li.id = index;
-        //   li.setAttribute('class', "sightsListItem");
-        //   link = document.createElement("a"); 
-        //   link.href = entry.url;       
-        //   link.target = "_blank";
-        //   textDiv = document.createElement("div");
-        //   textDiv.setAttribute('class', "sightsListItemInfo");
-        //   imageDiv = document.createElement("div");
-        //   imageDiv.setAttribute('class', "sightsListItemImageDiv");
-        //   name = document.createTextNode(entry.name);
-        //   stars = entry.rating > 0 ? document.createTextNode(entry.rating + "\u{272D}".repeat(Math.round(entry.rating))) : document.createTextNode("");
-        //   image = document.createElement("img");
-        //   image.setAttribute('class', "sightsListItemImage");
-        //   image.src = entry.imageUrl;
-        //   title = document.createElement("div");
-        //   title.appendChild(name);
-        //   title.setAttribute('class', "sightsListItemTitle");
-        //   starsDiv = document.createElement("div");
-        //   starsDiv.appendChild(stars);
-        //   starsDiv.setAttribute('class', "sightsListItemStars");
-        //   textDiv.appendChild(title);
-        //   textDiv.appendChild(starsDiv);
-        //   imageDiv.appendChild(image);
-        //   link.appendChild(textDiv);
-        //   link.appendChild(imageDiv);
-        //   li.appendChild(link);
-        //   li.appendChild(link);
-        //   sightsUl.appendChild(li);
-        // });
+          counties[INTERSECTED.name.replace(/\s/g, '')].events.forEach(function(entry, index) {
+            li = document.createElement("li");
+            li.id = index;
+            li.setAttribute('class', "sightsListItem");
+            link = document.createElement("a"); 
+            link.href = entry.url;       
+            link.target = "_blank";
+            textDiv = document.createElement("div");
+            textDiv.setAttribute('class', "sightsListItemInfo");
+            imageDiv = document.createElement("div");
+            imageDiv.setAttribute('class', "sightsListItemImageDiv");
+            name = document.createTextNode(entry.name);
+            description = document.createTextNode(entry.description);
+            date = document.createTextNode(moment(entry.time).format("ddd, MMM D h:mmA").toUpperCase());
+            image = document.createElement("img");
+            image.setAttribute('class', "sightsListItemImage");
+            image.src = entry.imageUrl;
 
-        // while(eventsUl.firstChild){
-        //   eventsUl.removeChild(eventsUl.firstChild);
-        // }
+            title = document.createElement("div");
+            title.appendChild(name);
+            title.setAttribute('class', "sightsListItemTitle");
 
-        // counties[INTERSECTED.name.replace(/\s/g, '')].events.forEach(function(entry, index) {
-        //   li = document.createElement("li");
-        //   li.id = index;
-        //   li.setAttribute('class', "sightsListItem");
-        //   link = document.createElement("a"); 
-        //   link.href = entry.url;       
-        //   link.target = "_blank";
-        //   textDiv = document.createElement("div");
-        //   textDiv.setAttribute('class', "sightsListItemInfo");
-        //   imageDiv = document.createElement("div");
-        //   imageDiv.setAttribute('class', "sightsListItemImageDiv");
-        //   name = document.createTextNode(entry.name);
-        //   description = document.createTextNode(entry.description);
-        //   // var dateString = moment(entry.time).format("ddd, MMM Do HH:mm");
-        //   date = document.createTextNode(moment(entry.time).format("ddd, MMM D h:mmA").toUpperCase());
-        //   image = document.createElement("img");
-        //   image.setAttribute('class', "sightsListItemImage");
-        //   image.src = entry.imageUrl;
+            dateDiv = document.createElement("div");
+            dateDiv.appendChild(date);
+            dateDiv.setAttribute('class', "sightsListItemTime");
 
-        //   title = document.createElement("div");
-        //   title.appendChild(name);
-        //   title.setAttribute('class', "sightsListItemTitle");
+            descriptionDiv = document.createElement("div");
+            descriptionDiv.appendChild(description);
+            descriptionDiv.setAttribute('class', "sightsListItemDescription");
 
-        //   dateDiv = document.createElement("div");
-        //   dateDiv.appendChild(date);
-        //   dateDiv.setAttribute('class', "sightsListItemTime");
-
-        //   descriptionDiv = document.createElement("div");
-        //   descriptionDiv.appendChild(description);
-        //   descriptionDiv.setAttribute('class', "sightsListItemDescription");
-
-        //   textDiv.appendChild(title);
-        //   textDiv.appendChild(dateDiv);
-        //   textDiv.appendChild(descriptionDiv);
-          
-        //   imageDiv.appendChild(image);
-        //   link.appendChild(textDiv);
-        //   link.appendChild(imageDiv);
-        //   li.appendChild(link);
-        //   li.appendChild(link);
-        //   eventsUl.appendChild(li);
-        // });
+            textDiv.appendChild(title);
+            textDiv.appendChild(dateDiv);
+            textDiv.appendChild(descriptionDiv);
+            
+            imageDiv.appendChild(image);
+            link.appendChild(textDiv);
+            link.appendChild(imageDiv);
+            li.appendChild(link);
+            li.appendChild(link);
+            eventsUl.appendChild(li);
+          });
+        }
       }
     }
   }
@@ -205,42 +218,78 @@ function onMouseMove(event) {
   const intersects = raycaster.intersectObjects(scene.children);
 
   for (var i=0; i < intersects.length; i++) {
-
     if(intersects[i].object != INTERSECTED) {
+      if (INTERSECTED) {
+        if(INTERSECTED.type === "Place") {
+          scene.children.forEach((sight) => {
+            if(sight.type === "Place" || sight.type === "Sight") {
+              sight.position.y = 0;
+            }
+          });
 
-      // restore previous intersection object (if it exists) to its original color
-      if (INTERSECTED != null) { 
-        INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex);
-        INTERSECTED.position.y = 0;
-        INTERSECTED = null;
+          INTERSECTED = null;
+        } else if (INTERSECTED.type === "Sight") {
+          INTERSECTED.position.y = 0;
+        }
       }
 
-      // store reference to closest object as current intersection object
-      if(intersects[0].object.type != "Scene") {
-        //hoverPlaceContainer.style.backgroundColor = "blue";
+      INTERSECTED = intersects[0].object;
+
+
+      if(INTERSECTED.type === "Place" && !zoomedAtTarget) {
+        INTERSECTED.position.y = 0.3;
+
+        scene.children.forEach((sight) => {
+          if(sight.type === "Sight" && sight.county === INTERSECTED.name) {
+            sight.position.y = 0.3;
+          }
+        });
+
         hoverPlaceContainer.style.left = event.clientX + "px";
         hoverPlaceContainer.style.top = event.clientY + "px";
-        INTERSECTED = intersects[0].object;
-        // store color of closest object (for later restoration)
-        INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
-        // set a new color for closest object
-        INTERSECTED.material[0].color.setHex(0xffffff);
         hoverPlace.innerText = INTERSECTED.name;
         hoverPlaceSights.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].sights.length} Sights`;
         hoverPlaceEvents.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].events.length} Nearby Events`;
         hoverPlaceContainer.style.display = 'block';
 
+      } else if (INTERSECTED.type === "Sight") {
+        const hoveredSight = INTERSECTED;
+        hoveredSight.position.y = 0.3;
+
+        if (!zoomedAtTarget) {
+          scene.children.forEach((sight) => {
+            if(sight.name === hoveredSight.county) {
+              INTERSECTED = sight;
+              INTERSECTED.position.y = 0.3;
+            } else if(sight.county === hoveredSight.county) {
+              sight.position.y = 0.3;
+            }
+          });
+
+          hoverPlaceContainer.style.left = event.clientX + "px";
+          hoverPlaceContainer.style.top = event.clientY + "px";
+          hoverPlace.innerText = INTERSECTED.name;
+          hoverPlaceSights.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].sights.length} Sights`;
+          hoverPlaceEvents.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].events.length} Nearby Events`;
+          hoverPlaceContainer.style.display = 'block';
+        } else {
+          hoverPlaceContainer.style.left = event.clientX + "px";
+          hoverPlaceContainer.style.top = event.clientY + "px";
+          hoverPlace.innerText = hoveredSight.name;
+          hoverPlaceSights.innerText = '';
+          hoverPlaceEvents.innerText = '';
+          hoverPlaceContainer.style.display = 'block';
+        }
       } else {
         hoverPlaceContainer.style.display = 'none';
       }
     } else {
-      // there are no intersections
+      // There are no intersections
       if (INTERSECTED) {
-        INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
-        hoverPlaceContainer.style.display = 'none';         
+        if (INTERSECTED.type == "Place") {
+          hoverPlaceContainer.style.display = 'none';  
+        }       
       }
-
-      INTERSECTED = null;
     }
   }
 }
@@ -294,9 +343,6 @@ function render() {
   controls.update();
   requestAnimationFrame(render);
 
-  if(INTERSECTED) {
-    INTERSECTED.position.y = 0.3;
-  }
 
   renderer.render(scene, camera);
 };
