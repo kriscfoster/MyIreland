@@ -55,7 +55,7 @@ function onWindowResize() {
 globalObject = {
   onMouseDown:function(event) {
     console.log(event.target);
-    if (event.target.id === "Map" || event.target.id === "hoverPlaceContainer") {
+    if (event.target.id === "Map" || event.target.id === "hoverPlaceContainer" || event.target.id === "hoverPlaceInfo") {
       if (INTERSECTED) {
         window.speechSynthesis.cancel();
         if (INTERSECTED.type === "Scene") {

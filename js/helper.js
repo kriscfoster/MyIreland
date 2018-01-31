@@ -104,7 +104,7 @@ function filterCounties(substr) {
       }
 
       if (test) {
-        child.position.y = 0;
+        child.visible = true;
         validCounties.push(
           {
             id: child.order,
@@ -112,7 +112,15 @@ function filterCounties(substr) {
           } 
         );
       } else {
-        child.position.y = -1;
+        child.visible = false;
+      }
+    } else if(child.type === "Sight") {
+      if (!substr) {
+        child.visible = true;
+      } else if (child.county.toLowerCase().startsWith(substr.toLowerCase())) {
+        child.visible = true;
+      } else {
+        child.visible = false;
       }
     }
   });
