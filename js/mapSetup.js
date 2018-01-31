@@ -293,6 +293,106 @@ loader.load('../res/croughPatrick.json',
   }
 );
 
+loader.load('../res/schoolOfFalconry.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "School Of Falconry";
+    object.type = "Sight";
+    object.county = "Mayo";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/connemaraNationalPark.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "Connemara National Park";
+    object.type = "Sight";
+    object.county = "Galway";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/sligoAbbey.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "Sligo Abbey";
+    object.type = "Sight";
+    object.county = "Sligo";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/giantsCauseway.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "The Giants Causeway";
+    object.type = "Sight";
+    object.county = "Northern Ireland";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/spire.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "The Spire";
+    object.type = "Sight";
+    object.county = "Dublin";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/famineCottages.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "The Famine Cottages";
+    object.type = "Sight";
+    object.county = "Kerry";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/newgrange.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "Newgrange";
+    object.type = "Sight";
+    object.county = "Meath";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/lisheenCastle.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "Lisheen Castle";
+    object.type = "Sight";
+    object.county = "Tipperary";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/belvedereHouse.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "Belvedere House & Gardens";
+    object.type = "Sight";
+    object.county = "Westmeath";
+    scene.add(object);
+  }
+);
+
+loader.load('../res/cliffsOfMoher.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = "The Cliffs of Moher";
+    object.type = "Sight";
+    object.county = "Clare";
+    scene.add(object);
+  }
+);
+
 loader.load('../res/sea.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials); // array

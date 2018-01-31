@@ -54,28 +54,31 @@ function onWindowResize() {
 
 globalObject = {
   onMouseDown:function(event) {
+    console.log(event.target);
     if (event.target.id === "Map" || event.target.id === "hoverPlaceContainer") {
       if (INTERSECTED) {
         window.speechSynthesis.cancel();
-        document.getElementById("readButton").style.display = "inline-block";
-        document.getElementById("pauseButton").style.display = "none";
-        document.getElementById("stopButton").style.display = "none";
-        document.getElementById('homeView').style.display = 'none';
-        document.getElementById("interest").style.display = "block";
-        document.getElementById("closeButton").style.display="block";
-        const interestDiv = document.getElementById('interest');
-        const placeHeading = document.getElementById('Place');
-        const buttons = document.getElementById('Buttons');
-        const hoverPlace = document.getElementById('hoverPlace');
-        var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars, reference;
-
         if (INTERSECTED.type === "Scene") {
+          document.getElementById('homeView').style.display = 'block';
+          document.getElementById("interest").style.display = "none";
+          document.getElementById("closeButton").style.display="none";
           TARGET = originTarget;
           zoomedAtTarget = false;
           scene.children.forEach((child) => {
             child.visible = true;
           });
-        } else if (INTERSECTED.type != "Scene") {
+        } else if (INTERSECTED.type === "Place") {
+          var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars, reference;
+          const interestDiv = document.getElementById('interest');
+          const placeHeading = document.getElementById('Place');
+          const buttons = document.getElementById('Buttons');
+          const hoverPlace = document.getElementById('hoverPlace');
+          document.getElementById('homeView').style.display = 'none';
+          interestDiv.style.display = "block";
+          document.getElementById("readButton").style.display = "inline-block";
+          document.getElementById("pauseButton").style.display = "none";
+          document.getElementById("stopButton").style.display = "none";
+          document.getElementById("closeButton").style.display="block";
           TARGET = INTERSECTED.geometry.boundingSphere.center;
           zoomedAtTarget = true;
           scene.children.forEach((child) => {
@@ -216,10 +219,8 @@ function onMouseMove(event) {
 
   for (var i=0; i < intersects.length; i++) {
     if(intersects[i].object != INTERSECTED) {
-      // restore previous intersection object (if it exists) to its original color
       if (INTERSECTED) {
         if(INTERSECTED.type === "Place") {
-          INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex);
           scene.children.forEach((sight) => {
             if(sight.type === "Place" || sight.type === "Sight") {
               sight.position.y = 0;
@@ -227,6 +228,8 @@ function onMouseMove(event) {
           });
 
           INTERSECTED = null;
+        } else if (INTERSECTED.type === "Sight") {
+          INTERSECTED.position.y = 0;
         }
       }
 
@@ -244,10 +247,6 @@ function onMouseMove(event) {
 
         hoverPlaceContainer.style.left = event.clientX + "px";
         hoverPlaceContainer.style.top = event.clientY + "px";
-        // Store color of closest object (for later restoration)
-        INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
-        // Set a new color for closest object
-        INTERSECTED.material[0].color.setHex(0xffffff);
         hoverPlace.innerText = INTERSECTED.name;
         hoverPlaceSights.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].sights.length} Sights`;
         hoverPlaceEvents.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].events.length} Nearby Events`;
@@ -262,21 +261,18 @@ function onMouseMove(event) {
             if(sight.name === hoveredSight.county) {
               INTERSECTED = sight;
               INTERSECTED.position.y = 0.3;
+            } else if(sight.county === hoveredSight.county) {
+              sight.position.y = 0.3;
             }
           });
 
           hoverPlaceContainer.style.left = event.clientX + "px";
           hoverPlaceContainer.style.top = event.clientY + "px";
-          // Store color of closest object (for later restoration)
-          INTERSECTED.currentHex = INTERSECTED.material[0].color.getHex();
-          // Set a new color for closest object
-          INTERSECTED.material[0].color.setHex(0xffffff);
           hoverPlace.innerText = INTERSECTED.name;
           hoverPlaceSights.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].sights.length} Sights`;
           hoverPlaceEvents.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].events.length} Nearby Events`;
           hoverPlaceContainer.style.display = 'block';
         } else {
-          INTERSECTED = null;
           hoverPlaceContainer.style.left = event.clientX + "px";
           hoverPlaceContainer.style.top = event.clientY + "px";
           hoverPlace.innerText = hoveredSight.name;
@@ -290,8 +286,7 @@ function onMouseMove(event) {
     } else {
       // There are no intersections
       if (INTERSECTED) {
-        if (INTERSECTED.type !== "Scene") {
-          INTERSECTED.material[0].color.setHex( INTERSECTED.currentHex );
+        if (INTERSECTED.type == "Place") {
           hoverPlaceContainer.style.display = 'none';  
         }       
       }
