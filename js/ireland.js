@@ -38,8 +38,8 @@ counties = {
   NorthernIreland: { events: [], sights: [], information: {} }
 };
 
-require("./helper.js");
-require("./mapSetup.js");
+require('./helper.js');
+require('./mapSetup.js');
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 var INTERSECTED = null;
@@ -55,34 +55,35 @@ function onWindowResize() {
 globalObject = {
   onMouseDown:function(event) {
     console.log(event.target);
-    if (event.target.id === "Map" || event.target.id === "hoverPlaceContainer" || event.target.id === "hoverPlaceInfo") {
+    if (event.target.id === 'Map' || event.target.id === 'hoverPlaceContainer' || event.target.id === 'hoverPlaceInfo') {
       if (INTERSECTED) {
         window.speechSynthesis.cancel();
-        if (INTERSECTED.type === "Scene") {
+        if (INTERSECTED.type === 'Scene') {
           document.getElementById('homeView').style.display = 'block';
-          document.getElementById("interest").style.display = "none";
-          document.getElementById("closeButton").style.display="none";
+          document.getElementById('interest').style.display = 'none';
+          document.getElementById('closeButton').style.display='none';
           TARGET = originTarget;
           zoomedAtTarget = false;
           scene.children.forEach((child) => {
             child.visible = true;
           });
-        } else if (INTERSECTED.type === "Place") {
-          var li, link, textDiv, imageDiv, name, image, title, descriptionDiv, description, dateDiv, date, starsDiv, stars, reference;
+        } else if (INTERSECTED.type === 'Place') {
+          var li, link, textDiv, imageDiv, name, image, title, descriptionDiv,
+            description, dateDiv, date, starsDiv, stars, reference;
           const interestDiv = document.getElementById('interest');
           const placeHeading = document.getElementById('Place');
           const buttons = document.getElementById('Buttons');
           const hoverPlace = document.getElementById('hoverPlace');
           document.getElementById('homeView').style.display = 'none';
-          interestDiv.style.display = "block";
-          document.getElementById("readButton").style.display = "inline-block";
-          document.getElementById("pauseButton").style.display = "none";
+          interestDiv.style.display = 'block';
+          document.getElementById('readButton').style.display = 'inline-block';
+          document.getElementById('pauseButton').style.display = 'none';
           document.getElementById("stopButton").style.display = "none";
-          document.getElementById("closeButton").style.display="block";
+          document.getElementById('closeButton').style.display= 'block';
           TARGET = INTERSECTED.geometry.boundingSphere.center;
           zoomedAtTarget = true;
           scene.children.forEach((child) => {
-            if((child.type === 'Place' && child.name !== INTERSECTED.name) || (child.type === "Sight" && child.county !== INTERSECTED.name)) {
+            if((child.type === 'Place' && child.name !== INTERSECTED.name) || (child.type === 'Sight' && child.county !== INTERSECTED.name)) {
               child.visible = false;
             }
           });
@@ -283,8 +284,7 @@ function onMouseMove(event) {
       } else {
         hoverPlaceContainer.style.display = 'none';
       }
-    } else {
-      // There are no intersections
+    } else { // There are no intersections
       if (INTERSECTED) {
         if (INTERSECTED.type == "Place") {
           hoverPlaceContainer.style.display = 'none';  
@@ -294,61 +294,62 @@ function onMouseMove(event) {
   }
 }
 
-function render() {
-
-  if (TARGET) {
-    if (Math.abs(controls.target.x - TARGET.x) > 0.2) {
-      if (controls.target.x - TARGET.x < 0.0 ) {
-        controls.target.x += 0.1;
-      } else {
-        controls.target.x -= 0.1;
-      }
-    }
-
-    if (Math.abs(controls.target.y - TARGET.y) > 0.2) {
-      if (controls.target.y - TARGET.y < 0.0 ) {
-        controls.target.y += 0.1;
-      } else {
-        controls.target.y -= 0.1;
-      }
-    }
-
-    if (Math.abs(controls.target.z - TARGET.z) > 0.2) {
-      if (controls.target.z - TARGET.z < 0.0 ) {
-        controls.target.z += 0.1;
-      } else {
-        controls.target.z -= 0.1;
-      }
-    }
-
-    if (TARGET != originTarget) {
-      if (camera.position.length() > 7) {
-          controls.dIn(1.02);
-      } else {
-        if ((Math.abs(controls.target.x - TARGET.x) <= 0.2) && (Math.abs(controls.target.y - TARGET.y) <= 0.2) && (Math.abs(controls.target.z - TARGET.z) <= 0.2)) {
-          TARGET = null;
-        }
-      }
+function moveTowardsTarget() {
+  if (Math.abs(controls.target.x - TARGET.x) > 0.2) {
+    if (controls.target.x - TARGET.x < 0.0 ) {
+      controls.target.x += 0.1;
     } else {
-      if (camera.position.length() < 16) {
-          controls.dOut(1.02);
-      } else {
-        if ((Math.abs(controls.target.x - TARGET.x) <= 0.2) && (Math.abs(controls.target.y - TARGET.y) <= 0.2) && (Math.abs(controls.target.z - TARGET.z) <= 0.2)) {
-          TARGET = null;
-        }
+      controls.target.x -= 0.1;
+    }
+  }
+
+  if (Math.abs(controls.target.y - TARGET.y) > 0.2) {
+    if (controls.target.y - TARGET.y < 0.0 ) {
+      controls.target.y += 0.1;
+    } else {
+      controls.target.y -= 0.1;
+    }
+  }
+
+  if (Math.abs(controls.target.z - TARGET.z) > 0.2) {
+    if (controls.target.z - TARGET.z < 0.0 ) {
+      controls.target.z += 0.1;
+    } else {
+      controls.target.z -= 0.1;
+    }
+  }
+
+  if (TARGET != originTarget) {
+    if (camera.position.length() > 7) {
+        controls.dIn(1.02);
+    } else {
+      if ((Math.abs(controls.target.x - TARGET.x) <= 0.2) && (Math.abs(controls.target.y - TARGET.y) <= 0.2) && (Math.abs(controls.target.z - TARGET.z) <= 0.2)) {
+        TARGET = null;
       }
     }
+  } else {
+    if (camera.position.length() < 16) {
+        controls.dOut(1.02);
+    } else {
+      if ((Math.abs(controls.target.x - TARGET.x) <= 0.2) && (Math.abs(controls.target.y - TARGET.y) <= 0.2) && (Math.abs(controls.target.z - TARGET.z) <= 0.2)) {
+        TARGET = null;
+      }
+    }
+  }
+}
+
+function render() {
+  if (TARGET) {
+    moveTowardsTarget();
   }
 
   controls.update();
   requestAnimationFrame(render);
-
-
   renderer.render(scene, camera);
 };
 
-window.addEventListener("mousemove", onMouseMove);
-window.addEventListener("mousedown", globalObject.onMouseDown);
+window.addEventListener('mousemove', onMouseMove);
+window.addEventListener('mousedown', globalObject.onMouseDown);
 window.addEventListener('resize', onWindowResize);
 
 render();
