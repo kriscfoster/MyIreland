@@ -5,8 +5,9 @@ const eventbriteKey = process.env.EVENTBRITE_KEY;
 const eventfulKey = process.env.EVENTFUL_KEY;
 const eventbriteEventsRoute = "https://www.eventbriteapi.com/v3/events/search/";
 const eventbriteVenuesRoute = "https://www.eventbriteapi.com/v3/venues/";
+const eventbriteCategoriesRoute = "https://www.eventbriteapi.com/v3/categories/";
+const badCategories = ["101", "112", "120"];
 const eventfulEventsRoute = "http://api.eventful.com/json/events/search?";
-
 const counties = require('../res/counties.js').counties;
 const defaultImgUrl = "http://events.accessatlanta.com/image?method=image.icrop&context=event.yield&id=26332&w=350&h=-1";
 
@@ -21,6 +22,14 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
+
+function eventbriteGetEventCategories() {
+	const path = `${eventbriteCategoriesRoute}?token=${eventbriteKey}`;
+	rp(path, function (error, response, body) {
+		const parsedBody = JSON.parse(body);
+		console.log(parsedBody);
+	});
+}
 
 function eventfulGetEventsForEveryCounty(counties) {
 	var events = [];
@@ -153,7 +162,12 @@ function eventbriteGetEventsForCounty(county) {
 		  				county: county
 		  			};
 
-		  			eventsForCounty.push(event);
+		  			if (!badCategories.includes(e.category_id)) {
+		  				eventsForCounty.push(event);
+		  			} else {
+		  				console.log(e);
+		  			}
+
 		  			itemsProcessed++;
 
 					if (itemsProcessed === events.length) {

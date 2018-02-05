@@ -1,53 +1,52 @@
 function closeInterest() {
-  document.getElementById("interest").style.display = "none";
-  document.getElementById("homeView").style.display = "block";
-  document.getElementById("information").style.display="block";
-  document.getElementById("events").style.display="none";
-  document.getElementById("sights").style.display="none";
-  document.getElementById("closeButton").style.display="none";
-  document.getElementById("informationButton").className = "categoryButton selected material-icons";
-  document.getElementById("sightsButton").className = "categoryButton material-icons";
-  document.getElementById("eventsButton").className = "categoryButton material-icons";
-  document.getElementById("readButton").style.display = "inline-block";
-  document.getElementById("pauseButton").style.display = "none";
-  document.getElementById("stopButton").style.display = "none";
+  document.getElementById('interest').style.display = 'none';
+  document.getElementById('homeView').style.display = 'block';
+  document.getElementById('information').style.display='block';
+  document.getElementById('events').style.display='none';
+  document.getElementById('sights').style.display='none';
+  document.getElementById('closeButton').style.display='none';
+  document.getElementById('informationButton').className = 'categoryButton selected material-icons';
+  document.getElementById('sightsButton').className = 'categoryButton material-icons';
+  document.getElementById('eventsButton').className = 'categoryButton material-icons';
+  document.getElementById('readButton').style.display = 'inline-block';
+  document.getElementById('pauseButton').style.display = 'none';
+  document.getElementById('stopButton').style.display = 'none';
   window.speechSynthesis.cancel();
 }
 
 function showInformation() {
-  document.getElementById("information").style.display="block";
-  document.getElementById("events").style.display="none";
-  document.getElementById("sights").style.display="none";
-  document.getElementById("informationButton").className = "categoryButton selected material-icons";
-  document.getElementById("eventsButton").className = "categoryButton material-icons";
-  document.getElementById("sightsButton").className = "categoryButton material-icons";
+  document.getElementById('information').style.display='block';
+  document.getElementById('events').style.display='none';
+  document.getElementById('sights').style.display='none';
+  document.getElementById('informationButton').className = 'categoryButton selected material-icons';
+  document.getElementById('eventsButton').className = 'categoryButton material-icons';
+  document.getElementById('sightsButton').className = 'categoryButton material-icons';
 }
 
 function showSights() {
-  document.getElementById("information").style.display="none";
-  document.getElementById("events").style.display="none";
-  document.getElementById("sights").style.display="block";
-  document.getElementById("informationButton").className = "categoryButton material-icons";
-  document.getElementById("eventsButton").className = "categoryButton material-icons";
-  document.getElementById("sightsButton").className = "categoryButton selected material-icons";
+  document.getElementById('information').style.display='none';
+  document.getElementById('events').style.display='none';
+  document.getElementById('sights').style.display='block';
+  document.getElementById('informationButton').className = 'categoryButton material-icons';
+  document.getElementById('eventsButton').className = 'categoryButton material-icons';
+  document.getElementById('sightsButton').className = 'categoryButton selected material-icons';
 }
 
 function showEvents() {
-  document.getElementById("information").style.display="none";
-  document.getElementById("events").style.display="block";
-  document.getElementById("sights").style.display="none";
-  document.getElementById("informationButton").className = "categoryButton material-icons";
-  document.getElementById("eventsButton").className = "categoryButton selected material-icons";
-  document.getElementById("sightsButton").className = "categoryButton material-icons";
+  document.getElementById('information').style.display='none';
+  document.getElementById('events').style.display='block';
+  document.getElementById('sights').style.display='none';
+  document.getElementById('informationButton').className = 'categoryButton material-icons';
+  document.getElementById('eventsButton').className = 'categoryButton selected material-icons';
+  document.getElementById('sightsButton').className = 'categoryButton material-icons';
 }
 
 function read() {
-  const text = document.getElementById("informationText").innerText;
+  const text = document.getElementById('informationText').innerText;
   const sentences = text.match( /[^\.!\?]+[\.!\?]+/g );
 
   var timer = setInterval(function() {
     var voices = speechSynthesis.getVoices();
-
     if (voices.length !== 0) {
       for (i = 0; i < sentences.length; i++) {
         sentence = sentences[i]
@@ -59,21 +58,21 @@ function read() {
     }
   }, 200);
 
-  document.getElementById("readButton").style.display = "none";
-  document.getElementById("pauseButton").style.display = "inline-block";
-  document.getElementById("stopButton").style.display = "inline-block";
+  document.getElementById('readButton').style.display = 'none';
+  document.getElementById('pauseButton').style.display = 'inline-block';
+  document.getElementById('stopButton').style.display = 'inline-block';
 }
 
 function pause() {
-  document.getElementById("readButton").style.display = "inline-block";
-  document.getElementById("pauseButton").style.display = "none";
+  document.getElementById('readButton').style.display = 'inline-block';
+  document.getElementById('pauseButton').style.display = 'none';
   window.speechSynthesis.cancel();
 }
 
 function stop() {
-  document.getElementById("readButton").style.display = "inline-block";
-  document.getElementById("pauseButton").style.display = "none";
-  document.getElementById("stopButton").style.display = "none";
+  document.getElementById('readButton').style.display = 'inline-block';
+  document.getElementById('pauseButton').style.display = 'none';
+  document.getElementById('stopButton').style.display = 'none';
   window.speechSynthesis.cancel();
 }
 
@@ -96,7 +95,7 @@ function filterCounties(substr) {
 
   scene.children.forEach((child) => {
     let test = false;
-    if(child.type === "Place") {
+    if(child.type === 'Place') {
       if (!substr) {
         test = true;
       } else if (child.name.toLowerCase().startsWith(substr.toLowerCase())) {
@@ -114,7 +113,7 @@ function filterCounties(substr) {
       } else {
         child.visible = false;
       }
-    } else if(child.type === "Sight") {
+    } else if(child.type === 'Sight') {
       if (!substr) {
         child.visible = true;
       } else if (child.county.toLowerCase().startsWith(substr.toLowerCase())) {
@@ -130,16 +129,16 @@ function filterCounties(substr) {
   });
 
   validCounties.forEach((county) => {
-    tr = document.createElement("tr");
-    td = document.createElement("td");
+    tr = document.createElement('tr');
+    td = document.createElement('td');
     countyId = document.createTextNode(county.id);
     countyName = document.createTextNode(county.name);
     td.appendChild(countyId);
-    td.setAttribute('class', "tableCountyId");
+    td.setAttribute('class', 'tableCountyId');
     tr.appendChild(td);
-    td = document.createElement("td");
+    td = document.createElement('td');
     td.appendChild(countyName);
-    td.setAttribute('class', "tableCountyName");
+    td.setAttribute('class', 'tableCountyName');
     tr.appendChild(td);
     countiesTable.appendChild(tr);
   });
@@ -197,7 +196,6 @@ window.onload = function() {
   ref.once('value', gotData, errData);
 }
 
-
 function gotData(data) {
   data = data.val();
 
@@ -221,7 +219,7 @@ function gotData(data) {
 
   setTimeout(() => {
     filterCounties();
-    document.getElementById("spinnerDiv").style.display = "none";
+    document.getElementById('spinnerDiv').style.display = 'none';
   }, 100);
 }
 
