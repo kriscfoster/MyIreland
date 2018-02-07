@@ -281,6 +281,66 @@ loader.load('../res/northernIreland.json',
   }
 );
 
+loader.load('../res/tropicalWorld.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = 'Tropical World';
+    object.type = 'Sight';
+    object.county = 'Donegal';
+    scene.add(object);
+  }
+);
+
+loader.load('../res/theSilverStrand.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = 'The Silver Strand';
+    object.type = 'Sight';
+    object.county = 'Donegal';
+    scene.add(object);
+  }
+);
+
+loader.load('../res/castleLeslieEstate.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = 'Castle Leslie Estate';
+    object.type = 'Sight';
+    object.county = 'Monaghan';
+    scene.add(object);
+  }
+);
+
+loader.load('../res/cavanBurrenPark.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = 'Cavan Burren Park';
+    object.type = 'Sight';
+    object.county = 'Cavan';
+    scene.add(object);
+  }
+);
+
+loader.load('../res/roscommonMuseum.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = 'Roscommon County Museum';
+    object.type = 'Sight';
+    object.county = 'Roscommon';
+    scene.add(object);
+  }
+);
+
+loader.load('../res/smithwicksBreweryTour.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = 'Smithwicks Brewery Tour';
+    object.type = 'Sight';
+    object.county = 'Kilkenny';
+    scene.add(object);
+  }
+);
+
 loader.load('../res/croughPatrick.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials); // array
@@ -397,16 +457,6 @@ loader.load('../res/irishHeritagePark.json',
     object.name = 'The Irish Heritage Park';
     object.type = 'Sight';
     object.county = 'Wexford';
-    scene.add(object);
-  }
-);
-
-loader.load('../res/db.json', 
-  function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
-    object.name = 'Donegal Bay';
-    object.type = 'Sight';
-    object.county = 'Donegal';
     scene.add(object);
   }
 );

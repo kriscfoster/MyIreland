@@ -205,6 +205,10 @@ function gotData(data) {
     }
   });
 
+  data.sights.data.sort(function(a, b) {
+    return b.rating - a.rating;
+});
+
   data.sights.data.map((e) => {
     if(counties[e.county]) {
       counties[e.county].sights.push(e);
