@@ -229,6 +229,8 @@ function onMouseMove(event) {
           });
 
           INTERSECTED = null;
+        } else if (INTERSECTED.type === "Sight") {
+          INTERSECTED.position.y = 0;
         }
       }
 
@@ -253,6 +255,7 @@ function onMouseMove(event) {
 
       } else if (INTERSECTED.type === "Sight") {
         const hoveredSight = INTERSECTED;
+        hoveredSight.position.y = 0.3;
 
         if (!zoomedAtTarget) {
           scene.children.forEach((sight) => {
