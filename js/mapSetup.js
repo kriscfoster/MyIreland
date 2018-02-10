@@ -371,10 +371,10 @@ loader.load('../res/connemaraNationalPark.json',
   }
 );
 
-loader.load('../res/sligoAbbey.json', 
+loader.load('../res/loughGillDrive.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials); // array
-    object.name = 'Sligo Abbey';
+    object.name = 'The Lough Gill Drive';
     object.type = 'Sight';
     object.county = 'Sligo';
     scene.add(object);

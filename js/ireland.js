@@ -54,7 +54,6 @@ function onWindowResize() {
 
 globalObject = {
   onMouseDown:function(event) {
-    console.log(event.target);
     if (event.target.id === 'Map' || event.target.id === 'hoverPlaceContainer' || event.target.id === 'hoverPlaceInfo') {
       if (INTERSECTED) {
         window.speechSynthesis.cancel();
@@ -255,7 +254,7 @@ function onMouseMove(event) {
 
       } else if (INTERSECTED.type === "Sight") {
         const hoveredSight = INTERSECTED;
-        hoveredSight.position.y = 0.3;
+        hoveredSight.position.y = 0.1;
 
         if (!zoomedAtTarget) {
           scene.children.forEach((sight) => {
