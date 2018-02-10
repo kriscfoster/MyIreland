@@ -38,12 +38,12 @@ counties = {
   NorthernIreland: { events: [], sights: [], information: {} }
 };
 
-require('./helper.js');
+const utils = require('./helper.js');
 require('./mapSetup.js');
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+let TARGET = originTarget;
 var INTERSECTED = null;
-var TARGET = originTarget;
 var zoomedAtTarget = false;
 
 function onWindowResize() {
@@ -52,21 +52,28 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth * 0.70, window.innerHeight);
 }
 
+function toggleOutOfCounty() {
+  document.getElementById('homeView').style.display = 'block';
+  document.getElementById('interest').style.display = 'none';
+  document.getElementById('closeButton').style.display='none';
+  TARGET = originTarget;
+  zoomedAtTarget = false;
+  scene.children.forEach((child) => {
+    child.visible = true;
+  });
+}
+
 globalObject = {
   onMouseDown:function(event) {
-    console.log(event.target);
+    utils.stop();
+    if (event.target.id === 'closeButton') {
+      toggleOutOfCounty();
+    }
+
     if (event.target.id === 'Map' || event.target.id === 'hoverPlaceContainer' || event.target.id === 'hoverPlaceInfo') {
       if (INTERSECTED) {
-        window.speechSynthesis.cancel();
         if (INTERSECTED.type === 'Scene') {
-          document.getElementById('homeView').style.display = 'block';
-          document.getElementById('interest').style.display = 'none';
-          document.getElementById('closeButton').style.display='none';
-          TARGET = originTarget;
-          zoomedAtTarget = false;
-          scene.children.forEach((child) => {
-            child.visible = true;
-          });
+          toggleOutOfCounty();
         } else if (INTERSECTED.type === 'Place') {
           var li, link, textDiv, imageDiv, name, image, title, descriptionDiv,
             description, dateDiv, date, starsDiv, stars, reference;
@@ -255,7 +262,7 @@ function onMouseMove(event) {
 
       } else if (INTERSECTED.type === "Sight") {
         const hoveredSight = INTERSECTED;
-        hoveredSight.position.y = 0.3;
+        hoveredSight.position.y = 0.1;
 
         if (!zoomedAtTarget) {
           scene.children.forEach((sight) => {
