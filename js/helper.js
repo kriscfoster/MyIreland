@@ -131,11 +131,7 @@ function filterCounties(substr) {
   validCounties.forEach((county) => {
     tr = document.createElement('tr');
     td = document.createElement('td');
-    countyId = document.createTextNode(county.id);
     countyName = document.createTextNode(county.name);
-    td.appendChild(countyId);
-    td.setAttribute('class', 'tableCountyId');
-    tr.appendChild(td);
     td = document.createElement('td');
     td.appendChild(countyName);
     td.setAttribute('class', 'tableCountyName');
@@ -230,3 +226,6 @@ function gotData(data) {
 function errData(err) {
   console.log(err);
 }
+
+
+module.exports = { stop }

@@ -481,6 +481,16 @@ loader.load('../res/canoeAssociationNorthernIreland.json',
   }
 );
 
+loader.load('../res/wicklowMountains.json', 
+  function (geometry, materials) {
+    const object = new THREE.Mesh(geometry, materials); // array
+    object.name = 'The Wicklow Mountains';
+    object.type = 'Sight';
+    object.county = 'Wicklow';
+    scene.add(object);
+  }
+);
+
 loader.load('../res/sea.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials); // array
