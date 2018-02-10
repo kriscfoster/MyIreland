@@ -11,7 +11,7 @@ function closeInterest() {
   document.getElementById('readButton').style.display = 'inline-block';
   document.getElementById('pauseButton').style.display = 'none';
   document.getElementById('stopButton').style.display = 'none';
-  window.speechSynthesis.cancel();
+  stop();
 }
 
 function showInformation() {
