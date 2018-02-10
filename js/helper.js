@@ -41,6 +41,23 @@ function showEvents() {
   document.getElementById('sightsButton').className = 'categoryButton material-icons';
 }
 
+function zoomIn() {
+  controls.dIn(1.2);
+}
+
+function zoomOut() {
+  controls.dOut(1.2);
+}
+
+function myLocation() {
+  navigator.geolocation.getCurrentPosition(function(position) {
+    var pos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+  });
+}
+
 function read() {
   const text = document.getElementById('informationText').innerText;
   const sentences = text.match( /[^\.!\?]+[\.!\?]+/g );
@@ -171,6 +188,10 @@ window.onload = function() {
   pauseButton.onclick = () => { pause(); }
   const stopButton = document.getElementById('stopButton');
   stopButton.onclick = () => { stop(); }
+  const zoomInButton = document.getElementById('zoomInButton');
+  zoomInButton.onclick = () => { zoomIn(); }
+  const zoomOutButton = document.getElementById('zoomOutButton');
+  zoomOutButton.onclick = () => { zoomOut(); }
 
   document.getElementById('sidePanel').addEventListener('mouseenter', enteredSidePanel);
   document.getElementById('sidePanel').addEventListener('mouseleave', exitedSidePanel);
