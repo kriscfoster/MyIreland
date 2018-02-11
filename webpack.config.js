@@ -8,6 +8,12 @@ var config = {
     path: __dirname
   },
 
+  node: {
+    fs: 'empty',
+          net: 'empty',
+      tls: 'empty'
+  },
+
   plugins: [
   	new webpack.DefinePlugin({
   		'process.env' : {

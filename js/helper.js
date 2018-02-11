@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 function closeInterest() {
   document.getElementById('interest').style.display = 'none';
   document.getElementById('homeView').style.display = 'block';
@@ -41,6 +43,151 @@ function showEvents() {
   document.getElementById('sightsButton').className = 'categoryButton material-icons';
 }
 
+function placeSelected(placeName) {
+
+  let INTERSECTED;
+
+  scene.children.forEach((child) => {
+    if(child.type === "Place" && child.name === placeName) {
+      INTERSECTED = child;
+      child.visible = true;
+    } else if(child.county === placeName) {
+      child.visible = true;
+    }
+  })
+
+  var li, link, textDiv, imageDiv, name, image, title, descriptionDiv,
+    description, dateDiv, date, starsDiv, stars, reference;
+  const interestDiv = document.getElementById('interest');
+  const placeHeading = document.getElementById('Place');
+  const buttons = document.getElementById('Buttons');
+  const hoverPlace = document.getElementById('hoverPlace');
+  document.getElementById('homeView').style.display = 'none';
+  interestDiv.style.display = 'block';
+  document.getElementById('readButton').style.display = 'inline-block';
+  document.getElementById('pauseButton').style.display = 'none';
+  document.getElementById("stopButton").style.display = "none";
+  document.getElementById('closeButton').style.display= 'block';
+  TARGET = INTERSECTED.geometry.boundingSphere.center;
+  zoomedAtTarget = true;
+  scene.children.forEach((child) => {
+    if((child.type === 'Place' && child.name !== INTERSECTED.name) || (child.type === 'Sight' && child.county !== INTERSECTED.name)) {
+      child.visible = false;
+    }
+  });
+
+  placeHeading.innerHTML=INTERSECTED.name;
+  var sightsUl = document.getElementById("sights-dynamic-list");
+  var eventsUl = document.getElementById("events-dynamic-list");
+  const informationUl =document.getElementById('information-dynamic-list');
+
+  while (informationUl.firstChild) {
+    informationUl.removeChild(informationUl.firstChild);
+  }
+
+  counties[INTERSECTED.name.replace(/\s/g, '')].information.summary.forEach(function(entry, index) {
+    li = document.createElement("li");
+    li.id = index;
+    li.setAttribute('class', "informationListItem");
+    fact = document.createTextNode(entry);
+    li.appendChild(fact);
+    informationUl.appendChild(li);
+  });
+
+  li = document.createElement("li");
+  li.setAttribute('class', "informationListItem");
+  fact = document.createTextNode("This information was summarised using Gensim's Summarisation tool but it originally came from ");
+  li.appendChild(fact);
+  reference = document.createElement("a");
+  reference.appendChild(document.createTextNode("here"));
+  reference.href = counties[INTERSECTED.name.replace(/\s/g, '')].information.link;
+  reference.target= "_blank";
+  li.appendChild(reference);
+  informationUl.appendChild(li);
+
+  while(sightsUl.firstChild){
+    sightsUl.removeChild(sightsUl.firstChild);
+  }
+
+  counties[INTERSECTED.name.replace(/\s/g, '')].sights.forEach(function(entry, index) {
+    li = document.createElement("li");
+    li.id = index;
+    li.setAttribute('class', "sightsListItem");
+    link = document.createElement("a"); 
+    link.href = entry.url;       
+    link.target = "_blank";
+    textDiv = document.createElement("div");
+    textDiv.setAttribute('class', "sightsListItemInfo");
+    imageDiv = document.createElement("div");
+    imageDiv.setAttribute('class', "sightsListItemImageDiv");
+    name = document.createTextNode(entry.name);
+    stars = entry.rating > 0 ? document.createTextNode(entry.rating + "\u{272D}".repeat(Math.round(entry.rating))) : document.createTextNode("");
+    image = document.createElement("img");
+    image.setAttribute('class', "sightsListItemImage");
+    image.src = entry.imageUrl;
+    title = document.createElement("div");
+    title.appendChild(name);
+    title.setAttribute('class', "sightsListItemTitle");
+    starsDiv = document.createElement("div");
+    starsDiv.appendChild(stars);
+    starsDiv.setAttribute('class', "sightsListItemStars");
+    textDiv.appendChild(title);
+    textDiv.appendChild(starsDiv);
+    imageDiv.appendChild(image);
+    link.appendChild(textDiv);
+    link.appendChild(imageDiv);
+    li.appendChild(link);
+    li.appendChild(link);
+    sightsUl.appendChild(li);
+  });
+
+  while(eventsUl.firstChild){
+    eventsUl.removeChild(eventsUl.firstChild);
+  }
+
+  counties[INTERSECTED.name.replace(/\s/g, '')].events.forEach(function(entry, index) {
+    li = document.createElement("li");
+    li.id = index;
+    li.setAttribute('class', "sightsListItem");
+    link = document.createElement("a"); 
+    link.href = entry.url;       
+    link.target = "_blank";
+    textDiv = document.createElement("div");
+    textDiv.setAttribute('class', "sightsListItemInfo");
+    imageDiv = document.createElement("div");
+    imageDiv.setAttribute('class', "sightsListItemImageDiv");
+    name = document.createTextNode(entry.name);
+    description = document.createTextNode(entry.description);
+    date = document.createTextNode(moment(entry.time).format("ddd, MMM D h:mmA").toUpperCase());
+    image = document.createElement("img");
+    image.setAttribute('class', "sightsListItemImage");
+    image.src = entry.imageUrl;
+
+    title = document.createElement("div");
+    title.appendChild(name);
+    title.setAttribute('class', "sightsListItemTitle");
+
+    dateDiv = document.createElement("div");
+    dateDiv.appendChild(date);
+    dateDiv.setAttribute('class', "sightsListItemTime");
+
+    descriptionDiv = document.createElement("div");
+    descriptionDiv.appendChild(description);
+    descriptionDiv.setAttribute('class', "sightsListItemDescription");
+
+    textDiv.appendChild(title);
+    textDiv.appendChild(dateDiv);
+    textDiv.appendChild(descriptionDiv);
+    
+    imageDiv.appendChild(image);
+    link.appendChild(textDiv);
+    link.appendChild(imageDiv);
+    li.appendChild(link);
+    li.appendChild(link);
+    eventsUl.appendChild(li);
+  });
+}
+
 function zoomIn() {
   controls.dIn(1.2);
 }
@@ -50,12 +197,15 @@ function zoomOut() {
 }
 
 function myLocation() {
-  navigator.geolocation.getCurrentPosition(function(position) {
-    var pos = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
-  });
+  if(address.length > 0) {
+    scene.children.forEach((c) => {
+      if (c.type === "Place") {
+        if(address.toLowerCase().includes(c.name.toLowerCase())) {
+          placeSelected(c.name);
+        }
+      }
+    });
+  }
 }
 
 function read() {
@@ -192,6 +342,8 @@ window.onload = function() {
   zoomInButton.onclick = () => { zoomIn(); }
   const zoomOutButton = document.getElementById('zoomOutButton');
   zoomOutButton.onclick = () => { zoomOut(); }
+  const myLocationButton = document.getElementById('myLocationButton');
+  myLocationButton.onclick = () => { myLocation(); }
 
   document.getElementById('sidePanel').addEventListener('mouseenter', enteredSidePanel);
   document.getElementById('sidePanel').addEventListener('mouseleave', exitedSidePanel);
@@ -249,4 +401,4 @@ function errData(err) {
 }
 
 
-module.exports = { stop }
+module.exports = { stop, placeSelected }

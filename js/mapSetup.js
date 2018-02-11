@@ -1,4 +1,5 @@
 const loader = new THREE.JSONLoader();
+const rp = require('request-promise');
 const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x0808dd, 1.5);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.05);
 
@@ -10,6 +11,19 @@ scene.add(directionalLight);
 camera.position.y = 12.605131600565837;
 camera.position.x = 0;
 camera.position.z = 3.204281779409495;
+
+navigator.geolocation.getCurrentPosition((position) => {
+  const pos = {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+  };
+
+  const path = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyC2t91Kl0Z0vlafB5xM3z8CGYLanQLRDOM`;
+  rp(path, function (error, response, body) {
+    const parsed = JSON.parse(body);
+    address = parsed.results[0].formatted_address;
+  });
+});
 
 loader.load('../res/dublin.json', 
   function (geometry, materials) {
