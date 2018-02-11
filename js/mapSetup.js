@@ -23,7 +23,6 @@ navigator.geolocation.getCurrentPosition((position) => {
   rp(path, function (error, response, body) {
     const parsed = JSON.parse(body);
     address = parsed.results[0].formatted_address;
-    document.getElementById("myLocation").innerText = address;
   });
 });
 }

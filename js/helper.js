@@ -204,6 +204,8 @@ function myLocation() {
         }
       }
     });
+
+    document.getElementById("myLocation").innerText = address;
   }
 }
 

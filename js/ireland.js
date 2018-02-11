@@ -56,6 +56,7 @@ function toggleOutOfCounty() {
   document.getElementById('homeView').style.display = 'block';
   document.getElementById('interest').style.display = 'none';
   document.getElementById('closeButton').style.display='none';
+  document.getElementById("myLocation").innerText = '';
   TARGET = originTarget;
   zoomedAtTarget = false;
   scene.children.forEach((child) => {
