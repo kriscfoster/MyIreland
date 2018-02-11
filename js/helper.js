@@ -44,12 +44,11 @@ function showEvents() {
 }
 
 function placeSelected(placeName) {
-
-  let INTERSECTED;
+  let intersectedPlace;
 
   scene.children.forEach((child) => {
     if(child.type === "Place" && child.name === placeName) {
-      INTERSECTED = child;
+      intersectedPlace = child;
       child.visible = true;
     } else if(child.county === placeName) {
       child.visible = true;
@@ -68,15 +67,15 @@ function placeSelected(placeName) {
   document.getElementById('pauseButton').style.display = 'none';
   document.getElementById("stopButton").style.display = "none";
   document.getElementById('closeButton').style.display= 'block';
-  TARGET = INTERSECTED.geometry.boundingSphere.center;
+  TARGET = intersectedPlace.geometry.boundingSphere.center;
   zoomedAtTarget = true;
   scene.children.forEach((child) => {
-    if((child.type === 'Place' && child.name !== INTERSECTED.name) || (child.type === 'Sight' && child.county !== INTERSECTED.name)) {
+    if((child.type === 'Place' && child.name !== intersectedPlace.name) || (child.type === 'Sight' && child.county !== intersectedPlace.name)) {
       child.visible = false;
     }
   });
 
-  placeHeading.innerHTML=INTERSECTED.name;
+  placeHeading.innerHTML=intersectedPlace.name;
   var sightsUl = document.getElementById("sights-dynamic-list");
   var eventsUl = document.getElementById("events-dynamic-list");
   const informationUl =document.getElementById('information-dynamic-list');
@@ -85,7 +84,7 @@ function placeSelected(placeName) {
     informationUl.removeChild(informationUl.firstChild);
   }
 
-  counties[INTERSECTED.name.replace(/\s/g, '')].information.summary.forEach(function(entry, index) {
+  counties[intersectedPlace.name.replace(/\s/g, '')].information.summary.forEach(function(entry, index) {
     li = document.createElement("li");
     li.id = index;
     li.setAttribute('class', "informationListItem");
@@ -100,7 +99,7 @@ function placeSelected(placeName) {
   li.appendChild(fact);
   reference = document.createElement("a");
   reference.appendChild(document.createTextNode("here"));
-  reference.href = counties[INTERSECTED.name.replace(/\s/g, '')].information.link;
+  reference.href = counties[intersectedPlace.name.replace(/\s/g, '')].information.link;
   reference.target= "_blank";
   li.appendChild(reference);
   informationUl.appendChild(li);
@@ -109,7 +108,7 @@ function placeSelected(placeName) {
     sightsUl.removeChild(sightsUl.firstChild);
   }
 
-  counties[INTERSECTED.name.replace(/\s/g, '')].sights.forEach(function(entry, index) {
+  counties[intersectedPlace.name.replace(/\s/g, '')].sights.forEach(function(entry, index) {
     li = document.createElement("li");
     li.id = index;
     li.setAttribute('class', "sightsListItem");
@@ -145,7 +144,7 @@ function placeSelected(placeName) {
     eventsUl.removeChild(eventsUl.firstChild);
   }
 
-  counties[INTERSECTED.name.replace(/\s/g, '')].events.forEach(function(entry, index) {
+  counties[intersectedPlace.name.replace(/\s/g, '')].events.forEach(function(entry, index) {
     li = document.createElement("li");
     li.id = index;
     li.setAttribute('class', "sightsListItem");
