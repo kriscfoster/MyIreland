@@ -12,6 +12,7 @@ camera.position.y = 12.605131600565837;
 camera.position.x = 0;
 camera.position.z = 3.204281779409495;
 
+if (navigator.geolocation) {
 navigator.geolocation.getCurrentPosition((position) => {
   const pos = {
     lat: position.coords.latitude,
@@ -24,6 +25,7 @@ navigator.geolocation.getCurrentPosition((position) => {
     address = parsed.results[0].formatted_address;
   });
 });
+}
 
 loader.load('../res/dublin.json', 
   function (geometry, materials) {
