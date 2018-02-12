@@ -12,21 +12,6 @@ camera.position.y = 12.605131600565837;
 camera.position.x = 0;
 camera.position.z = 3.204281779409495;
 
-if (navigator.geolocation) {
-navigator.geolocation.getCurrentPosition((position) => {
-  const pos = {
-    lat: position.coords.latitude,
-    lng: position.coords.longitude
-  };
-
-  const path = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyC2t91Kl0Z0vlafB5xM3z8CGYLanQLRDOM`;
-  rp(path, function (error, response, body) {
-    const parsed = JSON.parse(body);
-    address = parsed.results[0].formatted_address;
-  });
-});
-}
-
 loader.load('../res/dublin.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
@@ -179,7 +164,7 @@ loader.load('../res/waterford.json',
 
 loader.load('../res/cork.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Cork';
     object.order = 16;
     object.type = 'Place';
@@ -229,7 +214,7 @@ loader.load('../res/clare.json',
 
 loader.load('../res/galway.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Galway';
     object.order = 21;
     object.type = 'Place';
@@ -289,7 +274,7 @@ loader.load('../res/donegal.json',
 
 loader.load('../res/northernIreland.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Northern Ireland';
     object.order = 27;
     object.type = 'Place';
@@ -299,7 +284,7 @@ loader.load('../res/northernIreland.json',
 
 loader.load('../res/tropicalWorld.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Tropical World';
     object.type = 'Sight';
     object.county = 'Donegal';
@@ -309,7 +294,7 @@ loader.load('../res/tropicalWorld.json',
 
 loader.load('../res/theSilverStrand.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Silver Strand';
     object.type = 'Sight';
     object.county = 'Donegal';
@@ -319,7 +304,7 @@ loader.load('../res/theSilverStrand.json',
 
 loader.load('../res/castleLeslieEstate.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Castle Leslie Estate';
     object.type = 'Sight';
     object.county = 'Monaghan';
@@ -329,7 +314,7 @@ loader.load('../res/castleLeslieEstate.json',
 
 loader.load('../res/cavanBurrenPark.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Cavan Burren Park';
     object.type = 'Sight';
     object.county = 'Cavan';
@@ -339,7 +324,7 @@ loader.load('../res/cavanBurrenPark.json',
 
 loader.load('../res/roscommonMuseum.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Roscommon County Museum';
     object.type = 'Sight';
     object.county = 'Roscommon';
@@ -349,7 +334,7 @@ loader.load('../res/roscommonMuseum.json',
 
 loader.load('../res/smithwicksBreweryTour.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Smithwicks Brewery Tour';
     object.type = 'Sight';
     object.county = 'Kilkenny';
@@ -359,7 +344,7 @@ loader.load('../res/smithwicksBreweryTour.json',
 
 loader.load('../res/croughPatrick.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Crough Patrick';
     object.type = 'Sight';
     object.county = 'Mayo';
@@ -369,7 +354,7 @@ loader.load('../res/croughPatrick.json',
 
 loader.load('../res/schoolOfFalconry.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'School Of Falconry';
     object.type = 'Sight';
     object.county = 'Mayo';
@@ -379,7 +364,7 @@ loader.load('../res/schoolOfFalconry.json',
 
 loader.load('../res/connemaraNationalPark.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Connemara National Park';
     object.type = 'Sight';
     object.county = 'Galway';
@@ -389,7 +374,7 @@ loader.load('../res/connemaraNationalPark.json',
 
 loader.load('../res/loughGillDrive.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Lough Gill Drive';
     object.type = 'Sight';
     object.county = 'Sligo';
@@ -399,7 +384,7 @@ loader.load('../res/loughGillDrive.json',
 
 loader.load('../res/giantsCauseway.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Giants Causeway';
     object.type = 'Sight';
     object.county = 'Northern Ireland';
@@ -409,7 +394,7 @@ loader.load('../res/giantsCauseway.json',
 
 loader.load('../res/spire.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Spire';
     object.type = 'Sight';
     object.county = 'Dublin';
@@ -419,7 +404,7 @@ loader.load('../res/spire.json',
 
 loader.load('../res/famineCottages.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Famine Cottages';
     object.type = 'Sight';
     object.county = 'Kerry';
@@ -429,7 +414,7 @@ loader.load('../res/famineCottages.json',
 
 loader.load('../res/newgrange.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Newgrange';
     object.type = 'Sight';
     object.county = 'Meath';
@@ -439,7 +424,7 @@ loader.load('../res/newgrange.json',
 
 loader.load('../res/lisheenCastle.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Lisheen Castle';
     object.type = 'Sight';
     object.county = 'Tipperary';
@@ -449,7 +434,7 @@ loader.load('../res/lisheenCastle.json',
 
 loader.load('../res/belvedereHouse.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Belvedere House & Gardens';
     object.type = 'Sight';
     object.county = 'Westmeath';
@@ -459,7 +444,7 @@ loader.load('../res/belvedereHouse.json',
 
 loader.load('../res/cliffsOfMoher.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Cliffs of Moher';
     object.type = 'Sight';
     object.county = 'Clare';
@@ -469,7 +454,7 @@ loader.load('../res/cliffsOfMoher.json',
 
 loader.load('../res/irishHeritagePark.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Irish Heritage Park';
     object.type = 'Sight';
     object.county = 'Wexford';
@@ -477,10 +462,10 @@ loader.load('../res/irishHeritagePark.json',
   }
 );
 
-loader.load('../res/riverLee.json', 
+loader.load('../res/corkGhostTour.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
-    object.name = 'The River Lee';
+    const object = new THREE.Mesh(geometry, materials);
+    object.name = 'Cork Ghost Tour';
     object.type = 'Sight';
     object.county = 'Cork';
     scene.add(object);
@@ -489,7 +474,7 @@ loader.load('../res/riverLee.json',
 
 loader.load('../res/canoeAssociationNorthernIreland.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Canoe Association of Northern Ireland';
     object.type = 'Sight';
     object.county = 'Northern Ireland';
@@ -499,7 +484,7 @@ loader.load('../res/canoeAssociationNorthernIreland.json',
 
 loader.load('../res/wicklowMountains.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Wicklow Mountains';
     object.type = 'Sight';
     object.county = 'Wicklow';
@@ -509,7 +494,7 @@ loader.load('../res/wicklowMountains.json',
 
 loader.load('../res/sea.json', 
   function (geometry, materials) {
-    const object = new THREE.Mesh(geometry, materials); // array
+    const object = new THREE.Mesh(geometry, materials);
     object.name = 'Sea';
     object.type = 'Scene';
     scene.add(object);

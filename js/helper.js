@@ -195,20 +195,6 @@ function zoomOut() {
   controls.dOut(1.2);
 }
 
-function myLocation() {
-  if(address.length > 0) {
-    scene.children.forEach((c) => {
-      if (c.type === "Place") {
-        if(address.toLowerCase().includes(c.name.toLowerCase())) {
-          placeSelected(c.name);
-        }
-      }
-    });
-
-    document.getElementById("myLocation").innerText = address;
-  }
-}
-
 function read() {
   const text = document.getElementById('informationText').innerText;
   const sentences = text.match( /[^\.!\?]+[\.!\?]+/g );
@@ -343,8 +329,6 @@ window.onload = function() {
   zoomInButton.onclick = () => { zoomIn(); }
   const zoomOutButton = document.getElementById('zoomOutButton');
   zoomOutButton.onclick = () => { zoomOut(); }
-  const myLocationButton = document.getElementById('myLocationButton');
-  myLocationButton.onclick = () => { myLocation(); }
 
   document.getElementById('sidePanel').addEventListener('mouseenter', enteredSidePanel);
   document.getElementById('sidePanel').addEventListener('mouseleave', exitedSidePanel);
