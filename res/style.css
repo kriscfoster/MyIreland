@@ -239,17 +239,8 @@ i.controlButton {
   color: #616161;
 }
 
-i.locationButton {
-  color: #5252ff;
-  margin-bottom: 5px;
-}
-
 i.controlButton:hover {
   color: #393939;
-}
-
-i.locationButton:hover {
-  color: #3030de
 }
 
 .controlsContainer {
