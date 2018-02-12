@@ -16,7 +16,7 @@
         "opacity":1,
         "wireframe":false,
         "shading":"phong",
-        "mapDiffuse":"silver.jpeg",
+        "mapDiffuse":"silver.jpg",
         "transparent":false,
         "doubleSided":false,
         "depthWrite":true,
