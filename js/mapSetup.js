@@ -8,7 +8,7 @@ renderer.domElement.className = 'mapCanvas';
 renderer.setSize(window.innerWidth * 0.70, window.innerHeight);
 scene.add(hemisphereLight)
 scene.add(directionalLight);
-camera.position.y = 12.605131600565837;
+camera.position.y = 13.605131600565837;
 camera.position.x = 0;
 camera.position.z = 3.204281779409495;
 

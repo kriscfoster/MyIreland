@@ -188,8 +188,25 @@ function writeUserData(data, location) {
   });
 }
 
-if(process.env.USE_EVENTFUL) {
-	eventfulGetEventsForEveryCounty(counties);
-} else {
-	eventbriteGetEventsForEveryCounty(counties);
+function millisecondsUntilMidnight() {
+    var midnightTime = new Date();
+    midnightTime.setHours(24);
+    midnightTime.setMinutes(0);
+    midnightTime.setSeconds(0);
+    midnightTime.setMilliseconds(0);
+    return (midnightTime.getTime() - new Date().getTime());
 }
+
+function updateEvents() {
+	if(process.env.USE_EVENTFUL) {
+		eventfulGetEventsForEveryCounty(counties);
+	} else {
+		eventbriteGetEventsForEveryCounty(counties);
+	}
+	
+	setTimeout(() => {
+		updateEvents();
+	}, millisecondsUntilMidnight())
+}
+
+updateEvents();

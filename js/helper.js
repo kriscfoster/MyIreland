@@ -112,6 +112,7 @@ function placeSelected(placeName) {
   var eventsUl = document.getElementById("events-dynamic-list");
 
   appendAllInformation(intersectedPlace.name.replace(/\s/g, ''));
+  showInformation();
 
   while(sightsUl.firstChild){
     sightsUl.removeChild(sightsUl.firstChild);
