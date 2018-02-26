@@ -4,117 +4,132 @@ from gensim.summarization import summarize
 from nltk import sent_tokenize
 import pyrebase
 import os
+from textstat.textstat import textstat
 
 counties_info = json.load(open('../res/counties_info.json'))
+
+def getInformationSummary(countyName) :
+	finSentences = []
+	sentences = sent_tokenize(summarize(counties_info[countyName]["text"], ratio = 0.8))
+	
+	for index in range(len(sentences)):
+		sentence = {
+			"text": sentences[index],
+			"difficulty": textstat.flesch_reading_ease(sentences[index])
+		}
+
+		finSentences.append(sentence)
+	
+	return finSentences
 
 counties = {
 	"Cavan": {
 		"link": counties_info["cavan"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["cavan"]["text"], ratio = 0.7)) 
+		"summary": getInformationSummary("cavan") 
 	},
 	"Monaghan": {
 		"link": counties_info["monaghan"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["monaghan"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("monaghan")
 	},
 	"Louth": {
 		"link": counties_info["louth"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["louth"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("louth")
 	},
 	"Meath": {
 		"link": counties_info["meath"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["meath"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("meath")
 	},
 	"Westmeath": {
 		"link": counties_info["westmeath"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["westmeath"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("westmeath")
 	},
 	"Donegal": {
 		"link": counties_info["donegal"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["donegal"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("donegal")
 	},
 	"Leitrim": {
 		"link": counties_info["leitrim"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["leitrim"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("leitrim")
 	},
 	"Carlow": {
 		"link": counties_info["carlow"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["carlow"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("carlow")
 	},
 	"Clare": {
 		"link": counties_info["clare"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["clare"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("clare")
 	},
 	"Cork": {
 		"link": counties_info["cork"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["cork"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("cork")
 	},
 	"Dublin": {
-		"link": counties_info["cork"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["dublin"]["text"], ratio = 0.7))
+		"link": counties_info["dublin"]["link"], 
+		"summary": getInformationSummary("dublin")
 	},
 	"Galway": {
 		"link": counties_info["galway"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["galway"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("galway")
 	},
 	"Kerry": {
 		"link": counties_info["kerry"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["kerry"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("kerry")
 	},
 	"Kildare": {
 		"link": counties_info["kildare"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["kildare"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("kildare")
 	},
 	"Kilkenny": {
 		"link": counties_info["kilkenny"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["kilkenny"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("kilkenny")
 	},
 	"Laois": {
 		"link": counties_info["laois"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["laois"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("laois")
 	},
 	"Limerick": {
 		"link": counties_info["limerick"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["limerick"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("limerick")
 	},
 	"Longford": {
 		"link": counties_info["longford"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["longford"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("longford")
 	},
 	"Mayo": {
 		"link": counties_info["mayo"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["mayo"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("mayo")
 	},
 	"Offaly": {
 		"link": counties_info["offaly"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["offaly"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("offaly")
 	},
 	"Roscommon": {
 		"link": counties_info["roscommon"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["roscommon"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("roscommon")
 	},
 	"Sligo": {
 		"link": counties_info["sligo"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["sligo"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("sligo")
 	},
 	"Tipperary": {
 		"link": counties_info["tipperary"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["tipperary"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("tipperary")
 	},
 	"Waterford": {
 		"link": counties_info["waterford"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["waterford"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("waterford")
 	},
 	"Wexford": {
 		"link": counties_info["wexford"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["wexford"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("wexford")
 	},
 	"Wicklow": {
 		"link": counties_info["wicklow"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["wicklow"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("wicklow")
 	},
 	"NorthernIreland": {
 		"link": counties_info["northernIreland"]["link"], 
-		"summary": sent_tokenize(summarize(counties_info["northernIreland"]["text"], ratio = 0.7))
+		"summary": getInformationSummary("northernIreland")
 	},
 }
 
