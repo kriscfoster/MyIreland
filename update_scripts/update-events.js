@@ -188,8 +188,15 @@ function writeUserData(data, location) {
   });
 }
 
-if(process.env.USE_EVENTFUL) {
-	eventfulGetEventsForEveryCounty(counties);
-} else {
-	eventbriteGetEventsForEveryCounty(counties);
+function updateEvents() {
+	if(process.env.USE_EVENTFUL) {
+		eventfulGetEventsForEveryCounty(counties);
+	} else {
+		eventbriteGetEventsForEveryCounty(counties);
+	}
 }
+
+
+
+module.exports = { updateEvents }
+

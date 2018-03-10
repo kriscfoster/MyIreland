@@ -43,6 +43,38 @@ function showEvents() {
   document.getElementById('sightsButton').className = 'categoryButton material-icons';
 }
 
+function appendAllInformation(countyName) {
+  const informationUl =document.getElementById('information-dynamic-list');
+  const easyEnglish = document.getElementById('easyEnglish');
+  easyEnglish.checked = false;
+
+  while (informationUl.firstChild) {
+    informationUl.removeChild(informationUl.firstChild);
+  }
+
+  counties[countyName].information.summary.forEach(function(entry, index) {
+    li = document.createElement("li");
+    li.id = index;
+    li.difficulty = entry.difficulty;
+    li.setAttribute('class', "informationListItem");
+    fact = document.createTextNode(entry.text);
+    li.appendChild(fact);
+    informationUl.appendChild(li);
+  });
+
+  li = document.createElement("li");
+  li.difficulty = 100;
+  li.setAttribute('class', "informationListItem");
+  fact = document.createTextNode("This information was summarised using Gensim's Summarisation tool but it originally came from ");
+  li.appendChild(fact);
+  reference = document.createElement("a");
+  reference.appendChild(document.createTextNode("here"));
+  reference.href = counties[countyName].information.link;
+  reference.target= "_blank";
+  li.appendChild(reference);
+  informationUl.appendChild(li);
+}
+
 function placeSelected(placeName) {
   let intersectedPlace;
 
@@ -78,31 +110,9 @@ function placeSelected(placeName) {
   placeHeading.innerHTML=intersectedPlace.name;
   var sightsUl = document.getElementById("sights-dynamic-list");
   var eventsUl = document.getElementById("events-dynamic-list");
-  const informationUl =document.getElementById('information-dynamic-list');
 
-  while (informationUl.firstChild) {
-    informationUl.removeChild(informationUl.firstChild);
-  }
-
-  counties[intersectedPlace.name.replace(/\s/g, '')].information.summary.forEach(function(entry, index) {
-    li = document.createElement("li");
-    li.id = index;
-    li.setAttribute('class', "informationListItem");
-    fact = document.createTextNode(entry);
-    li.appendChild(fact);
-    informationUl.appendChild(li);
-  });
-
-  li = document.createElement("li");
-  li.setAttribute('class', "informationListItem");
-  fact = document.createTextNode("This information was summarised using Gensim's Summarisation tool but it originally came from ");
-  li.appendChild(fact);
-  reference = document.createElement("a");
-  reference.appendChild(document.createTextNode("here"));
-  reference.href = counties[intersectedPlace.name.replace(/\s/g, '')].information.link;
-  reference.target= "_blank";
-  li.appendChild(reference);
-  informationUl.appendChild(li);
+  appendAllInformation(intersectedPlace.name.replace(/\s/g, ''));
+  showInformation();
 
   while(sightsUl.firstChild){
     sightsUl.removeChild(sightsUl.firstChild);
@@ -230,6 +240,23 @@ function stop() {
   window.speechSynthesis.cancel();
 }
 
+function easyEnglishHandler(event) {
+  const informationUl =document.getElementById('information-dynamic-list');
+  var items = informationUl.getElementsByTagName("li");
+
+  if (event.target.checked) {
+    for (var i = 0; i < items.length; ++i) {
+      if (items[i].difficulty < 65) {
+        items[i].style.display = 'none';
+      }
+    }
+  } else {
+    for (var i = 0; i < items.length; ++i) {
+      items[i].style.display = 'block';
+    }
+  }
+}
+
 function enteredSidePanel() {
   controls.enabled = false;
 }
@@ -329,6 +356,8 @@ window.onload = function() {
   zoomInButton.onclick = () => { zoomIn(); }
   const zoomOutButton = document.getElementById('zoomOutButton');
   zoomOutButton.onclick = () => { zoomOut(); }
+  const easyEnglish = document.getElementById('easyEnglish');
+  easyEnglish.onclick = () => { easyEnglishHandler(event); }
 
   document.getElementById('sidePanel').addEventListener('mouseenter', enteredSidePanel);
   document.getElementById('sidePanel').addEventListener('mouseleave', exitedSidePanel);
