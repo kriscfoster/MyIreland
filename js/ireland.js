@@ -1,13 +1,25 @@
-const originTarget = { x: 0.0, y: 0.0, z: 0.0 };
+/* global THREE */
 
-scene = new THREE.Scene();
-renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
-camera = new THREE.PerspectiveCamera(75, (window.innerWidth * 0.70) / window.innerHeight, 0.1, 1000);
-controls = new THREE.OrbitControls(camera);
+const originTarget = { x: 0.0, y: 0.0, z: 0.0 };
+const ZERO = 0;
+const ONE = 1;
+const TWO = 2;
+const SEVENTY_FIVE = 75;
+const SEVENTY_PERCENT = 0.7;
+const TEN_PERCENT = 0.1;
+const ONE_THOUSAND = 1000;
+const scene = new THREE.Scene();
+const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+const camera = new THREE.PerspectiveCamera(SEVENTY_FIVE,
+  (window.innerWidth * SEVENTY_PERCENT) / window.innerHeight,
+  TEN_PERCENT, ONE_THOUSAND);
+const controls = new THREE.OrbitControls(camera);
 controls.maxDistance = 30;
 controls.minDistance = 3;
 
-counties = {
+let hoverPlace, hoverPlaceContainer, hoverPlaceEvents, hoverPlaceSights;
+
+const counties = {
   Carlow: { events: [], sights: [], information: {} },
   Cavan: { events: [], sights: [], information: {} },
   Clare: { events: [], sights: [], information: {} },
@@ -37,21 +49,58 @@ counties = {
   NorthernIreland: { events: [], sights: [], information: {} }
 };
 
-TARGET = originTarget;
-zoomedAtTarget = false;
-address = "";
-const utils = require('./helper.js');
-require('./mapSetup.js');
+let TARGET = originTarget;
+let zoomedAtTarget = false;
+const utils = require('./helper.js')(scene, camera, controls, counties);
+require('./mapSetup.js')(scene, renderer, camera);
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
-var INTERSECTED = null;
+let INTERSECTED = null;
 
-function onWindowResize() {
-  camera.aspect = window.innerWidth * 0.70 / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth * 0.70, window.innerHeight);
+window.onload = () => {
+  hoverPlace = document.getElementById('hoverPlace');
+  hoverPlaceSights = document.getElementById('hoverPlaceSights');
+  hoverPlaceEvents = document.getElementById('hoverPlaceEvents');
+  hoverPlaceContainer = document.getElementById('hoverPlaceContainer');
+  utils.onLoadHandler();
+  document.body.appendChild(renderer.domElement);
+};
+
+/**
+ * A place was selected so carry out necessary steps.
+ * @param {String} placeName - Name of county selected.
+ */
+function placeSelected(placeName) {
+  let intersectedPlace;
+
+  scene.children.forEach((child) => {
+    if (child.type === 'Place' && child.name === placeName) {
+      intersectedPlace = child;
+      child.visible = true;
+    } else if (child.county === placeName) {
+      child.visible = true;
+    }
+  });
+
+  TARGET = intersectedPlace.geometry.boundingSphere.center;
+  zoomedAtTarget = true;
+  utils.placeSelectedHandler(intersectedPlace.name);
 }
 
+/**
+ * Called when window is resized.
+ */
+function onWindowResize() {
+  camera.aspect = window.innerWidth *
+    SEVENTY_PERCENT / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth *
+    SEVENTY_PERCENT, window.innerHeight);
+}
+
+/**
+ * Called when toggled out of county.
+ */
 function toggleOutOfCounty() {
   document.getElementById('homeView').style.display = 'block';
   document.getElementById('interest').style.display = 'none';
@@ -63,75 +112,88 @@ function toggleOutOfCounty() {
   });
 }
 
-globalObject = {
-  onMouseDown:function(event) {
-    utils.stop();
-    if (event.target.id === 'closeButton') {
-      toggleOutOfCounty();
-    }
+/**
+ * Called on mouse click.
+ * @param {JSON} event - click click event.
+ */
+function onMouseDown(event) {
+  utils.stop();
+  if (event.target.id === 'closeButton') {
+    toggleOutOfCounty();
+  }
 
-    if (event.target.id === 'Map' || event.target.id === 'hoverPlaceContainer' || event.target.id === 'hoverPlaceInfo') {
-      if (INTERSECTED) {
-        if (INTERSECTED.type === 'Scene') {
-          toggleOutOfCounty();
-        } else if (INTERSECTED.type === 'Place') {
-          utils.placeSelected(INTERSECTED.name);
-        }
+  if (event.target.id === 'Map' || event.target.id === 'hoverPlaceContainer' ||
+    event.target.id === 'hoverPlaceInfo') {
+    if (INTERSECTED) {
+      if (INTERSECTED.type === 'Scene') {
+        toggleOutOfCounty();
+      } else if (INTERSECTED.type === 'Place') {
+        placeSelected(INTERSECTED.name);
       }
     }
   }
 }
 
-function onMouseMove(event) {
-  const hoverPlace = document.getElementById('hoverPlace');
-  const hoverPlaceSights = document.getElementById('hoverPlaceSights');
-  const hoverPlaceEvents = document.getElementById('hoverPlaceEvents');
-  const hoverPlaceContainer = document.getElementById('hoverPlaceContainer');
+/* eslint-disable max-statements */
 
+/**
+ * Called on mouse move.
+ * @param {JSON} event - mouse move event.
+ */
+function onMouseMove(event) {
   // calculate mouse position in normalized coordinates
-  mouse.x = (event.clientX / (window.innerWidth * 0.70)) * 2 - 1;
-  mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+  mouse.x = (event.clientX / (window.innerWidth * SEVENTY_PERCENT)) * TWO - ONE;
+  mouse.y = -(event.clientY / window.innerHeight) * TWO + ONE;
   raycaster.setFromCamera(mouse, camera);
 
   // calculate objects intersecting the ray
   const intersects = raycaster.intersectObjects(scene.children);
 
-  for (var i=0; i < intersects.length; i++) {
-    if(intersects[i].object != INTERSECTED) {
+  for (let i=0; i < intersects.length; i++) {
+    if (intersects[i].object === INTERSECTED) {
       if (INTERSECTED) {
-        if(INTERSECTED.type === "Place") {
+        if (INTERSECTED.type === 'Place') {
+          hoverPlaceContainer.style.display = 'none';
+        }
+      }
+    } else {
+      if (INTERSECTED) {
+        if (INTERSECTED.type === 'Place') {
           scene.children.forEach((sight) => {
-            if(sight.type === "Place" || sight.type === "Sight") {
+            if (sight.type === 'Place' || sight.type === 'Sight') {
               sight.position.y = 0;
             }
           });
 
           INTERSECTED = null;
-        } else if (INTERSECTED.type === "Sight") {
+        } else if (INTERSECTED.type === 'Sight') {
           INTERSECTED.position.y = 0;
         }
       }
 
-      INTERSECTED = intersects[0].object;
+      INTERSECTED = intersects[ZERO].object;
 
 
-      if(INTERSECTED.type === "Place" && !zoomedAtTarget) {
+      if (INTERSECTED.type === 'Place' && !zoomedAtTarget) {
         INTERSECTED.position.y = 0.3;
 
         scene.children.forEach((sight) => {
-          if(sight.type === "Sight" && sight.county === INTERSECTED.name) {
+          if (sight.type === 'Sight' && sight.county === INTERSECTED.name) {
             sight.position.y = 0.3;
           }
         });
 
-        hoverPlaceContainer.style.left = event.clientX + "px";
-        hoverPlaceContainer.style.top = event.clientY + "px";
+        hoverPlaceContainer.style.left = event.clientX + 'px';
+        hoverPlaceContainer.style.top = event.clientY + 'px';
         hoverPlace.innerText = INTERSECTED.name;
-        hoverPlaceSights.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].sights.length} Sights`;
-        hoverPlaceEvents.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].events.length} Nearby Events`;
+        hoverPlaceSights.innerText =
+          `${counties[INTERSECTED.name
+            .replace(/\s/g, '')].sights.length} Sights`;
+        hoverPlaceEvents.innerText =
+          `${counties[INTERSECTED.name
+            .replace(/\s/g, '')].events.length} Nearby Events`;
         hoverPlaceContainer.style.display = 'block';
-
-      } else if (INTERSECTED.type === "Sight") {
+      } else if (INTERSECTED.type === 'Sight') {
         const hoveredSight = INTERSECTED;
         hoveredSight.position.y = 0.1;
 
@@ -145,11 +207,15 @@ function onMouseMove(event) {
             }
           });
 
-          hoverPlaceContainer.style.left = event.clientX + "px";
-          hoverPlaceContainer.style.top = event.clientY + "px";
+          hoverPlaceContainer.style.left = event.clientX + 'px';
+          hoverPlaceContainer.style.top = event.clientY + 'px';
           hoverPlace.innerText = INTERSECTED.name;
-          hoverPlaceSights.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].sights.length} Sights`;
-          hoverPlaceEvents.innerText = `${counties[INTERSECTED.name.replace(/\s/g, '')].events.length} Nearby Events`;
+          hoverPlaceSights.innerText =
+            `${counties[INTERSECTED.name
+              .replace(/\s/g, '')].sights.length} Sights`;
+          hoverPlaceEvents.innerText =
+            `${counties[INTERSECTED.name
+              .replace(/\s/g, '')].events.length} Nearby Events`;
           hoverPlaceContainer.style.display = 'block';
         } else {
           hoverPlaceContainer.style.left = event.clientX + "px";
@@ -161,12 +227,6 @@ function onMouseMove(event) {
         }
       } else {
         hoverPlaceContainer.style.display = 'none';
-      }
-    } else { // There are no intersections
-      if (INTERSECTED) {
-        if (INTERSECTED.type == "Place") {
-          hoverPlaceContainer.style.display = 'none';  
-        }       
       }
     }
   }
@@ -224,10 +284,10 @@ function render() {
   controls.update();
   requestAnimationFrame(render);
   renderer.render(scene, camera);
-};
+}
 
 window.addEventListener('mousemove', onMouseMove);
-window.addEventListener('mousedown', globalObject.onMouseDown);
+window.addEventListener('mousedown', onMouseDown);
 window.addEventListener('resize', onWindowResize);
 
 render();
