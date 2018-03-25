@@ -407,7 +407,7 @@ module.exports = (scene, camera, controls, counties) => {
   }
 
   /**
-   * Successfully got data.
+   * Called when data is successfully received.
    * @param {JSON} dataObj - Data object received.
    */
   function gotData(dataObj) {
