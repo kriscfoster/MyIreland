@@ -13,12 +13,21 @@
   "license": "ISC",
   "dependencies": {
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
     "express": "^4.16.2",
     "firebase": "^4.8.1",
     "flickrapi": "^0.6.0",
     "moment": "^2.20.1",
+    "path": "^0.12.7",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "webpack": "^3.8.1"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0"
   }
 }

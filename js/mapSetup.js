@@ -5,15 +5,15 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.05);
 
 renderer.domElement.id = 'Map';
 renderer.domElement.className = 'mapCanvas';
-renderer.setSize(window.innerWidth * 0.70, window.innerHeight);
-scene.add(hemisphereLight)
+renderer.setSize(window.innerWidth, window.innerHeight);
+scene.add(hemisphereLight);
 scene.add(directionalLight);
 camera.position.y = 13.605131600565837;
 camera.position.x = 0;
 camera.position.z = 3.204281779409495;
 
-loader.load('../res/dublin.json', 
-  function (geometry, materials) {
+loader.load('../res/models/dublin.json',
+  (geometry, materials) => {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Dublin';
     object.order = 1;
@@ -22,8 +22,8 @@ loader.load('../res/dublin.json',
   }
 );
 
-loader.load('../res/wicklow.json', 
-  function (geometry, materials) {
+loader.load('../res/models/wicklow.json', 
+  (geometry, materials) => {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Wicklow';
     object.order = 2;
@@ -32,7 +32,7 @@ loader.load('../res/wicklow.json',
   }
 );
 
-loader.load('../res/wexford.json', 
+loader.load('../res/models/wexford.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Wexford';
@@ -42,7 +42,7 @@ loader.load('../res/wexford.json',
   }
 );
 
-loader.load('../res/carlow.json', 
+loader.load('../res/models/carlow.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Carlow';
@@ -52,7 +52,7 @@ loader.load('../res/carlow.json',
   }
 );
 
-loader.load('../res/kildare.json', 
+loader.load('../res/models/kildare.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Kildare';
@@ -62,7 +62,7 @@ loader.load('../res/kildare.json',
   }
 );
 
-loader.load('../res/meath.json', 
+loader.load('../res/models/meath.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Meath';
@@ -72,7 +72,7 @@ loader.load('../res/meath.json',
   }
 );
 
-loader.load('../res/louth.json', 
+loader.load('../res/models/louth.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Louth';
@@ -82,7 +82,7 @@ loader.load('../res/louth.json',
   }
 );
 
-loader.load('../res/monaghan.json', 
+loader.load('../res/models/monaghan.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Monaghan';
@@ -92,7 +92,7 @@ loader.load('../res/monaghan.json',
   }
 );
 
-loader.load('../res/cavan.json', 
+loader.load('../res/models/cavan.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Cavan';
@@ -102,7 +102,7 @@ loader.load('../res/cavan.json',
   }
 );
 
-loader.load('../res/longford.json', 
+loader.load('../res/models/longford.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Longford';
@@ -112,7 +112,7 @@ loader.load('../res/longford.json',
   }
 );
 
-loader.load('../res/westmeath.json', 
+loader.load('../res/models/westmeath.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Westmeath';
@@ -122,7 +122,7 @@ loader.load('../res/westmeath.json',
   }
 );
 
-loader.load('../res/offaly.json', 
+loader.load('../res/models/offaly.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Offaly';
@@ -132,7 +132,7 @@ loader.load('../res/offaly.json',
   }
 );
 
-loader.load('../res/laois.json', 
+loader.load('../res/models/laois.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Laois';
@@ -142,7 +142,7 @@ loader.load('../res/laois.json',
   }
 );
 
-loader.load('../res/kilkenny.json', 
+loader.load('../res/models/kilkenny.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Kilkenny';
@@ -152,7 +152,7 @@ loader.load('../res/kilkenny.json',
   }
 );
 
-loader.load('../res/waterford.json', 
+loader.load('../res/models/waterford.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Waterford';
@@ -162,7 +162,7 @@ loader.load('../res/waterford.json',
   }
 );
 
-loader.load('../res/cork.json', 
+loader.load('../res/models/cork.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Cork';
@@ -172,7 +172,7 @@ loader.load('../res/cork.json',
   }
 );
 
-loader.load('../res/kerry.json', 
+loader.load('../res/models/kerry.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Kerry';
@@ -182,7 +182,7 @@ loader.load('../res/kerry.json',
   }
 );
 
-loader.load('../res/limerick.json', 
+loader.load('../res/models/limerick.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Limerick';
@@ -192,7 +192,7 @@ loader.load('../res/limerick.json',
   }
 );
 
-loader.load('../res/tipperary.json', 
+loader.load('../res/models/tipperary.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Tipperary';
@@ -202,7 +202,7 @@ loader.load('../res/tipperary.json',
   }
 );
 
-loader.load('../res/clare.json', 
+loader.load('../res/models/clare.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Clare';
@@ -212,7 +212,7 @@ loader.load('../res/clare.json',
   }
 );
 
-loader.load('../res/galway.json', 
+loader.load('../res/models/galway.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Galway';
@@ -222,7 +222,7 @@ loader.load('../res/galway.json',
   }
 );
 
-loader.load('../res/mayo.json', 
+loader.load('../res/models/mayo.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Mayo';
@@ -232,7 +232,7 @@ loader.load('../res/mayo.json',
   }
 );
 
-loader.load('../res/roscommon.json', 
+loader.load('../res/models/roscommon.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Roscommon';
@@ -242,7 +242,7 @@ loader.load('../res/roscommon.json',
   }
 );
 
-loader.load('../res/sligo.json', 
+loader.load('../res/models/sligo.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Sligo';
@@ -252,7 +252,7 @@ loader.load('../res/sligo.json',
   }
 );
 
-loader.load('../res/leitrim.json', 
+loader.load('../res/models/leitrim.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Leitrim';
@@ -262,7 +262,7 @@ loader.load('../res/leitrim.json',
   }
 );
 
-loader.load('../res/donegal.json', 
+loader.load('../res/models/donegal.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Donegal';
@@ -272,7 +272,7 @@ loader.load('../res/donegal.json',
   }
 );
 
-loader.load('../res/northernIreland.json', 
+loader.load('../res/models/northernIreland.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Northern Ireland';
@@ -282,7 +282,7 @@ loader.load('../res/northernIreland.json',
   }
 );
 
-loader.load('../res/tropicalWorld.json', 
+loader.load('../res/models/tropicalWorld.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Tropical World';
@@ -292,7 +292,7 @@ loader.load('../res/tropicalWorld.json',
   }
 );
 
-loader.load('../res/theSilverStrand.json', 
+loader.load('../res/models/theSilverStrand.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Silver Strand';
@@ -302,7 +302,7 @@ loader.load('../res/theSilverStrand.json',
   }
 );
 
-loader.load('../res/castleLeslieEstate.json', 
+loader.load('../res/models/castleLeslieEstate.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Castle Leslie Estate';
@@ -312,7 +312,7 @@ loader.load('../res/castleLeslieEstate.json',
   }
 );
 
-loader.load('../res/cavanBurrenPark.json', 
+loader.load('../res/models/cavanBurrenPark.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Cavan Burren Park';
@@ -322,7 +322,7 @@ loader.load('../res/cavanBurrenPark.json',
   }
 );
 
-loader.load('../res/roscommonMuseum.json', 
+loader.load('../res/models/roscommonMuseum.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Roscommon County Museum';
@@ -332,7 +332,7 @@ loader.load('../res/roscommonMuseum.json',
   }
 );
 
-loader.load('../res/smithwicksBreweryTour.json', 
+loader.load('../res/models/smithwicksBreweryTour.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Smithwicks Brewery Tour';
@@ -342,7 +342,7 @@ loader.load('../res/smithwicksBreweryTour.json',
   }
 );
 
-loader.load('../res/croughPatrick.json', 
+loader.load('../res/models/croughPatrick.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Crough Patrick';
@@ -352,7 +352,7 @@ loader.load('../res/croughPatrick.json',
   }
 );
 
-loader.load('../res/schoolOfFalconry.json', 
+loader.load('../res/models/schoolOfFalconry.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'School Of Falconry';
@@ -362,7 +362,7 @@ loader.load('../res/schoolOfFalconry.json',
   }
 );
 
-loader.load('../res/connemaraNationalPark.json', 
+loader.load('../res/models/connemaraNationalPark.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Connemara National Park';
@@ -372,7 +372,7 @@ loader.load('../res/connemaraNationalPark.json',
   }
 );
 
-loader.load('../res/loughGillDrive.json', 
+loader.load('../res/models/loughGillDrive.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Lough Gill Drive';
@@ -382,7 +382,7 @@ loader.load('../res/loughGillDrive.json',
   }
 );
 
-loader.load('../res/giantsCauseway.json', 
+loader.load('../res/models/giantsCauseway.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Giants Causeway';
@@ -392,7 +392,7 @@ loader.load('../res/giantsCauseway.json',
   }
 );
 
-loader.load('../res/spire.json', 
+loader.load('../res/models/spire.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Spire';
@@ -402,7 +402,7 @@ loader.load('../res/spire.json',
   }
 );
 
-loader.load('../res/famineCottages.json', 
+loader.load('../res/models/famineCottages.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Famine Cottages';
@@ -412,7 +412,7 @@ loader.load('../res/famineCottages.json',
   }
 );
 
-loader.load('../res/newgrange.json', 
+loader.load('../res/models/newgrange.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Newgrange';
@@ -422,7 +422,7 @@ loader.load('../res/newgrange.json',
   }
 );
 
-loader.load('../res/lisheenCastle.json', 
+loader.load('../res/models/lisheenCastle.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Lisheen Castle';
@@ -432,7 +432,7 @@ loader.load('../res/lisheenCastle.json',
   }
 );
 
-loader.load('../res/belvedereHouse.json', 
+loader.load('../res/models/belvedereHouse.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Belvedere House & Gardens';
@@ -442,7 +442,7 @@ loader.load('../res/belvedereHouse.json',
   }
 );
 
-loader.load('../res/cliffsOfMoher.json', 
+loader.load('../res/models/cliffsOfMoher.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Cliffs of Moher';
@@ -452,7 +452,7 @@ loader.load('../res/cliffsOfMoher.json',
   }
 );
 
-loader.load('../res/irishHeritagePark.json', 
+loader.load('../res/models/irishHeritagePark.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Irish Heritage Park';
@@ -462,7 +462,7 @@ loader.load('../res/irishHeritagePark.json',
   }
 );
 
-loader.load('../res/corkGhostTour.json', 
+loader.load('../res/models/corkGhostTour.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Cork Ghost Tour';
@@ -472,7 +472,7 @@ loader.load('../res/corkGhostTour.json',
   }
 );
 
-loader.load('../res/canoeAssociationNorthernIreland.json', 
+loader.load('../res/models/canoeAssociationNorthernIreland.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Canoe Association of Northern Ireland';
@@ -482,7 +482,7 @@ loader.load('../res/canoeAssociationNorthernIreland.json',
   }
 );
 
-loader.load('../res/wicklowMountains.json', 
+loader.load('../res/models/wicklowMountains.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'The Wicklow Mountains';
@@ -492,7 +492,7 @@ loader.load('../res/wicklowMountains.json',
   }
 );
 
-loader.load('../res/sea.json', 
+loader.load('../res/models/sea.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Sea';
@@ -501,7 +501,7 @@ loader.load('../res/sea.json',
   }
 );
 
-loader.load('../res/sun.json', 
+loader.load('../res/models/sun.json', 
   function (geometry, materials) {
     const object = new THREE.Mesh(geometry, materials);
     object.name = 'Sun';
