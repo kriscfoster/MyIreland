@@ -1,6 +1,5 @@
 /* global firebase */
 /* eslint-disable no-process-env */
-/* eslint-disable max-statements */
 
 const moment = require('moment');
 
@@ -27,88 +26,267 @@ const VOICE_INDEX = 66;
 const FLESH_THRESHOLD = 65;
 const INTERVAL = 200;
 
+/**
+ * Closes the interest in county.
+ */
+function closeInterest() {
+  interestDiv.style.display = 'none';
+  homeView.style.display = 'block';
+  information.style.display='block';
+  events.style.display='none';
+  sights.style.display='none';
+  closeButton.style.display='none';
+  informationButton.className = 'categoryButton selected material-icons';
+  sightsButton.className = 'categoryButton material-icons';
+  eventsButton.className = 'categoryButton material-icons';
+  readButton.style.display = 'inline-block';
+  pauseButton.style.display = 'none';
+  stopButton.style.display = 'none';
+  stop();
+}
+
+/**
+ * Show information for a county.
+ */
+function showInformation() {
+  information.style.display='block';
+  events.style.display='none';
+  sights.style.display='none';
+  informationButton.className = 'categoryButton selected material-icons';
+  eventsButton.className = 'categoryButton material-icons';
+  sightsButton.className = 'categoryButton material-icons';
+}
+
+/**
+ * Show sights for a county.
+ */
+function showSights() {
+  information.style.display='none';
+  events.style.display='none';
+  sights.style.display='block';
+  informationButton.className = 'categoryButton material-icons';
+  eventsButton.className = 'categoryButton material-icons';
+  sightsButton.className = 'categoryButton selected material-icons';
+}
+
+/**
+ * Show events for a county.
+ */
+function showEvents() {
+  information.style.display='none';
+  events.style.display='block';
+  sights.style.display='none';
+  informationButton.className = 'categoryButton material-icons';
+  eventsButton.className = 'categoryButton selected material-icons';
+  sightsButton.className = 'categoryButton material-icons';
+}
+
+/**
+ * Initializes elements from the DOM
+ */
+function initializeElements() {
+  interestDiv = document.getElementById('interest');
+  placeHeading = document.getElementById('Place');
+  information = document.getElementById('information');
+  events = document.getElementById('events');
+  sights = document.getElementById('sights');
+  sightsUl = document.getElementById('sights-dynamic-list');
+  eventsUl = document.getElementById('events-dynamic-list');
+  homeView = document.getElementById('homeView');
+  closeButton = document.getElementById('closeButton');
+  informationButton = document.getElementById('informationButton');
+  sightsButton = document.getElementById('sightsButton');
+  eventsButton = document.getElementById('eventsButton');
+  readButton = document.getElementById('readButton');
+  pauseButton = document.getElementById('pauseButton');
+  stopButton = document.getElementById('stopButton');
+  informationUl =document.getElementById('information-dynamic-list');
+  easyEnglish = document.getElementById('easyEnglish');
+  zoomInButton = document.getElementById('zoomInButton');
+  zoomOutButton = document.getElementById('zoomOutButton');
+  sidePanel = document.getElementById('sidePanel');
+}
+
+/**
+ * Creates a stars div for a sight.
+ * @param {Int} rating - rating for sight.
+ * @returns {DOM} div for stars.
+ */
+function createStarsDiv(rating) {
+  const starsUniCode = '\u{272D}';
+  const stars = rating > ZERO ?
+    document.createTextNode(rating +
+      starsUniCode.repeat(Math.round(rating))) :
+    document.createTextNode('');
+  const starsDiv = document.createElement('div');
+  starsDiv.appendChild(stars);
+  starsDiv.setAttribute('class', 'sightsListItemStars');
+  return starsDiv;
+}
+
+/**
+ * Creates an image div.
+ * @param {JSON} entry - entry of sight.
+ * @returns {DOM} image div.
+ */
+function createImageDiv(entry) {
+  const imageDiv = document.createElement('div');
+  const image = document.createElement('img');
+  imageDiv.setAttribute('class', 'sightsListItemImageDiv');
+  image.setAttribute('class', 'sightsListItemImage');
+  image.src = entry.imageUrl;
+  imageDiv.appendChild(image);
+  return imageDiv;
+}
+
+/**
+ * Creates an date div.
+ * @param {Int} date - date.
+ * @returns {DOM} date div.
+ */
+function createDateDiv(date) {
+  const dateDiv = document.createElement('div');
+  const dateText = document.createTextNode(moment(date)
+    .format('ddd, MMM D h:mmA').toUpperCase());
+  dateDiv.appendChild(dateText);
+  dateDiv.setAttribute('class', 'sightsListItemTime');
+  return dateDiv;
+}
+
+/**
+ * Creates a link element.
+ * @param {url} url - url for link.
+ * @returns {DOM} an 'a' element.
+ */
+function createLinkElement(url) {
+  const link = document.createElement('a');
+  link.href = url;
+  link.target = '_blank';
+  return link;
+}
+
+/**
+ * Creates a link element.
+ * @param {url} name - name for div.
+ * @returns {DOM} Title div.
+ */
+function createTitleDiv(name) {
+  const title = document.createElement('div');
+  const nameNode = document.createTextNode(name);
+  title.appendChild(nameNode);
+  title.setAttribute('class', 'sightsListItemTitle');
+  return title;
+}
+
+/**
+ * Creates a sight list item.
+ * @param {JSON} entry - entry of sight.
+ * @param {Int} index - index of sight.
+ * @returns {DOM} list item for sight.
+ */
+function createSightsListItem(entry) {
+  const li = document.createElement('li');
+  const link = document.createElement('a');
+  const textDiv = document.createElement('div');
+  const title = createTitleDiv(entry.name);
+  const imageDiv = createImageDiv(entry);
+  const starsDiv = createStarsDiv(entry.rating);
+
+  link.href = entry.url;
+  link.target = '_blank';
+  textDiv.setAttribute('class', 'sightsListItemInfo');
+  textDiv.appendChild(title);
+  textDiv.appendChild(starsDiv);
+  link.appendChild(textDiv);
+  link.appendChild(imageDiv);
+  li.appendChild(link);
+  return li;
+}
+
+/**
+ * Creates an events list item.
+ * @param {JSON} entry - entry of event.
+ * @param {Int} index - index of event.
+ * @returns {DOM} list item for event.
+ */
+function createEventsListItem(entry) {
+  const li = document.createElement('li');
+  const textDiv = document.createElement('div');
+  const title = createTitleDiv(entry.name);
+  const descriptionDiv = document.createElement('div');
+  const description = document.createTextNode(entry.description);
+  const link = createLinkElement(entry.url);
+  const imageDiv = createImageDiv(entry);
+  const dateDiv = createDateDiv(entry.time);
+
+  textDiv.setAttribute('class', 'sightsListItemInfo');
+  descriptionDiv.appendChild(description);
+  descriptionDiv.setAttribute('class', 'sightsListItemDescription');
+  textDiv.appendChild(title);
+  textDiv.appendChild(dateDiv);
+  textDiv.appendChild(descriptionDiv);
+  link.appendChild(textDiv);
+  link.appendChild(imageDiv);
+  li.appendChild(link);
+  return li;
+}
+
+/**
+ * Read information.
+ */
+function read() {
+  const text = document.getElementById('informationText').innerText;
+  const sentences = text.match(/[^.!?]+[.!?]+/g);
+  let audio, sentence;
+
+  const timer = setInterval(() => {
+    const voices = speechSynthesis.getVoices();
+    if (voices.length) {
+      for (let i = 0; i < sentences.length; i++) {
+        sentence = sentences[i];
+        audio = new SpeechSynthesisUtterance(sentence);
+        audio.voice = voices[VOICE_INDEX];
+        window.speechSynthesis.speak(audio);
+        clearInterval(timer);
+      }
+    }
+  }, INTERVAL);
+
+  readButton.style.display = 'none';
+  pauseButton.style.display = 'inline-block';
+  stopButton.style.display = 'inline-block';
+}
+
+/**
+ * Pause the read.
+ */
+function pause() {
+  document.getElementById('readButton').style.display = 'inline-block';
+  document.getElementById('pauseButton').style.display = 'none';
+  window.speechSynthesis.cancel();
+}
+
+/**
+ * Easy english toggle clicked
+ * @param {JSON} event - click toggle event
+ */
+function easyEnglishHandler(event) {
+  const items = informationUl.getElementsByTagName('li');
+
+  if (event.target.checked) {
+    for (let i = 0; i < items.length; ++i) {
+      if (items[i].difficulty < FLESH_THRESHOLD) {
+        items[i].style.display = 'none';
+      }
+    }
+  } else {
+    for (let i = 0; i < items.length; ++i) {
+      items[i].style.display = 'block';
+    }
+  }
+}
+
 module.exports = (scene, camera, controls, counties) => {
-  /**
-   * Initializes elements from the DOM
-   */
-  function initializeElements() {
-    interestDiv = document.getElementById('interest');
-    placeHeading = document.getElementById('Place');
-    information = document.getElementById('information');
-    events = document.getElementById('events');
-    sights = document.getElementById('sights');
-    sightsUl = document.getElementById('sights-dynamic-list');
-    eventsUl = document.getElementById('events-dynamic-list');
-    homeView = document.getElementById('homeView');
-    closeButton = document.getElementById('closeButton');
-    informationButton = document.getElementById('informationButton');
-    sightsButton = document.getElementById('sightsButton');
-    eventsButton = document.getElementById('eventsButton');
-    readButton = document.getElementById('readButton');
-    pauseButton = document.getElementById('pauseButton');
-    stopButton = document.getElementById('stopButton');
-    informationUl =document.getElementById('information-dynamic-list');
-    easyEnglish = document.getElementById('easyEnglish');
-    zoomInButton = document.getElementById('zoomInButton');
-    zoomOutButton = document.getElementById('zoomOutButton');
-    sidePanel = document.getElementById('sidePanel');
-  }
-
-  /**
-   * Closes the interest in county.
-   */
-  function closeInterest() {
-    interestDiv.style.display = 'none';
-    homeView.style.display = 'block';
-    information.style.display='block';
-    events.style.display='none';
-    sights.style.display='none';
-    closeButton.style.display='none';
-    informationButton.className = 'categoryButton selected material-icons';
-    sightsButton.className = 'categoryButton material-icons';
-    eventsButton.className = 'categoryButton material-icons';
-    readButton.style.display = 'inline-block';
-    pauseButton.style.display = 'none';
-    stopButton.style.display = 'none';
-    stop();
-  }
-
-  /**
-   * Show information for a county.
-   */
-  function showInformation() {
-    information.style.display='block';
-    events.style.display='none';
-    sights.style.display='none';
-    informationButton.className = 'categoryButton selected material-icons';
-    eventsButton.className = 'categoryButton material-icons';
-    sightsButton.className = 'categoryButton material-icons';
-  }
-
-  /**
-   * Show sights for a county.
-   */
-  function showSights() {
-    information.style.display='none';
-    events.style.display='none';
-    sights.style.display='block';
-    informationButton.className = 'categoryButton material-icons';
-    eventsButton.className = 'categoryButton material-icons';
-    sightsButton.className = 'categoryButton selected material-icons';
-  }
-
-  /**
-   * Show events for a county.
-   */
-  function showEvents() {
-    information.style.display='none';
-    events.style.display='block';
-    sights.style.display='none';
-    informationButton.className = 'categoryButton material-icons';
-    eventsButton.className = 'categoryButton selected material-icons';
-    sightsButton.className = 'categoryButton material-icons';
-  }
-
   /**
    * Append information for a selected county.
    * @param {String} countyName - Name of county.
@@ -142,185 +320,6 @@ module.exports = (scene, camera, controls, counties) => {
     reference.target= '_blank';
     li.appendChild(reference);
     informationUl.appendChild(li);
-  }
-
-  /**
-   * Creates a stars div for a sight.
-   * @param {Int} rating - rating for sight.
-   * @returns {DOM} div for stars.
-   */
-  function createStarsDiv(rating) {
-    const starsUniCode = '\u{272D}';
-    const stars = rating > ZERO ?
-      document.createTextNode(rating +
-        starsUniCode.repeat(Math.round(rating))) :
-      document.createTextNode('');
-    const starsDiv = document.createElement('div');
-    starsDiv.appendChild(stars);
-    starsDiv.setAttribute('class', 'sightsListItemStars');
-    return starsDiv;
-  }
-
-  /**
-   * Creates an image div.
-   * @param {JSON} entry - entry of sight.
-   * @returns {DOM} image div.
-   */
-  function createImageDiv(entry) {
-    const imageDiv = document.createElement('div');
-    const image = document.createElement('img');
-    imageDiv.setAttribute('class', 'sightsListItemImageDiv');
-    image.setAttribute('class', 'sightsListItemImage');
-    image.src = entry.imageUrl;
-    imageDiv.appendChild(image);
-    return imageDiv;
-  }
-
-  /**
-   * Creates an date div.
-   * @param {Int} date - date.
-   * @returns {DOM} date div.
-   */
-  function createDateDiv(date) {
-    const dateDiv = document.createElement('div');
-    const dateText = document.createTextNode(moment(date)
-      .format('ddd, MMM D h:mmA').toUpperCase());
-    dateDiv.appendChild(dateText);
-    dateDiv.setAttribute('class', 'sightsListItemTime');
-    return dateDiv;
-  }
-
-  /**
-   * Creates a link element.
-   * @param {url} url - url for link.
-   * @returns {DOM} an 'a' element.
-   */
-  function createLinkElement(url) {
-    const link = document.createElement('a');
-    link.href = url;
-    link.target = '_blank';
-    return link;
-  }
-
-  /**
-   * Creates a link element.
-   * @param {url} name - name for div.
-   * @returns {DOM} Title div.
-   */
-  function createTitleDiv(name) {
-    const title = document.createElement('div');
-    const nameNode = document.createTextNode(name);
-    title.appendChild(nameNode);
-    title.setAttribute('class', 'sightsListItemTitle');
-    return title;
-  }
-
-  /**
-   * Creates a sight list item.
-   * @param {JSON} entry - entry of sight.
-   * @param {Int} index - index of sight.
-   * @returns {DOM} list item for sight.
-   */
-  function createSightsListItem(entry) {
-    const li = document.createElement('li');
-    const link = document.createElement('a');
-    const textDiv = document.createElement('div');
-    const title = createTitleDiv(entry.name);
-    const imageDiv = createImageDiv(entry);
-    const starsDiv = createStarsDiv(entry.rating);
-
-    link.href = entry.url;
-    link.target = '_blank';
-    textDiv.setAttribute('class', 'sightsListItemInfo');
-    textDiv.appendChild(title);
-    textDiv.appendChild(starsDiv);
-    link.appendChild(textDiv);
-    link.appendChild(imageDiv);
-    li.appendChild(link);
-    return li;
-  }
-
-  /**
-   * Creates an events list item.
-   * @param {JSON} entry - entry of event.
-   * @param {Int} index - index of event.
-   * @returns {DOM} list item for event.
-   */
-  function createEventsListItem(entry) {
-    const li = document.createElement('li');
-    const textDiv = document.createElement('div');
-    const title = createTitleDiv(entry.name);
-    const descriptionDiv = document.createElement('div');
-    const description = document.createTextNode(entry.description);
-    const link = createLinkElement(entry.url);
-    const imageDiv = createImageDiv(entry);
-    const dateDiv = createDateDiv(entry.time);
-
-    textDiv.setAttribute('class', 'sightsListItemInfo');
-    descriptionDiv.appendChild(description);
-    descriptionDiv.setAttribute('class', 'sightsListItemDescription');
-    textDiv.appendChild(title);
-    textDiv.appendChild(dateDiv);
-    textDiv.appendChild(descriptionDiv);
-    link.appendChild(textDiv);
-    link.appendChild(imageDiv);
-    li.appendChild(link);
-    return li;
-  }
-
-  /**
-   * Read information.
-   */
-  function read() {
-    const text = document.getElementById('informationText').innerText;
-    const sentences = text.match(/[^.!?]+[.!?]+/g);
-    let audio, sentence;
-
-    const timer = setInterval(() => {
-      const voices = speechSynthesis.getVoices();
-      if (voices.length) {
-        for (let i = 0; i < sentences.length; i++) {
-          sentence = sentences[i];
-          audio = new SpeechSynthesisUtterance(sentence);
-          audio.voice = voices[VOICE_INDEX];
-          window.speechSynthesis.speak(audio);
-          clearInterval(timer);
-        }
-      }
-    }, INTERVAL);
-
-    readButton.style.display = 'none';
-    pauseButton.style.display = 'inline-block';
-    stopButton.style.display = 'inline-block';
-  }
-
-  /**
-   * Pause the read.
-   */
-  function pause() {
-    document.getElementById('readButton').style.display = 'inline-block';
-    document.getElementById('pauseButton').style.display = 'none';
-    window.speechSynthesis.cancel();
-  }
-
-  /**
-   * Easy english toggle clicked
-   * @param {JSON} event - click toggle event
-   */
-  function easyEnglishHandler(event) {
-    const items = informationUl.getElementsByTagName('li');
-
-    if (event.target.checked) {
-      for (let i = 0; i < items.length; ++i) {
-        if (items[i].difficulty < FLESH_THRESHOLD) {
-          items[i].style.display = 'none';
-        }
-      }
-    } else {
-      for (let i = 0; i < items.length; ++i) {
-        items[i].style.display = 'block';
-      }
-    }
   }
 
   /**
@@ -460,24 +459,12 @@ module.exports = (scene, camera, controls, counties) => {
       pauseButton.addEventListener('click', pause);
       stopButton.addEventListener('click', stop);
       easyEnglish.addEventListener('click', easyEnglishHandler);
+      zoomInButton.onclick = () => (controls.dIn(ZOOM_STRENGTH));
+      zoomOutButton.onclick = () => (controls.dOut(ZOOM_STRENGTH));
+      sidePanel.onmouseenter = () => (controls.enabled = false);
+      sidePanel.onmouseleave = () => (controls.enabled = true);
       document.getElementById('searchCounties')
         .addEventListener('input', searchChanged);
-
-      zoomInButton.onclick = () => {
-        controls.dIn(ZOOM_STRENGTH);
-      };
-
-      zoomOutButton.onclick = () => {
-        controls.dOut(ZOOM_STRENGTH);
-      };
-
-      sidePanel.onmouseenter = () => {
-        controls.enabled = false;
-      };
-
-      sidePanel.onmouseleave = () => {
-        controls.enabled = true;
-      };
 
       firebase.initializeApp(firebaseConfig);
       const database = firebase.database();
