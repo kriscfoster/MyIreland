@@ -1,7 +1,7 @@
 # MyIreland
 
 ## Try It Out
-Check out the deployment of this app [HERE](https://myireland.herokuapp.com/)
+Check out the deployment of this app [here](https://myireland.herokuapp.com/).
 
 ## Set up Locally
 
