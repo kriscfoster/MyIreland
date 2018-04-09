@@ -1,5 +1,17 @@
 # MyIreland
 
+## Try It Out
+Check out the deployment of this app [HERE](https://myireland.herokuapp.com/)
+
+## Set up Locally
+
+* ```git clone https://github.com/kriscfoster/MyIreland.git```
+* ```cd MyIreland```
+* ```npm install``` (This installs all npm libraries required for MyIreland)
+* Populate environment variables
+* ```npm start```
+* Go to [http://localhost:3000/](http://localhost:3000/)
+
 <img width="70%" alt="MyIreland" src="https://user-images.githubusercontent.com/17026751/35802937-ebcc8230-0a69-11e8-978c-c08c95bc70db.png">
 
 ## Project Specification
